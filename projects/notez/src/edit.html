@@ -1,25 +1,62 @@
 <!DOCTYPE html>
 <html class="l-layout">
-	<head>
-		<title>Notez edit</title>
+<head>
+    <title>Notez edit</title>
 
-		<meta charset="utf-8" />
-		<meta name="robots" content="noindex, nofollow" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-		<meta name="keywords" content=""/>
-		<meta name="description" content="Page description for all sort of search engines" />
+    <meta name="keywords" content=""/>
+    <meta name="description" content="Page description for all sort of search engines"/>
 
-		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 
-		<link rel="stylesheet" href="css/styles.min.css" type="text/css" />
+    <link rel="stylesheet" href="css/03-reset.css" type="text/css"/>
+    <link rel="stylesheet" href="css/edit.css" type="text/css"/>
 
-		<!--script src="js/head.min.js"></script-->
-	</head>
-	<body>
-		
+    <!--script src="js/head.min.js"></script-->
+</head>
+<body>
 
-		<script src="js/script.min.js"></script>
-	</body>
+<div class="container">
+    <header class="l-head">
+        <!-- header -->
+    </header>
+
+    <main class="l-main">
+
+        <form method="get" action="index.html">
+
+            <div class="l-form full">
+                <label class="one_fifth first">Titel</label>
+                <input name="title" type="text" id="title" mandatory="1" class="txt four_fifth" required>
+                <label class="one_fifth first">Beschreibung</label>
+                <textarea name="description" rows="2" cols="20" id="description" class="txt four_fifth"
+                          required></textarea>
+                <label class="one_fifth first">Wichtigkeit</label>
+
+                <div class="rating four_fifth">
+                    <i class="icon-power"></i>
+                    <i class="icon-power"></i>
+                </div>
+                <label class="one_fifth first">Erledigt</label>
+                <input type="date" name="done" class="date four_fifth">
+                <input class="button" type="submit" value="SPEICHERN">
+
+                <div class="four_fifth first">&nbsp;</div>
+                <div class="one_fifth"><input class="button" type="reset" value="CANCEL"></div>
+            </div>
+        </form>
+    </main>
+
+    <footer class="l-foot">
+        <!-- footer -->
+    </footer>
+</div>
+
+
+<script src="js/script.min.js"></script>
+</body>
 </html>
