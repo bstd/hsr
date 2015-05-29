@@ -3,22 +3,110 @@
 	<head>
 		<title>Notez edit</title>
 
-		<meta charset="utf-8" />
-		<meta name="robots" content="noindex, nofollow" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta charset="utf-8"/>
+		<meta name="robots" content="noindex, nofollow"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
 
 		<meta name="keywords" content=""/>
-		<meta name="description" content="Page description for all sort of search engines" />
+		<meta name="description" content="Page description for all sort of search engines"/>
 
-		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 
 		<link rel="stylesheet" href="css/styles.min.css" type="text/css" />
 
 		<!--script src="js/head.min.js"></script-->
 	</head>
 	<body>
-		
+		<div class="l-page">
+			<header class="l-head">
+				<!-- header -->
+			</header>
+
+			<main class="l-main">
+				<form class="form-wrap" method="get" action="index.html">
+
+					<div class="form-row form-required">
+						<div class="form-input">
+							<label class="form-label-text" for="inpTitle">Notiztitel</label>
+							<input type="text" name="inpTitle" id="inpTitle" placeholder="Titel" required>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-input form-required">
+							<label class="form-label-text" for="inpDescription">Notizbeschreibung</label>
+							<textarea name="inpDescription" id="inpDescription" cols="80" rows="5" placeholder="Beschreibung" required></textarea>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-input">
+							<fieldset>
+								<legend class="form-label-group">Wichtigkeit</legend>
+								<div class="form-radio">
+									<input id="inpLevel5" type="radio" name="level" value="5" />
+									<label for="inpLevel5">
+										<i class="icon-power" title="Wichtigkeit: 5"></i>5
+									</label>
+
+									<input id="inpLevel4" type="radio" name="level" value="4" />
+									<label for="inpLevel4">
+										<i class="icon-power" title="Wichtigkeit: 4"></i>4
+									</label>
+
+									<input id="inpLevel3" type="radio" name="level" value="3" />
+									<label for="inpLevel3">
+										<i class="icon-power" title="Wichtigkeit: 3"></i>3
+									</label>
+
+									<input id="inpLevel2" type="radio" name="level" value="2" />
+									<label for="inpLevel2">
+										<i class="icon-power" title="Wichtigkeit: 2"></i>2
+									</label>
+
+									<input id="inpLevel1" type="radio" name="level" value="1" />
+									<label for="inpLevel1">
+										<i class="icon-power" title="Wichtigkeit: 1"></i>1
+									</label>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+
+					<div class="form-row form-required">
+						<div class="form-input">
+							<label class="form-label-text" for="inpDue">Erledigt bis</label>
+							<input class="form-date js-datepicker" type="text" name="inpDue" id="inpDue" placeholder="Datum" required>
+							<i class="icon-calendar"></i>
+						</div>
+					</div>
+
+
+					<div class="form-row">
+						<div class="form-input">
+							<p class="form-hint">Pflichtfeld</p>
+						<div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-input">
+							<button class="btn btn-submit js-form-submit" type="submit">Speichern</button>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-input">
+							<button class="btn btn-cancel js-form-cancel" type="reset">Abbrechen</button>
+						</div>
+					</div>
+				</form>
+			</main>
+
+			<footer class="l-foot">
+				<!-- footer -->
+			</footer>
+		</div>
 
 		<script src="js/script.min.js"></script>
 	</body>

@@ -1,12 +1,11 @@
-// placeholder color
-::-webkit-input-placeholder { color:@lightgrey; font-weight: normal; font-style: normal; }
-:-moz-placeholder { color:@lightgrey; font-weight: normal; font-style: normal; opacity: 1; } /* firefox 4-18 */
-::-moz-placeholder { color:@lightgrey; font-weight: normal; font-style: normal; opacity: 1; } /* firefox 19+ */
-:-ms-input-placeholder { color:@lightgrey; font-weight: normal; font-style: normal;  } /* ie 10+ */
-input:-moz-placeholder { color:@lightgrey; font-weight: normal; font-style: normal; }
+﻿// placeholder color
+//::-webkit-input-placeholder { color:@lightgrey; font-weight: normal; font-style: normal; }
+//:-moz-placeholder { color:@lightgrey; font-weight: normal; font-style: normal; opacity: 1; } /* firefox 4-18 */
+//::-moz-placeholder { color:@lightgrey; font-weight: normal; font-style: normal; opacity: 1; } /* firefox 19+ */
+//:-ms-input-placeholder { color:@lightgrey; font-weight: normal; font-style: normal;  } /* ie 10+ */
+//input:-moz-placeholder { color:@lightgrey; font-weight: normal; font-style: normal; }
 
 
-// buttons
 .btn {
 	position: relative;
 	display: inline-block;
@@ -31,7 +30,32 @@ input:-moz-placeholder { color:@lightgrey; font-weight: normal; font-style: norm
 	&:active {
 		background: darken(@c-active,6%);
 	}
+
+	&-submit {
+		padding: 6px 12px;
+		background: @blue;
+		font-weight: bold;
+
+		text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.25);
+		.box-shadow(@shadow-element);
+
+		&:hover,
+		&:focus {
+			.box-shadow(@shadow-element-hover);
+		}
+
+		&:active {
+			.box-shadow(@shadow-element-active);
+		}
+	}
+
+	&-cancel {
+		display: block;
+		float: right;
+		max-width: 25%;
+	}
 }
+
 
 select,
 label,
@@ -41,8 +65,134 @@ input[type=checkbox] {
 
 input[type=text],
 textarea {
-	border: none;
-	background-color: transparent;
+	border: 1px solid @darkgrey;
+	padding: 6px;
+	background: @lightgrey;
+	color: @c-text;
+
 	outline: 0;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+	.box-shadow(inset 0px 0px 1px 1px #ddd);
+
+	&:focus {
+		border: 1px solid #900;
+		.box-shadow(none);
+	}
+}
+
+// radio replacement
+input[type=radio] {
+	display: none;
+}
+.form-radio {
+	label {
+		margin-right: 20px;
+		color: @darkgrey;
+	}
+	
+	// labels for :checked radios are :active
+	// use icomoon icon inside label and style relevant states
+	// inverse element order to facilitate use of ~ selector and not()
+
+	// x:not(y) -> selects a x element that does not match simple selector y
+	&:not(:checked) label {
+		float: right;// inverse order
+		overflow: hidden;
+	}
+
+	// labels that follow :checked (y ~ x -> selects a x element preceded by a y element)
+	& :checked ~ label {
+		color: @black;
+	}
+
+	// hover for all labels following unchecked
+	&:not(:checked) label:hover,
+	&:not(:checked) label:hover ~ label {
+		color: @black;
+	}
+
+	& label:active {
+	}
+}
+
+
+// rows, label - input compositions
+.form-row {
+	margin-top: 10px;
+
+	&:first-child {
+		margin-top: 0;
+	}
+}
+
+.form-input {
+	overflow: hidden;
+
+	.form-label-text,
+	.form-label-group,
+	.form-radio,
+	input[type=text],
+	textarea {
+		float: left;
+	}
+
+	.form-label-text,
+	.form-label-group {
+		width: 30%;
+	}
+
+	input[type=text],
+	textarea,
+	.form-radio {
+		width: 70%;
+	}
+
+	input[type=text].form-date {
+		width: 20%;
+	}
+}
+
+// indicate required fields and hint with red star
+.form-required {
+	.form-label-text::after,
+	.form-label-group::after {
+		content: " *";
+		color: @red;
+	}
+}
+.form-hint::before {
+	content: "* ";
+	color: @red;
+}
+
+
+
+@media screen and (max-width: @bp-m) {
+	.form-input {
+		.form-label-text,
+		.form-label-group,
+		.form-radio,
+		input[type=text],
+		textarea {
+			float: none;
+		}
+
+		.form-label-text,
+		.form-label-group,
+		input[type=text],
+		textarea,
+		.form-radio {
+			width: 100%;
+		}
+	}
+}
+
+
+
+@media screen and (max-width: @bp-s) {
+	.btn-cancel {
+		float: none;
+		max-width: 100%;
+	}
 }
