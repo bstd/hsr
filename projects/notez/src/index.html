@@ -51,8 +51,47 @@
 					</div>
 				</div>
 
+				<div id="notes" class="js-init"></div>
+				<p class="js-no-items">Keine Einträge</p>
+				<script id="notes-template" type="text/x-handlebars-template">
+					{{#each this}}
+						<div class="item">
+							<div class="item-col size30">
+								<div class="item-due">
+									<p>{{this.due}}</p>
+									<input type="checkbox" id="inp1" name="inp1" value="">
+									<label for="inp1">Finished (today)</label>
+								</div>
+							</div>
+
+							<div class="item-col size50">
+								<div class="line">
+									<div class="col size50 item-title">
+										<p>{{this.title}}</p>
+									</div>
+									<div class="col size50 item-importance" title="Wichtigkeit">
+										{{if this.importance}}
+											<i class="icon-power"></i>
+										{{/if}}
+									</div>
+								</div>
+								<div class="item-desc js-expand">
+									<p class="ellipsis">{{this.desc}}</p>
+									<i class="icon-zoom-in"></i>
+								</div>
+							</div>
+
+							<div class="item-col size20">
+								<div class="item-action">
+									<button class="btn js-edit" data-item="{{this.id}}"><i class="icon-pencil2"></i>Edit</button>
+								</div>
+							</div>
+						</div>
+					{{/each}}
+				</script>
+
+				<!--
 				<div class="items">
-					<!-- note item -->
 					<div class="item">
 						<div class="item-col size30">
 							<div class="item-due">
@@ -67,7 +106,7 @@
 								<div class="col size50 item-title">
 									<p>CAS FEE Selbststudium / Projekt Aufgaben erledigen</p>
 								</div>
-								<div class="col size50 item-level" title="Wichtigkeit">
+								<div class="col size50 item-importance" title="Wichtigkeit">
 									<i class="icon-power"></i>
 									<i class="icon-power"></i>
 								</div>
@@ -85,7 +124,7 @@
 						</div>
 					</div>
 
-					<!-- note item -->
+
 					<div class="item">
 						<div class="item-col size30">
 							<div class="item-due">
@@ -100,7 +139,7 @@
 								<div class="col size50 item-title">
 									<p>titel 2</p>
 								</div>
-								<div class="col size50 item-level">
+								<div class="col size50 item-importance">
 									<i class="icon-power"></i>
 								</div>
 							</div>
@@ -117,6 +156,7 @@
 						</div>
 					</div>
 				</div>
+				-->
 			</main>
 
 			<footer class="l-foot">
@@ -124,6 +164,7 @@
 			</footer>
 		</div>
 
+		<noscript>Diese Seite benötigt aktiviertes Javascript</noscript>
 		<script src="js/script.min.js"></script>
 	</body>
 </html>

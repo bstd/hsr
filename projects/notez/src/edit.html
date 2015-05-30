@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="l-layout">
+<html class="l-layout mod-layout">
 	<head>
 		<title>Notez edit</title>
 
@@ -24,7 +24,7 @@
 			</header>
 
 			<main class="l-main">
-				<form class="form-wrap" method="get" action="index.html">
+				<form class="form-wrap js-form" method="post" action="index.html">
 
 					<div class="form-row form-required">
 						<div class="form-input">
@@ -45,28 +45,30 @@
 							<fieldset>
 								<legend class="form-label-group">Wichtigkeit</legend>
 								<div class="form-radio">
-									<input id="inpLevel5" type="radio" name="level" value="5" />
-									<label for="inpLevel5">
+									<input type="hidden" id="inpImportanceHidden" name="inpImportanceHidden" value="">
+
+									<input id="inpImportance5" type="radio" name="importance" value="5" />
+									<label for="inpImportance5">
 										<i class="icon-power" title="Wichtigkeit: 5"></i>5
 									</label>
 
-									<input id="inpLevel4" type="radio" name="level" value="4" />
-									<label for="inpLevel4">
+									<input id="inpImportance4" type="radio" name="importance" value="4" />
+									<label for="inpImportance4">
 										<i class="icon-power" title="Wichtigkeit: 4"></i>4
 									</label>
 
-									<input id="inpLevel3" type="radio" name="level" value="3" />
-									<label for="inpLevel3">
+									<input id="inpImportance3" type="radio" name="importance" value="3" />
+									<label for="inpImportance3">
 										<i class="icon-power" title="Wichtigkeit: 3"></i>3
 									</label>
 
-									<input id="inpLevel2" type="radio" name="level" value="2" />
-									<label for="inpLevel2">
+									<input id="inpImportance2" type="radio" name="importance" value="2" />
+									<label for="inpImportance2">
 										<i class="icon-power" title="Wichtigkeit: 2"></i>2
 									</label>
 
-									<input id="inpLevel1" type="radio" name="level" value="1" />
-									<label for="inpLevel1">
+									<input id="inpImportance1" type="radio" name="importance" value="1" />
+									<label for="inpImportance1">
 										<i class="icon-power" title="Wichtigkeit: 1"></i>1
 									</label>
 								</div>
@@ -86,7 +88,7 @@
 					<div class="form-row">
 						<div class="form-input">
 							<p class="form-hint">Pflichtfeld</p>
-						<div>
+						</div>
 					</div>
 
 					<div class="form-row">
@@ -108,6 +110,7 @@
 			</footer>
 		</div>
 
+		<noscript>Diese Seite benötigt aktiviertes Javascript</noscript>
 		<script src="js/script.min.js"></script>
 	</body>
 </html>
