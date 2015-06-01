@@ -1,4 +1,6 @@
+//---
 // HELPERS
+//
 
 // check localStorage support
 // @return {Boolean}
@@ -53,26 +55,51 @@ function getIdFromQueryString() {
 }
 
 
+//---
 // HANDLEBARS
-Handlebars.registerHelper('importance', function(level) {
-	switch (level) {
-		case '1':
-			return '<i class="icon-power"></i>';
-		case '2':
-			return '<i class="icon-power"></i><i class="icon-power"></i>';
-		case '3':
-			return '<i class="icon-power"></i><i class="icon-power"></i><i class="icon-power"></i>';
-		case '4':
-			return '<i class="icon-power"></i><i class="icon-power"></i><i class="icon-power"></i><i class="icon-power"></i>';
-		case '5':
-			return '<i class="icon-power"></i><i class="icon-power"></i><i class="icon-power"></i><i class="icon-power"></i>';
-		default:
-			return;
+//
+
+// helper: return html snippet for importance as many times as level indicates
+// used on main view
+Handlebars.registerHelper('importanceHelper', function(level) {
+	var buffer = '',
+		snippet = '<i class=\"icon-power\"></i>';
+
+	for (var i = 0; i < level; i++) {
+		buffer += snippet;
 	}
+
+	return buffer;
+});
+
+// helper: return html snippet for importance with checked state for level
+// used on edit view
+Handlebars.registerHelper('checkedHelper', function(level) {
+	var buffer = '',
+		maxItems = 5,
+		intLevel = parseInt(level,10);
+
+	// inverse loop in order to match float:right (we need 5,4,3,2,1)
+	for (var i = maxItems; i > 0; i--) {
+		if (intLevel === i) {
+			buffer += '<input id=\"inpImportance' + i + '\" type=\"radio\" name=\"importance\" value=\"' + i + '\" checked=\"checked\" />';
+		}
+		else {
+			buffer += '<input id=\"inpImportance' + i + '\" type=\"radio\" name=\"importance\" value=\"' + i + '" />';
+		}
+
+		buffer +=	'<label for=\"inpImportance' + i + '\"> \
+						<i class=\"icon-power\" title=\"Wichtigkeit: ' + i + '\"></i>' + i + ' \
+					</label>';
+	}
+
+	return buffer;
 });
 
 
+//---
 // DOM READY
+//
 (function($) {
 	var $ctx = $(document).find('.mod-layout'),
 		isMainView = $ctx.find('.js-init').length !== 0,
@@ -98,8 +125,7 @@ console.log('storage item:',i,getItem(i));
 				var source = $('#notes-template').html(),
 					template = Handlebars.compile(source),
 					data = { items: arrItems };
-
-console.log(data);
+//console.log(data);
 				$('#notes').html(template(data));
 			}
 			else {
@@ -107,16 +133,18 @@ console.log(data);
 			}
 		}
 		else {
-alert('achtung kein localStorage');
+			alert('achtung kein localStorage');
 			// TODO cookie alternative
 		}
 
 
-		// MAIN VIEW BINDS
+		//---
+		// MAIN VIEW
+		//
+
 		// create new note
 		$ctx.on('click', '.js-new', function(e){
 			e.preventDefault();
-console.log('create new note');
 
 			// calculate new id (count existing)
 			if (clientSupportsLocalStorage()) {
@@ -181,7 +209,27 @@ console.log('toggle item detail and icon');
 		});
 	}
 	else {
-		// OTHER VIEW BINDS
+		//---
+		// OTHER VIEW
+		//
+
+
+		// load item data to be edited by id
+		var editId = getIdFromQueryString(),
+			editItem;
+//console.log('target item id:',editId);
+
+		if (typeof getIdFromQueryString() !== 'undefined') {
+			editItem = getItem(editId);
+
+			var editSource = $('#edit-template').html(),
+				editTemplate = Handlebars.compile(editSource),
+				editData = editItem;
+//console.log(editData);
+
+			$('#edit').html(editTemplate(editData));
+		}
+
 
 		// form submit
 		$ctx.on('submit', '.js-form', function(e) {
@@ -195,13 +243,12 @@ console.log('toggle item detail and icon');
 				due = $frm.find('#inpDue').val(),
 				newItem = {};
 
-console.log('submit');
-
+//console.log('submit');
 			if (typeof getIdFromQueryString() !== 'undefined') {
 				id = getIdFromQueryString();
 			}
 			else {
-console.log('error: id undefined');
+				console.log('error: id undefined');
 				return false;
 			}
 
@@ -209,8 +256,9 @@ console.log('error: id undefined');
 			$hiddenImportance.val(importanceValue);
 
 			// save notez data
-			// key: id, value: {title, desc, importance, due}
+			// key: id, value: {id, title, desc, importance, due}
 			newItem = {
+				id: id,
 				title: title,
 				desc: desc,
 				importance: $hiddenImportance.val() ? $hiddenImportance.val() : 0,// save with importance 0 if empty

@@ -140,6 +140,9 @@ module.exports = function(grunt){
 		//	https://github.com/gruntjs/grunt-contrib-uglify
 		//	minify javascripts
 		uglify: {
+			options: {
+				mangle: false
+			},
 			scriptsHead: {
 				files: {
 					'<%=dirs.temp%>/head.min.js': ['<%=dirs.temp%>/head.js']

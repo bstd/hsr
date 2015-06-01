@@ -25,8 +25,9 @@
 
 			<main class="l-main">
 				<form class="form-wrap js-form" method="post" action="index.html">
+					<div id="edit"></div>
 
-					<div class="form-row form-required">
+					<!--div class="form-row form-required">
 						<div class="form-input">
 							<label class="form-label-text" for="inpTitle">Notiztitel</label>
 							<input type="text" name="inpTitle" id="inpTitle" placeholder="Titel" required>
@@ -47,30 +48,34 @@
 								<div class="form-radio">
 									<input type="hidden" id="inpImportanceHidden" name="inpImportanceHidden" value="">
 
-									<input id="inpImportance5" type="radio" name="importance" value="5" />
-									<label for="inpImportance5">
-										<i class="icon-power" title="Wichtigkeit: 5"></i>5
-									</label>
+									<div class="line">
+										<div class="col">
+											<input id="inpImportance5" type="radio" name="importance" value="5" />
+											<label for="inpImportance5">
+												<i class="icon-power" title="Wichtigkeit: 5"></i>5
+											</label>
 
-									<input id="inpImportance4" type="radio" name="importance" value="4" />
-									<label for="inpImportance4">
-										<i class="icon-power" title="Wichtigkeit: 4"></i>4
-									</label>
+											<input id="inpImportance4" type="radio" name="importance" value="4" />
+											<label for="inpImportance4">
+												<i class="icon-power" title="Wichtigkeit: 4"></i>4
+											</label>
 
-									<input id="inpImportance3" type="radio" name="importance" value="3" />
-									<label for="inpImportance3">
-										<i class="icon-power" title="Wichtigkeit: 3"></i>3
-									</label>
+											<input id="inpImportance3" type="radio" name="importance" value="3" />
+											<label for="inpImportance3">
+												<i class="icon-power" title="Wichtigkeit: 3"></i>3
+											</label>
 
-									<input id="inpImportance2" type="radio" name="importance" value="2" />
-									<label for="inpImportance2">
-										<i class="icon-power" title="Wichtigkeit: 2"></i>2
-									</label>
+											<input id="inpImportance2" type="radio" name="importance" value="2" />
+											<label for="inpImportance2">
+												<i class="icon-power" title="Wichtigkeit: 2"></i>2
+											</label>
 
-									<input id="inpImportance1" type="radio" name="importance" value="1" />
-									<label for="inpImportance1">
-										<i class="icon-power" title="Wichtigkeit: 1"></i>1
-									</label>
+											<input id="inpImportance1" type="radio" name="importance" value="1" />
+											<label for="inpImportance1">
+												<i class="icon-power" title="Wichtigkeit: 1"></i>1
+											</label>
+										</div>
+									</div>
 								</div>
 							</fieldset>
 						</div>
@@ -82,7 +87,7 @@
 							<input class="form-date js-datepicker" type="text" name="inpDue" id="inpDue" placeholder="Datum" required>
 							<i class="icon-calendar"></i>
 						</div>
-					</div>
+					</div-->
 
 
 					<div class="form-row">
@@ -103,6 +108,52 @@
 						</div>
 					</div>
 				</form>
+
+				<script id="edit-template" type="text/x-handlebars-template">
+					<div class="form-row form-required">
+						<div class="form-input">
+							<label class="form-label-text" for="inpTitle">Notiztitel</label>
+							<input type="text" name="inpTitle" id="inpTitle" placeholder="Titel" required value="{{title}}">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-input form-required">
+							<label class="form-label-text" for="inpDescription">Notizbeschreibung</label>
+							<textarea name="inpDescription" id="inpDescription" cols="80" rows="5" placeholder="Beschreibung" required>{{desc}}</textarea>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-input">
+							<fieldset>
+								<legend class="form-label-group">Wichtigkeit</legend>
+								<div class="form-radio">
+									<input type="hidden" id="inpImportanceHidden" name="inpImportanceHidden" value="{{importance}}">
+
+									<div class="line">
+										<div class="col">
+											{{#if importance}}
+												{{!-- use markup, do not escape --}}
+												{{{checkedHelper importance}}}
+											{{else}}
+												{{{checkedHelper 0}}}
+											{{/if}}
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+
+					<div class="form-row form-required">
+						<div class="form-input">
+							<label class="form-label-text" for="inpDue">Erledigt bis</label>
+							<input class="form-date js-datepicker" type="text" name="inpDue" id="inpDue" placeholder="Datum" required value="{{due}}">
+							<i class="icon-calendar"></i>
+						</div>
+					</div>
+				</script>
 			</main>
 
 			<footer class="l-foot">

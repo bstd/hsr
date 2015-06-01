@@ -59,32 +59,33 @@
 						<div class="item">
 							<div class="item-col size30">
 								<div class="item-due">
-									<p>{{this.due}}</p>
-									<input type="checkbox" id="inp1" name="inp1" value="">
-									<label for="inp1">Finished (today)</label>
+									<p>{{due}}</p>
+									<input type="checkbox" id="inp{{id}}" name="inp{{id}}" value="">
+									<label for="inp{{id}}">Finished (today)</label>
 								</div>
 							</div>
 
 							<div class="item-col size50">
 								<div class="line">
 									<div class="col size50 item-title">
-										<p>{{this.title}}</p>
+										<p>{{title}}</p>
 									</div>
 									<div class="col size50 item-importance" title="Wichtigkeit">
-										{{#if this.importance}}
-											{{{importance this.importance}}}
+										{{#if importance}}
+											{{!-- use markup, do not escape --}}
+											{{{importanceHelper importance}}}
 										{{/if}}
 									</div>
 								</div>
 								<div class="item-desc js-expand">
-									<p class="ellipsis">{{this.desc}}</p>
+									<p class="ellipsis">{{desc}}</p>
 									<i class="icon-zoom-in"></i>
 								</div>
 							</div>
 
 							<div class="item-col size20">
 								<div class="item-action">
-									<button class="btn js-edit" data-item="{{this.id}}"><i class="icon-pencil2"></i>Edit</button>
+									<button class="btn js-edit" data-item="{{id}}"><i class="icon-pencil2"></i>Edit</button>
 								</div>
 							</div>
 						</div>
