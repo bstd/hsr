@@ -51,10 +51,11 @@
 					</div>
 				</div>
 
-				<div id="notes" class="js-init"></div>
+				<div id="notes" class="items js-init"></div>
 				<p class="js-no-items">Keine Einträge</p>
+
 				<script id="notes-template" type="text/x-handlebars-template">
-					{{#each this}}
+					{{#each items}}
 						<div class="item">
 							<div class="item-col size30">
 								<div class="item-due">
@@ -70,8 +71,8 @@
 										<p>{{this.title}}</p>
 									</div>
 									<div class="col size50 item-importance" title="Wichtigkeit">
-										{{if this.importance}}
-											<i class="icon-power"></i>
+										{{#if this.importance}}
+											{{{importance this.importance}}}
 										{{/if}}
 									</div>
 								</div>

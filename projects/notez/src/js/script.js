@@ -54,7 +54,7 @@ function getIdFromQueryString() {
 
 
 // HANDLEBARS
-Handlebars.registerHelper('importance', function() {
+Handlebars.registerHelper('importance', function(level) {
 	switch (level) {
 		case '1':
 			return '<i class="icon-power"></i>';
@@ -94,9 +94,11 @@ console.log('storage item:',i,getItem(i));
 				}
 
 				// compile handlebar with item array
-				var source = $('#notes-template').html();
-				var template = Handlebars.compile(source);
-				var data = arrItems;
+				// handlebars escapes by default in {{ }}, use {{{ }}} to return markup in expressions
+				var source = $('#notes-template').html(),
+					template = Handlebars.compile(source),
+					data = { items: arrItems };
+
 console.log(data);
 				$('#notes').html(template(data));
 			}
