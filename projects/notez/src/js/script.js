@@ -2,8 +2,11 @@
 // HELPERS
 //
 
-// check localStorage support
-// @return {Boolean}
+/**
+	check localStorage support
+
+	@return {Boolean}
+*/
 function clientSupportsLocalStorage() {
 	/*try {
 		return 'localStorage' in window && window['localStorage'] !== null;
@@ -13,13 +16,43 @@ function clientSupportsLocalStorage() {
 	return typeof localStorage !== 'undefined';
 }
 
-// setItem
-// @param {String} key
-// @param {String} value
+/**
+	load all stored items
+	from window.localStorage
+	into arrStorage
+
+	returns {Array} arrStorage
+*/
+function loadItems() {
+	arrStorage = [];
+
+	for (var i = 1, l = localStorage.length; i <= l; i++) {// start with index 1
+console.log('storage item:',i,getItem(i));
+		arrStorage.push(getItem(i));
+	}
+
+	return arrStorage;
+}
+
+/**
+	setItem
+
+	@param {String} key
+	@param {String} value
+*/
 function setItem(key, value) {
 	if (typeof key !== 'undefined' && typeof value !== 'undefined') {
 		if (clientSupportsLocalStorage) {
-			localStorage.setItem(key, JSON.stringify(value));
+			// try catch quota limit when storing
+			// exception handling up to date?
+			try {
+				localStorage.setItem(key, JSON.stringify(value));
+			} catch(domException) {
+				if (domException.name === 'QuotaExceededError' ||
+					domException.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+					alert('localStorage Limit erreicht');
+				}
+			}
 		}
 		else {
 			// TODO cookie alternative
@@ -27,9 +60,12 @@ function setItem(key, value) {
 	}
 }
 
-// getItem
-// @param {String} key
-// @return 
+/**
+	getItem
+
+	@param {String} key
+	@return {Object}
+*/
 function getItem(key) {
 	if (typeof key !== 'undefined') {
 		if (clientSupportsLocalStorage) {
@@ -41,7 +77,10 @@ function getItem(key) {
 	}
 }
 
-// get id from url query params given url is only containing ?id=x
+/**
+	get id from url query params
+	given url is only containing ?id=x
+*/
 function getIdFromQueryString() {
 	var query = location.search,// ?id=x
 		arrId = query.substring(1).split('=');// ['id','x']
@@ -54,13 +93,93 @@ function getIdFromQueryString() {
 	}
 }
 
+/**
+	change theme via styleswitcher
+	add/remove .skin-... classes on <html>
+
+	@param {Number}
+*/
+function setSkin(code) {
+	var arrSkins = ['skin-blackwhite'],
+		strAllSkins = arrSkins.join(' ');// extendability for more skins
+
+	$('html').removeClass(strAllSkins);
+
+	if (code !== 'default') {
+		$('html').addClass(arrSkins[code]);
+	}
+}
+
+/**
+	filter by
+
+	TODO
+	returns {Array} arrResult
+*/
+function filter(array, only) {
+	var arrResult,
+		filter;
+console.log('filter:',only);
+
+	if (typeof only !== 'undefined') {
+		switch (only) {
+			case 'done':
+				arrResult = $.map(array, function(n, i) {
+console.log('n,i:',n,i);
+					if ('done' in n && n.done) {// key in object || object.hasOwnProperty(key)
+						return n;
+					}
+				});
+				break;
+		}
+console.log('result:',arrResult);
+		return arrResult;
+	}
+	else {
+console.log('invalid filter');
+	}
+}
+
+/**
+	sort by
+
+	TODO
+*/
+function sort(by) {
+	var result;
+
+	return result;
+}
+
 
 //---
 // HANDLEBARS
 //
 
-// helper: return html snippet for importance as many times as level indicates
-// used on main view
+/**
+	shortcut for hbs compile
+	provide source ID selector, target ID selector
+	and data object
+
+	@param {String} strSourceId
+	@param {String} strTargetId
+	@param {Object} objData
+*/
+function handle(strSourceId, strTargetId, objData) {
+	var source = $(strSourceId).html(),
+		template = Handlebars.compile(source),
+		data = objData;
+console.log('handle:');
+console.log('target:',$(strTargetId));
+console.log('data:',data);
+	$(strTargetId).html(template(data));
+}
+
+/**
+	helper: return html snippet
+	for importance as many times as level indicates
+	used on main view
+*/
 Handlebars.registerHelper('importanceHelper', function(level) {
 	var buffer = '',
 		snippet = '<i class=\"icon-power\"></i>';
@@ -72,8 +191,11 @@ Handlebars.registerHelper('importanceHelper', function(level) {
 	return buffer;
 });
 
-// helper: return html snippet for importance with checked state for level
-// used on edit view
+/**
+	helper: return html snippet
+	for importance with checked state for level
+	used on edit view
+*/
 Handlebars.registerHelper('checkedHelper', function(level) {
 	var buffer = '',
 		maxItems = 5,
@@ -115,18 +237,14 @@ console.log('localStorage.length:',localStorage.length);
 				$noItems.hide();
 
 				// load all items
-				for (var i = 1, l = localStorage.length; i <= l; i++) {// start with index 1
+				/*for (var i = 1, l = localStorage.length; i <= l; i++) {// start with index 1
 console.log('storage item:',i,getItem(i));
 					arrItems.push(getItem(i));
-				}
+				}*/
+				arrItems = loadItems();
 
-				// compile handlebar with item array
-				// handlebars escapes by default in {{ }}, use {{{ }}} to return markup in expressions
-				var source = $('#notes-template').html(),
-					template = Handlebars.compile(source),
-					data = { items: arrItems };
-//console.log(data);
-				$('#notes').html(template(data));
+				// compile handlebar with items array
+				handle('#notes-template', '#notes', { items: arrItems });
 			}
 			else {
 				$noItems.show();
@@ -156,9 +274,13 @@ console.log('storage item:',i,getItem(i));
 
 
 		// switch style
-		$ctx.on('click', '.js-switch-style', function(e){
+		$ctx.on('change', '.js-switch-style', function(e){
 			e.preventDefault();
 console.log('switch style');
+			var strVal = $(this).val(),
+				codeSkin = isFinite(parseInt(strVal,10)) ? parseInt(strVal,10) : 'default';
+
+			setSkin(codeSkin);
 		});
 
 
@@ -179,8 +301,27 @@ console.log('data-sort=',by);
 console.log('filter by data-filter');
 
 			var $filter = $(this),
-				by = $filter.data('filter');
-console.log('data-filter=',by);
+				only = $filter.data('filter'),
+				filtered = [],
+				blnIsActive = $filter.is('.state-active');
+console.log('data-filter=',only);
+
+			// state toggle
+			$filter.toggleClass('state-active');
+
+			// toggle filter and update view
+			// filter is passed along only for state set to active
+			filtered = blnIsActive ? arrItems : filter(arrItems, only);
+
+			if (filtered.length > 0) {
+				// compile handlebar with items array
+				handle('#notes-template', '#notes', { items: filtered });
+				$noItems.hide();
+			}
+			else {
+				$('#notes').empty();// TODO cache el
+				$noItems.show();
+			}
 		});
 
 
@@ -200,12 +341,39 @@ console.log('data-item=',i);
 		// toggle item detail and icon
 		$ctx.on('click', '.js-expand', function(e){
 console.log('toggle item detail and icon');
-			var $this= $(this),
+			var $this = $(this),
 				$p = $this.find('p'),
 				$icon = $this.find('i');
 
 			$p.toggleClass('ellipsis');
 			$icon.toggleClass('icon-zoom-in').toggleClass('icon-zoom-out');
+		});
+
+		// click checkbox: update item to 'done'
+		// toggle item detail and icon
+		$ctx.on('click', '.js-done', function(e){
+			//e.preventDefault();
+console.log('update item.done true:false');
+			var $this = $(this),
+				id = $this.val(),
+				oldItem,
+				newItem;
+
+			// update localStorage
+			oldItem = getItem(id);
+console.log('oldItem.done:',oldItem.done);
+			oldItem.done = $this.is(':checked');
+
+			newItem = oldItem;
+console.log('newItem.done:',newItem.done);
+console.log('id:',id);
+			setItem(id, newItem);
+
+
+			// update view, filter?
+			arrItems = loadItems();
+			// compile handlebar with items array
+			handle('#notes-template', '#notes', { items: arrItems });
 		});
 	}
 	else {
@@ -222,12 +390,8 @@ console.log('toggle item detail and icon');
 		if (typeof getIdFromQueryString() !== 'undefined') {
 			editItem = getItem(editId);
 
-			var editSource = $('#edit-template').html(),
-				editTemplate = Handlebars.compile(editSource),
-				editData = editItem;
-//console.log(editData);
-
-			$('#edit').html(editTemplate(editData));
+			// compile handlebar with editItem
+			handle('#edit-template', '#edit', editItem);
 		}
 
 
@@ -256,13 +420,14 @@ console.log('toggle item detail and icon');
 			$hiddenImportance.val(importanceValue);
 
 			// save notez data
-			// key: id, value: {id, title, desc, importance, due}
+			// key: id, value: {id, title, desc, importance, due, done}
 			newItem = {
 				id: id,
 				title: title,
 				desc: desc,
 				importance: $hiddenImportance.val() ? $hiddenImportance.val() : 0,// save with importance 0 if empty
-				due: due
+				due: due,
+				done: false
 			};
 
 			setItem(id, newItem);
@@ -270,14 +435,6 @@ console.log('toggle item detail and icon');
 
 			// debug only: prevent submit
 			//return false;
-		});
-
-
-		// cancel button TODO make href
-		$ctx.on('click', '.js-form-cancel', function(e){
-			e.preventDefault();
-
-			location.href = 'index.html';
 		});
 	}
 })($);

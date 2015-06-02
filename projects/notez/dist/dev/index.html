@@ -32,21 +32,21 @@
 
 						<div class="controls-column">
 							<select class="js-switch-style">
-								<option value="1" selected>default</option>
-								<option value="2">BlackWhite-Style</option>
+								<option selected>default</option>
+								<option value="0">BlackWhite-Style</option>
 							</select>
 						</div>
 					</div>
 
 					<div class="controls-secondary">
 						<div class="controls-column">
-							<a href="#" class="js-sort" data-sort="due">By finish date</a>
-							<a href="#" class="js-sort" data-sort="created">By created date</a>
-							<a href="#" class="js-sort" data-sort="level">By importance</a>
+							<a href="#" class="sort js-sort" data-sort="due">By finish date</a>
+							<a href="#" class="sort js-sort" data-sort="created">By created date</a>
+							<a href="#" class="sort js-sort" data-sort="level">By importance</a>
 						</div>
 
 						<div class="controls-column">
-							<a href="#" class="js-filter" data-filter="done">Show finished</a>
+							<a href="#" class="filter js-filter" data-filter="done">Show finished</a>
 						</div>
 					</div>
 				</div>
@@ -60,8 +60,8 @@
 							<div class="item-col size30">
 								<div class="item-due">
 									<p>{{due}}</p>
-									<input type="checkbox" id="inp{{id}}" name="inp{{id}}" value="">
-									<label for="inp{{id}}">Finished (today)</label>
+									<input class="js-done" type="checkbox" id="inp{{id}}" name="inp{{id}}" value="{{id}}"{{#if done}} checked{{/if}}>
+									<label for="inp{{id}}">erledigt</label>
 								</div>
 							</div>
 
@@ -85,80 +85,12 @@
 
 							<div class="item-col size20">
 								<div class="item-action">
-									<button class="btn js-edit" data-item="{{id}}"><i class="icon-pencil2"></i>Edit</button>
+									<button class="btn js-edit" data-item="{{id}}"><i class="icon-pencil2"></i>Bearbeiten</button>
 								</div>
 							</div>
 						</div>
 					{{/each}}
 				</script>
-
-				<!--
-				<div class="items">
-					<div class="item">
-						<div class="item-col size30">
-							<div class="item-due">
-								<p>Nächsten Mittwoch</p>
-								<input type="checkbox" id="inp1" name="inp1" value="">
-								<label for="inp1">Finished (today)</label>
-							</div>
-						</div>
-
-						<div class="item-col size50">
-							<div class="line">
-								<div class="col size50 item-title">
-									<p>CAS FEE Selbststudium / Projekt Aufgaben erledigen</p>
-								</div>
-								<div class="col size50 item-importance" title="Wichtigkeit">
-									<i class="icon-power"></i>
-									<i class="icon-power"></i>
-								</div>
-							</div>
-							<div class="item-desc js-expand">
-								<p class="ellipsis">HTML für die note App erstellen. CSS erstellen für die note App. Lorem ipsum dolor sit amet ceterum censeo carthaginem esse delendam. In dubio pro req urbi et orbi. Quid pro quo ipsum dolor sit amet ceterum censeo carthaginem esse delendam. Lorem ipsum dolor sit amet ceterum censeo carthaginem esse delendam. In dubio pro req urbi et orbi. Quid pro quo ipsum dolor sit amet ceterum censeo carthaginem esse delendam.</p>
-								<i class="icon-zoom-in"></i>
-							</div>
-						</div>
-
-						<div class="item-col size20">
-							<div class="item-action">
-								<button class="btn js-edit" data-item="1"><i class="icon-pencil2"></i>Edit</button>
-							</div>
-						</div>
-					</div>
-
-
-					<div class="item">
-						<div class="item-col size30">
-							<div class="item-due">
-								<p>Nächsten Donnerstag</p>
-								<input type="checkbox" id="inp2" name="inp2" value="">
-								<label for="inp2">Finished</label>
-							</div>
-						</div>
-
-						<div class="item-col size50">
-							<div class="line">
-								<div class="col size50 item-title">
-									<p>titel 2</p>
-								</div>
-								<div class="col size50 item-importance">
-									<i class="icon-power"></i>
-								</div>
-							</div>
-							<div class="item-desc js-expand">
-								<p class="ellipsis">Lorem ipsum dolor sit amet ceterum censeo carthaginem esse delendam. In dubio pro req urbi et orbi. Quid pro quo ipsum dolor sit amet ceterum censeo carthaginem esse delendam. Lorem ipsum dolor sit amet ceterum censeo carthaginem esse delendam. In dubio pro req urbi et orbi. Quid pro quo ipsum dolor sit amet ceterum censeo carthaginem esse delendam.</p>
-								<i class="icon-zoom-in"></i>
-							</div>
-						</div>
-
-						<div class="item-col size20">
-							<div class="item-action">
-								<button class="btn js-edit" data-item="2"><i class="icon-pencil2"></i>Edit</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				-->
 			</main>
 
 			<footer class="l-foot">
