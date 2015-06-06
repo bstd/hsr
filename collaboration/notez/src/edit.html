@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Notiz erstellen / bearbeiten</title>
+
+		<meta charset="utf-8"/>
+		<meta name="robots" content="noindex, nofollow"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
+
+		<meta name="keywords" content=""/>
+		<meta name="description" content="Page description for all sort of search engines"/>
+
+		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+
+		<link rel="stylesheet" href="css/styles.min.css" type="text/css" />
+	</head>
+	<body>
+		<div class="container">
+			<main class="js-module">
+				<form class="form-wrap js-form" method="post" action="index.html">
+					<div id="edit"></div>
+
+					<div class="form-row">
+						<div class="form-input">
+							<p class="form-hint">Pflichtfeld</p>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-input">
+							<button class="btn btn-submit js-form-submit" type="submit">
+								<i class="icon-floppy-disk"></i>
+								<span>Speichern</span>
+							</button>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-input">
+							<a href="index.html" class="btn btn-cancel">
+								<i class="icon-cross"></i>
+								<span>Abbrechen</span>
+							</a>
+						</div>
+					</div>
+				</form>
+
+
+				<script id="edit-template" type="text/x-handlebars-template">
+					<input type="hidden" id="inpDone" name="inpDone" value="{{done}}">
+
+					<div class="form-row form-required">
+						<div class="form-input">
+							<label class="form-label-text" for="inpTitle">Notiztitel</label>
+							<input type="text" name="inpTitle" id="inpTitle" placeholder="Titel" required value="{{title}}">
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-input form-required">
+							<label class="form-label-text" for="inpDescription">Notizbeschreibung</label>
+							<textarea name="inpDescription" id="inpDescription" cols="80" rows="5" placeholder="Beschreibung" required>{{desc}}</textarea>
+						</div>
+					</div>
+
+					<div class="form-row">
+						<div class="form-input">
+							<fieldset>
+								<legend class="form-label-group">Wichtigkeit</legend>
+								<div class="form-radio">
+									<input type="hidden" id="inpImportanceHidden" name="inpImportanceHidden" value="{{importance}}">
+
+									<div class="line">
+										<div class="col">
+											{{#if importance}}
+												{{!-- use markup, do not escape --}}
+												{{{checkedHelper importance}}}
+											{{else}}
+												{{{checkedHelper 0}}}
+											{{/if}}
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+
+					<div class="form-row form-required">
+						<div class="form-input">
+							<label class="form-label-text" for="inpDue">Erledigt bis</label>
+							<input class="form-date js-datepicker" type="text" name="inpDue" id="inpDue" placeholder="Datum" required value="{{due}}">
+							<i class="icon-calendar"></i>
+						</div>
+					</div>
+				</script>
+			</main>
+		</div>
+
+		<noscript>Diese Seite benötigt aktiviertes Javascript</noscript>
+		<script src="js/script.min.js"></script>
+	</body>
+</html>

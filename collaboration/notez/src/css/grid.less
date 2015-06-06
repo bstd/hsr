@@ -1,0 +1,44 @@
+// column container, clearing
+.line {
+	overflow: hidden;
+}
+
+// float column
+.col {
+	float: left;
+}
+
+// column widths, general use
+.size20 {
+	width: 20%;
+}
+.size25 {
+	width: 25%;
+}
+.size60 {
+	width: 60%;
+}
+.size75 {
+	width: 75%;
+}
+
+
+
+@media screen and (max-width: @bp-m) {
+	
+}
+
+
+
+@media screen and (max-width: @bp-s) {
+	.col {
+		float: none;
+	}
+
+	.size20,
+	.size25,
+	.size60,
+	.size75 {
+		width: 100%;
+	}
+}

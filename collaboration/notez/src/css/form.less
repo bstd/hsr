@@ -1,0 +1,147 @@
+﻿select,
+label,
+input[type=checkbox] {
+	cursor: pointer;
+}
+
+input[type=checkbox] {
+	position: relative;
+	top: 2px;
+}
+
+input[type=text],
+textarea {
+	border: 1px solid @darkgrey;
+	padding: 6px;
+	background: @lightgrey;
+	color: @c-text;
+
+	outline: 0;
+
+	.box-shadow(inset 0px 0px 1px 1px #ddd);
+
+	&:focus {
+		border: 1px solid #900;
+		.box-shadow(none);
+	}
+}
+
+// radio replacement
+input[type=radio] {
+	display: none;
+}
+.form-radio {
+	label {
+		margin-right: 20px;
+		color: @darkgrey;
+	}
+	
+	// labels for :checked radios are :active
+	// use icomoon icon inside label and style relevant states
+	// inverse element order to facilitate use of ~ selector and not()
+
+	// x:not(y) -> selects a x element that does not match simple selector y
+	&:not(:checked) label {
+		float: right;// inverse order
+		overflow: hidden;
+	}
+
+	// labels that follow :checked (y ~ x -> selects a x element preceded by a y element)
+	& :checked ~ label {
+		color: @black;
+	}
+
+	// hover for all labels following unchecked
+	&:not(:checked) label:hover,
+	&:not(:checked) label:hover ~ label {
+		color: @black;
+	}
+
+	& label:active {
+	}
+}
+
+
+// rows, label - input compositions
+.form-row {
+	margin-top: 10px;
+
+	&:first-child {
+		margin-top: 0;
+	}
+}
+
+.form-input {
+	overflow: hidden;
+
+	.form-label-text,
+	.form-label-group,
+	.form-radio,
+	input[type=text],
+	textarea {
+		float: left;
+	}
+
+	.form-label-text,
+	.form-label-group {
+		width: 20%;
+	}
+
+	input[type=text],
+	textarea,
+	.form-radio {
+		width: 80%;
+	}
+
+	input[type=text].form-date {
+		width: 20%;
+	}
+}
+
+// indicate required fields and hint with red star
+.form-required {
+	.form-label-text::after,
+	.form-label-group::after {
+		content: " *";
+		color: @red;
+	}
+}
+.form-hint::before {
+	content: "* ";
+	color: @red;
+}
+
+
+
+@media screen and (max-width: @bp-m) {
+	.form-input {
+		.form-label-text,
+		.form-label-group,
+		.form-radio,
+		input[type=text],
+		textarea {
+			float: none;
+		}
+
+		.form-label-text,
+		.form-label-group,
+		input[type=text],
+		textarea,
+		.form-radio {
+			width: 100%;
+		}
+
+		input[type=text].form-date {
+			width: 80%;
+		}
+	}
+}
+
+
+
+@media screen and (max-width: @bp-s) {
+	.btn-cancel {
+		float: none;
+		max-width: 100%;
+	}
+}
