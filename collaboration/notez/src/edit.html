@@ -51,21 +51,16 @@
 					<input type="hidden" id="inpDone" name="inpDone" value="{{done}}">
 
 					<div class="form-row form-required">
-						<div class="form-input">
 							<label class="form-label-text" for="inpTitle">Notiztitel</label>
 							<input type="text" name="inpTitle" id="inpTitle" placeholder="Titel" required value="{{title}}">
-						</div>
 					</div>
 
 					<div class="form-row">
-						<div class="form-input form-required">
 							<label class="form-label-text" for="inpDescription">Notizbeschreibung</label>
-							<textarea name="inpDescription" id="inpDescription" cols="80" rows="5" placeholder="Beschreibung" required>{{desc}}</textarea>
-						</div>
+							<textarea name="inpDescription" id="inpDescription" cols="80" rows="5" placeholder="Beschreibung" required>{{text}}</textarea>
 					</div>
 
 					<div class="form-row">
-						<div class="form-input">
 							<fieldset>
 								<legend class="form-label-group">Wichtigkeit</legend>
 								<div class="form-radio">
@@ -84,20 +79,16 @@
 								</div>
 							</fieldset>
 						</div>
-					</div>
 
 					<div class="form-row form-required">
-						<div class="form-input">
 							<label class="form-label-text" for="inpDue">Erledigt bis</label>
-							<input class="form-date js-datepicker" type="text" name="inpDue" id="inpDue" placeholder="Datum" required value="{{due}}">
-							<i class="icon-calendar"></i>
-						</div>
+							<input class="form-date js-datepicker" type="text" name="inpDue" id="inpDue" placeholder="tt.mm.jjjj" required value="{{dueDate}}">
 					</div>
 				</script>
 			</main>
 		</div>
 
-		<noscript>Diese Seite benötigt aktiviertes Javascript</noscript>
+		<noscript>Diese Seite benï¿½tigt aktiviertes Javascript</noscript>
 		<script src="js/script.min.js"></script>
 	</body>
 </html>
