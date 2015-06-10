@@ -28,10 +28,10 @@
 		from window.localStorage
 		into arrStorage
 
-		returns {Array} arrStorage
+		return {Array} arrStorage
 	*/
 	function loadItems() {
-		arrStorage = [];
+		var arrStorage = [];
 
 		for (var i = 1, l = localStorage.length; i <= l; i++) {// start with index 1
 	console.log('storage item:',i,getItem(i));
@@ -87,17 +87,19 @@
 	/**
 		get id from url query params
 		given url is only containing ?id=x
+
+		@return {String} id
 	*/
 	function getIdFromQueryString() {
 		var query = location.search,// ?id=x
-			arrId = query.substring(1).split('=');// ['id','x']
+			arrId = query.substring(1).split('='),// ['id','x']
+			id;
 
 		if (arrId[0] === 'id') {
-			return arrId[1];
+			id = arrId[1];
 		}
-		else {
-			return false;
-		}
+
+		return id;
 	}
 
 	/**
@@ -120,32 +122,35 @@
 	}
 
 	/**
-		filter by
+		filter by:
+			- 'done'
 
-		TODO
-		returns {Array} arrResult
+		@param {Array} array
+		@param {String} only
+
+		@return {Array} arrResult
 	*/
 	function filter(array, only) {
 		var arrResult,
 			filter;
-	console.log('filter:',only);
+console.log('filter by:',only);
 
 		if (typeof only !== 'undefined') {
 			switch (only) {
 				case 'done':
 					arrResult = $.map(array, function(n, i) {
-	console.log('n,i:',n,i);
+//console.log('n,i:',n,i);
 						if ('done' in n && n.done) {// key in object || object.hasOwnProperty(key)
 							return n;
 						}
 					});
 					break;
 			}
-	console.log('result:',arrResult);
+console.log('result:',arrResult);
 			return arrResult;
 		}
 		else {
-	console.log('invalid filter');
+console.log('invalid filter');
 		}
 	}
 
@@ -154,10 +159,51 @@
 
 		TODO
 	*/
-	function sort(by) {
-		var result;
+	function sort(array, by) {
+		var arrResult,
+			sorter;
+console.log('sort by:',by);
+		if (typeof by !== 'undefined') {
+			switch (by) {
+				case 'due':
+					arrResult = array.sort(function(a,b) {
+console.log('dueDate compare:');
+console.log('a:',a);
+console.log('b:',b);
+console.log('a.dueDate:',a.dueDate);
+console.log('b.dueDate:',b.dueDate);
+						return a.dueDate - b.dueDate;
+					});
+					break;
+				case 'created':
+					arrResult = array.sort(function(a,b) {
+console.log('created compare:');
+console.log('a:',a);
+console.log('b:',b);
+console.log('a.created:',a.created);
+console.log('b.created:',b.created);
+						return a.created - b.created;
+					});
+					break;
+				case 'importance':
+					arrResult = array.sort(function(a,b) {
+console.log('importance compare:');
+console.log('a:',a);
+console.log('b:',b);
+console.log('a.importance:',a.importance);
+console.log('b.importance:',b.importance);
+						// higher value first
+						return b.importance - a.importance;
+					});
+					break;
+			}
+console.log('result:',arrResult);
 
-		return result;
+			return arrResult;
+		}
+		else {
+console.log('invalid sorter');
+		}
 	}
 
 
@@ -178,9 +224,9 @@
 		var source = $(strSourceId).html(),
 			template = Handlebars.compile(source),
 			data = objData;
-	console.log('handle:');
-	console.log('target:',$(strTargetId));
-	console.log('data:',data);
+console.log('handle:');
+console.log('target:',$(strTargetId));
+console.log('data:',data);
 		$(strTargetId).html(template(data));
 	}
 
@@ -188,6 +234,10 @@
 		helper: return html snippet
 		for importance as many times as level indicates
 		used on main view
+
+		@param {String} level
+
+		@return {String} buffer
 	*/
 	Handlebars.registerHelper('importanceHelper', function(level) {
 		var buffer = '',
@@ -204,6 +254,10 @@
 		helper: return html snippet
 		for importance with checked state for level
 		used on edit view
+
+		@param {String} level
+
+		@return {String} buffer
 	*/
 	Handlebars.registerHelper('checkedHelper', function(level) {
 		var buffer = '',
@@ -297,8 +351,24 @@ console.log('switch style');
 console.log('sort by data-sort');
 
 				var $sorter = $(this),
-				by = $sorter.data('sort');
-console.log('data-sort=',by);
+					by = $sorter.data('sort'),
+					arrItems = [],
+					sortedItems = [],
+					blnSorterAlreadyActive = $sorter.is('.state-active');
+//console.log('data-sort=',by);
+console.log('blnSorterAlreadyActive:',blnSorterAlreadyActive);
+
+				// state toggle
+				$sorter.toggleClass('state-active');
+
+				// load items
+				arrItems = loadItems();
+
+				// sort, only if active state false
+				sortedItems = blnSorterAlreadyActive ? arrItems : sort(arrItems, by);
+
+				// compile handlebar with items array
+				handle('#notes-template', '#notes', { items: sortedItems });
 			});
 
 
@@ -310,15 +380,16 @@ console.log('filter by data-filter');
 				var $filter = $(this),
 					only = $filter.data('filter'),
 					filtered = [],
-					blnIsActive = $filter.is('.state-active');
-	console.log('data-filter=',only);
+					blnFilterAlreadyActive = $filter.is('.state-active');
+//console.log('data-filter=',only);
+console.log('blnFilterAlreadyActive:',blnFilterAlreadyActive);
 
 				// state toggle
 				$filter.toggleClass('state-active');
 
 				// toggle filter and update view
-				// filter is passed along only for state set to active
-				filtered = blnIsActive ? arrItems : filter(arrItems, only);
+				// filter, only if active state false
+				filtered = blnFilterAlreadyActive ? arrItems : filter(arrItems, only);
 
 				if (filtered.length > 0) {
 					// compile handlebar with items array
@@ -357,31 +428,44 @@ console.log('toggle item detail and icon');
 				$icon.toggleClass('icon-zoom-in').toggleClass('icon-zoom-out');
 			});
 
-			// click checkbox: update item to 'done'
-			// toggle item detail and icon
+			// click checkbox: update item.done to :checked ? true:false
 			$ctx.on('click', '.js-done', function(e){
-				//e.preventDefault();
-	console.log('update item.done true:false');
+console.log('update item.done true:false');
 				var $this = $(this),
 					id = $this.val(),
+					$activeFilter = $ctx.find('.js-filter.state-active'),
+					filterOnly,
+					filteredItems = [],
 					oldItem,
 					newItem;
 
 				// update localStorage
 				oldItem = getItem(id);
-	console.log('oldItem.done:',oldItem.done);
+console.log('oldItem.done:',oldItem.done);
 				oldItem.done = $this.is(':checked');
 
 				newItem = oldItem;
-	console.log('newItem.done:',newItem.done);
-	console.log('id:',id);
+console.log('newItem.done:',newItem.done);
+console.log('id:',id);
 				setItem(id, newItem);
 
-
-				// update view, filter?
+				// load updated items
 				arrItems = loadItems();
+
+				// apply active filter
+				if ($activeFilter.length > 0) {
+					filterOnly = $activeFilter.data('filter');
+					filteredItems = filter(arrItems, filterOnly);
+				}
+				else {
+					filteredItems = arrItems;
+				}
+
+				// apply active sort
+				// TODO
+
 				// compile handlebar with items array
-				handle('#notes-template', '#notes', { items: arrItems });
+				handle('#notes-template', '#notes', { items: filteredItems });// TODO use sortedItems when implemented
 			});
 		}
 		else {
@@ -393,9 +477,9 @@ console.log('toggle item detail and icon');
 			// load item data to be edited by id
 			var editId = getIdFromQueryString(),
 				editItem;
-	//console.log('target item id:',editId);
 
-			if (typeof getIdFromQueryString() !== 'undefined') {
+			if (typeof editId !== 'undefined') {
+				// TODO invalid ids
 				editItem = getItem(editId);
 
 				// compile handlebar with editItem
@@ -405,44 +489,40 @@ console.log('toggle item detail and icon');
 
 			// form submit
 			$ctx.on('submit', '.js-form', function(e) {
-				var $frm = $(this),
-					importanceValue = $frm.find('input[name=importance]:checked').val(),
-					$hiddenImportance = $frm.find('#inpImportanceHidden'),
-					id,
+				// TODO clientside validate date (format, not in past), alert onerror
+ 				var $frm = $(this),
+					id = getIdFromQueryString(),
 					title = $frm.find('#inpTitle').val(),
-					desc = $frm.find('#inpDescription').val(),
-					importance,
-					due = $frm.find('#inpDue').val(),
+					text = $frm.find('#inpDescription').val(),
+					importanceValue = $frm.find('input[name=importance]:checked').val(),// workaround for hidden radio
+					$hiddenImportance = $frm.find('#inpImportanceHidden'),
+					created = Date(),
+					dueDate = $frm.find('#inpDue').val(),
+					done = $frm.find('#inpDone').val() === 'true' ? true : false,// include hidden value for done state, not editable here by user
 					newItem = {};
 
-	//console.log('submit');
-				if (typeof getIdFromQueryString() !== 'undefined') {
-					id = getIdFromQueryString();
+				if (typeof id !== 'undefined') {
+					// update hidden field with checked radio value
+					$hiddenImportance.val(importanceValue);
+
+					// save notez data
+					// key: id, value: {id, title, text, importance, created, dueDate, done}
+					newItem = {
+						id: id,
+						title: title,
+						text: text,
+						importance: $hiddenImportance.val() ? $hiddenImportance.val() : 0,// save with importance 0 if empty
+						created: created,// TODO
+						dueDate: dueDate,
+						done: done
+					};
+
+					setItem(id, newItem);
 				}
 				else {
 					console.log('error: id undefined');
 					return false;
 				}
-
-				// update hidden field with checked radio value
-				$hiddenImportance.val(importanceValue);
-
-				// save notez data
-				// key: id, value: {id, title, desc, importance, due, done}
-				newItem = {
-					id: id,
-					title: title,
-					desc: desc,
-					importance: $hiddenImportance.val() ? $hiddenImportance.val() : 0,// save with importance 0 if empty
-					due: due,
-					done: false
-				};
-
-				setItem(id, newItem);
-
-
-				// debug only: prevent submit
-				//return false;
 			});
 		}
 	})($);
