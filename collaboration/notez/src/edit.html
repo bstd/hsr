@@ -8,9 +8,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 		<meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-		<meta name="keywords" content=""/>
-		<meta name="description" content="Page description for all sort of search engines"/>
-
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 
 		<link rel="stylesheet" href="css/styles.min.css" type="text/css" />
@@ -20,6 +17,45 @@
 			<main class="js-module">
 				<form class="form-wrap js-form" method="post" action="index.html">
 					<div id="edit"></div>
+
+					<script id="edit-template" type="text/x-handlebars-template">
+						<input type="hidden" id="inpDone" name="inpDone" value="{{done}}">
+
+						<div class="form-row form-required">
+							<label class="form-label-text" for="inpTitle">Notiztitel</label>
+							<input type="text" name="inpTitle" id="inpTitle" placeholder="Titel" required value="{{title}}">
+						</div>
+
+						<div class="form-row">
+							<label class="form-label-text" for="inpDescription">Notizbeschreibung</label>
+							<textarea name="inpDescription" id="inpDescription" cols="80" rows="5" placeholder="Beschreibung" required>{{text}}</textarea>
+						</div>
+
+						<div class="form-row">
+							<fieldset>
+								<legend class="form-label-group">Wichtigkeit</legend>
+								<div class="form-radio">
+									<input type="hidden" id="inpImportanceHidden" name="inpImportanceHidden" value="{{importance}}">
+
+									<div class="line">
+										<div class="col">
+											{{#if importance}}
+												{{!-- use markup, do not escape --}}
+												{{{checkedHelper importance}}}
+											{{else}}
+												{{{checkedHelper 0}}}
+											{{/if}}
+										</div>
+									</div>
+								</div>
+							</fieldset>
+						</div>
+
+						<div class="form-row form-required">
+							<label class="form-label-text" for="inpDue">Erledigt bis</label>
+							<input class="form-date js-datepicker" type="text" name="inpDue" id="inpDue" placeholder="tt.mm.jjjj" required value="{{dueDate}}">
+						</div>
+					</script>
 
 					<div class="form-row">
 						<div class="form-input">
@@ -47,44 +83,7 @@
 				</form>
 
 
-				<script id="edit-template" type="text/x-handlebars-template">
-					<input type="hidden" id="inpDone" name="inpDone" value="{{done}}">
-
-					<div class="form-row form-required">
-							<label class="form-label-text" for="inpTitle">Notiztitel</label>
-							<input type="text" name="inpTitle" id="inpTitle" placeholder="Titel" required value="{{title}}">
-					</div>
-
-					<div class="form-row">
-							<label class="form-label-text" for="inpDescription">Notizbeschreibung</label>
-							<textarea name="inpDescription" id="inpDescription" cols="80" rows="5" placeholder="Beschreibung" required>{{text}}</textarea>
-					</div>
-
-					<div class="form-row">
-							<fieldset>
-								<legend class="form-label-group">Wichtigkeit</legend>
-								<div class="form-radio">
-									<input type="hidden" id="inpImportanceHidden" name="inpImportanceHidden" value="{{importance}}">
-
-									<div class="line">
-										<div class="col">
-											{{#if importance}}
-												{{!-- use markup, do not escape --}}
-												{{{checkedHelper importance}}}
-											{{else}}
-												{{{checkedHelper 0}}}
-											{{/if}}
-										</div>
-									</div>
-								</div>
-							</fieldset>
-						</div>
-
-					<div class="form-row form-required">
-							<label class="form-label-text" for="inpDue">Erledigt bis</label>
-							<input class="form-date js-datepicker" type="text" name="inpDue" id="inpDue" placeholder="tt.mm.jjjj" required value="{{dueDate}}">
-					</div>
-				</script>
+				
 			</main>
 		</div>
 

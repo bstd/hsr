@@ -8,9 +8,6 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 
-		<meta name="keywords" content=""/>
-		<meta name="description" content="Page description for all sort of search engines" />
-
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
 		<link rel="stylesheet" href="css/styles.min.css" type="text/css" />
@@ -54,20 +51,20 @@
 				<script id="notes-template" type="text/x-handlebars-template">
 					{{#each items}}
 						<div class="item">
-							<div class="item-col size20">
+							<div class="item-col size1of5">
 								<div class="item-due">
-									<p>{{due}}</p>
+									<p>{{dueDate}}</p>
 									<input class="js-done" type="checkbox" id="inp{{id}}" name="inp{{id}}" value="{{id}}"{{#if done}} checked{{/if}}>
 									<label for="inp{{id}}">erledigt</label>
 								</div>
 							</div>
 
-							<div class="item-col size60">
+							<div class="item-col size3of5">
 								<div class="line">
-									<div class="col size75">
+									<div class="col size4of5">
 										<p class="item-title">{{title}}</p>
 									</div>
-									<div class="col size25">
+									<div class="col size1of5">
 										<div class="item-importance" title="Wichtigkeit">
 											{{#if importance}}
 												{{!-- use markup, do not escape --}}
@@ -77,12 +74,12 @@
 									</div>
 								</div>
 								<div class="item-desc js-expand">
-									<p class="ellipsis">{{desc}}</p>
+									<p class="ellipsis">{{text}}</p>
 									<i class="icon-zoom-in"></i>
 								</div>
 							</div>
 
-							<div class="item-col size20 va-middle">
+							<div class="item-col size1of5 va-middle">
 								<div class="item-action">
 									<button class="btn js-edit" data-item="{{id}}">
 										<i class="icon-pencil2"></i>
