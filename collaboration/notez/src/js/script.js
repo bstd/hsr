@@ -259,6 +259,7 @@ console.log('data:',data);
 
 		@return {String} buffer
 	*/
+	// Todo passing nodeEntry
 	Handlebars.registerHelper('checkedHelper', function(level) {
 		var buffer = '',
 			maxItems = 5,
@@ -281,8 +282,30 @@ console.log('data:',data);
 		return buffer;
 	});
 
+	/* Revealing Module */
+	// Todo Finish Module
+	var notesEntry = (function() {
+		var newItem = {};
 
+		// Todo Set Item
+		function addNotes(id, title, text, importanceValue, created, dueDate, done) {
+			newItem = {
+				id: id,
+				title: title,
+				text: text,
+				importance: importanceValue,// save with importance 0 if empty
+				created: created,// TODO
+				dueDate: dueDate,
+				done: done
+			};
+			console.log( "newItem:" + newItem );
+		}
+		// explicitly return public methods when this object is instantiated
+		return {
+			notesStartEntry : addNotes
+		};
 
+	} )();
 
 	//---
 	// DOM READY
@@ -330,6 +353,7 @@ console.log('localStorage.length:',localStorage.length);
 					var newStorageIndex = localStorage.length + 1;// use item length of localStorage to generate id for new entry
 
 					location.href = 'edit.html?id=' + newStorageIndex;
+
 				}
 			});
 
@@ -488,7 +512,7 @@ console.log('id:',id);
 
 
 			// form submit
-			$ctx.on('submit', '.js-form', function(e) {
+			/*$ctx.on('submit', '.js-form', function(e) {
 				// TODO clientside validate date (format, not in past), alert onerror
  				var $frm = $(this),
 					id = getIdFromQueryString(),
@@ -523,6 +547,31 @@ console.log('id:',id);
 					console.log('error: id undefined');
 					return false;
 				}
+			});*/
+			$ctx.on('submit', '.js-form', function(e) {
+				// TODO clientside validate date (format, not in past), alert onerror
+				var $frm = $(this),
+					id = getIdFromQueryString(),
+					title = $frm.find('#inpTitle').val(),
+					text = $frm.find('#inpDescription').val(),
+					importanceValue = $frm.find('input[name=importance]:checked').val(),// workaround for hidden radio
+					$hiddenImportance = $frm.find('#inpImportanceHidden'),
+					created = Date(),
+					dueDate = $frm.find('#inpDue').val(),
+					done = $frm.find('#inpDone').val() === 'true' ? true : false;// include hidden value for done state, not editable here by user
+
+				if (typeof id !== 'undefined') {
+					// update hidden field with checked radio value
+					$hiddenImportance.val(importanceValue);
+					/* passing data into a private method */
+					notesEntry.notesStartEntry(id, title, text, importanceValue, created, dueDate, done);
+				}
+				else {
+					console.log('error: id undefined');
+					return false;
+				}
+				// Todo delete return false
+				return false;
 			});
 		}
 	})($);
