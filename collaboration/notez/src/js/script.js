@@ -24,67 +24,6 @@
 	}
 
 	/**
-		load all stored items
-		from window.localStorage
-		into arrStorage
-
-		return {Array} arrStorage
-	*/
-	function loadItems() {
-		var arrStorage = [];
-
-		for (var i = 1, l = localStorage.length; i <= l; i++) {// start with index 1
-	console.log('storage item:',i,getItem(i));
-			arrStorage.push(getItem(i));
-		}
-
-		return arrStorage;
-	}
-
-	/**
-		setItem
-
-		@param {String} key
-		@param {String} value
-	*/
-	function setItem(key, value) {
-		if (typeof key !== 'undefined' && typeof value !== 'undefined') {
-			if (clientSupportsLocalStorage) {
-				// try catch quota limit when storing
-				// exception handling up to date?
-				try {
-					localStorage.setItem(key, JSON.stringify(value));
-				} catch(domException) {
-					if (domException.name === 'QuotaExceededError' ||
-						domException.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
-						alert('localStorage Limit erreicht');
-					}
-				}
-			}
-			else {
-				// TODO cookie alternative
-			}
-		}
-	}
-
-	/**
-		getItem
-
-		@param {String} key
-		@return {Object}
-	*/
-	function getItem(key) {
-		if (typeof key !== 'undefined') {
-			if (clientSupportsLocalStorage) {
-				return JSON.parse(localStorage.getItem(key));
-			}
-			else {
-				// TODO cookie alternative
-			}
-		}
-	}
-
-	/**
 		get id from url query params
 		given url is only containing ?id=x
 
@@ -286,8 +225,76 @@ console.log('data:',data);
 	// Todo Finish Module
 	var notesEntry = (function() {
 		var newItem = {};
+		var arrStorage = [];
 
-		// Todo Set Item
+		/**
+		 load all stored items
+		 from window.localStorage
+		 into arrStorage
+
+		 return {Array} arrStorage
+		 */
+		function loadItems() {
+
+
+			for (var i = 1, l = localStorage.length; i <= l; i++) {// start with index 1
+				console.log('storage item:',i,getItem(i));
+				arrStorage.push(getItem(i));
+			}
+
+			return arrStorage;
+		}
+
+		/**
+		 getItem
+
+		 @param {String} key
+		 @return {Object}
+		 */
+		function getItem(key) {
+			if (typeof key !== 'undefined') {
+				if (clientSupportsLocalStorage) {
+					return JSON.parse(localStorage.getItem(key));
+				}
+				else {
+					// TODO cookie alternative
+				}
+			}
+		}
+		/**
+		 setItem
+
+		 @param {String} key
+		 @param {String} value
+		 */
+		function setItem(key, value) {
+			if (typeof key !== 'undefined' && typeof value !== 'undefined') {
+				if (clientSupportsLocalStorage) {
+					// try catch quota limit when storing
+					// exception handling up to date?
+					try {
+						localStorage.setItem(key, JSON.stringify(value));
+					} catch(domException) {
+						if (domException.name === 'QuotaExceededError' ||
+							domException.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+							alert('localStorage Limit erreicht');
+						}
+					}
+				}
+				else {
+					// TODO cookie alternative
+				}
+			}
+		}
+		// Get Notes Item
+		function getNotes(id) {
+			return getItem(id);
+		}
+		// Change Notes Item - done function
+		function changeNotes(id, changeItem) {
+			setItem(id, changeItem);
+		}
+		// add Notes Items
 		function addNotes(id, title, text, importanceValue, created, dueDate, done) {
 			newItem = {
 				id: id,
@@ -298,11 +305,18 @@ console.log('data:',data);
 				dueDate: dueDate,
 				done: done
 			};
+			setItem(id, newItem);
 			console.log( "newItem:" + newItem );
+		}
+		function showNotes() {
+			return loadItems();
 		}
 		// explicitly return public methods when this object is instantiated
 		return {
-			notesStartEntry : addNotes
+			addNotesEntry : addNotes,
+			getNotesEntry : getNotes,
+			changeNotesEntry : changeNotes,
+			showNotesEntry : showNotes
 		};
 
 	} )();
@@ -325,7 +339,7 @@ console.log('localStorage.length:',localStorage.length);
 					$noItems.hide();
 
 					// load all items
-					arrItems = loadItems();
+					arrItems = notesEntry.showNotesEntry();
 
 					// compile handlebar with items array
 					handle('#notes-template', '#notes', { items: arrItems });
@@ -386,7 +400,7 @@ console.log('blnSorterAlreadyActive:',blnSorterAlreadyActive);
 				$sorter.toggleClass('state-active');
 
 				// load items
-				arrItems = loadItems();
+				arrItems = notesEntry.showNotesEntry();
 
 				// sort, only if active state false
 				sortedItems = blnSorterAlreadyActive ? arrItems : sort(arrItems, by);
@@ -464,17 +478,18 @@ console.log('update item.done true:false');
 					newItem;
 
 				// update localStorage
-				oldItem = getItem(id);
+				oldItem = notesEntry.getNotesEntry(id);
 console.log('oldItem.done:',oldItem.done);
 				oldItem.done = $this.is(':checked');
 
 				newItem = oldItem;
 console.log('newItem.done:',newItem.done);
 console.log('id:',id);
-				setItem(id, newItem);
+
+				notesEntry.changeNotesEntry(id, newItem);
 
 				// load updated items
-				arrItems = loadItems();
+				arrItems = notesEntry.showNotesEntry();
 
 				// apply active filter
 				if ($activeFilter.length > 0) {
@@ -504,7 +519,7 @@ console.log('id:',id);
 
 			if (typeof editId !== 'undefined') {
 				// TODO invalid ids
-				editItem = getItem(editId);
+				editItem = notesEntry.getNotesEntry(editId);
 
 				// compile handlebar with editItem
 				handle('#edit-template', '#edit', editItem);
@@ -512,42 +527,6 @@ console.log('id:',id);
 
 
 			// form submit
-			/*$ctx.on('submit', '.js-form', function(e) {
-				// TODO clientside validate date (format, not in past), alert onerror
- 				var $frm = $(this),
-					id = getIdFromQueryString(),
-					title = $frm.find('#inpTitle').val(),
-					text = $frm.find('#inpDescription').val(),
-					importanceValue = $frm.find('input[name=importance]:checked').val(),// workaround for hidden radio
-					$hiddenImportance = $frm.find('#inpImportanceHidden'),
-					created = Date(),
-					dueDate = $frm.find('#inpDue').val(),
-					done = $frm.find('#inpDone').val() === 'true' ? true : false,// include hidden value for done state, not editable here by user
-					newItem = {};
-
-				if (typeof id !== 'undefined') {
-					// update hidden field with checked radio value
-					$hiddenImportance.val(importanceValue);
-
-					// save notez data
-					// key: id, value: {id, title, text, importance, created, dueDate, done}
-					newItem = {
-						id: id,
-						title: title,
-						text: text,
-						importance: $hiddenImportance.val() ? $hiddenImportance.val() : 0,// save with importance 0 if empty
-						created: created,// TODO
-						dueDate: dueDate,
-						done: done
-					};
-
-					setItem(id, newItem);
-				}
-				else {
-					console.log('error: id undefined');
-					return false;
-				}
-			});*/
 			$ctx.on('submit', '.js-form', function(e) {
 				// TODO clientside validate date (format, not in past), alert onerror
 				var $frm = $(this),
@@ -564,14 +543,12 @@ console.log('id:',id);
 					// update hidden field with checked radio value
 					$hiddenImportance.val(importanceValue);
 					/* passing data into a private method */
-					notesEntry.notesStartEntry(id, title, text, importanceValue, created, dueDate, done);
+					notesEntry.addNotesEntry(id, title, text, importanceValue, created, dueDate, done);
 				}
 				else {
 					console.log('error: id undefined');
 					return false;
 				}
-				// Todo delete return false
-				return false;
 			});
 		}
 	})($);
