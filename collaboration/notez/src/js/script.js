@@ -321,6 +321,7 @@ console.log('data:',data);
 
 	} )();
 
+
 	//---
 	// DOM READY
 	//
@@ -515,7 +516,10 @@ console.log('id:',id);
 
 			// load item data to be edited by id
 			var editId = getIdFromQueryString(),
-				editItem;
+				editItem,
+				$dp,
+				cfgRegion = 'de',
+				cfgFormat = 'dd.mm.yy';
 
 			if (typeof editId !== 'undefined') {
 				// TODO invalid ids
@@ -524,6 +528,22 @@ console.log('id:',id);
 				// compile handlebar with editItem
 				handle('#edit-template', '#edit', editItem);
 			}
+
+
+			// datepicker https://jqueryui.com/datepicker/
+			$dp = $ctx.find('.js-dp');
+			$dp.datepicker(
+				$.extend(
+					{},
+					$.datepicker.regional[cfgRegion], {
+						'dateFormat': cfgFormat,
+						'defaultDate': $dp.val(),
+						'changeMonth': true,
+						'changeYear': true,
+						'yearRange': '2015:2020'
+					}
+				)
+			);
 
 
 			// form submit

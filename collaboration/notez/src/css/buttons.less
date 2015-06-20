@@ -28,7 +28,6 @@
 
 	&-submit {
 		padding: 6px 12px;
-		background: @blue;
 		font-weight: bold;
 
 		text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.25);
@@ -48,6 +47,15 @@
 		display: block;
 		float: right;
 		max-width: 25%;
+		background-color: @darkgrey;
+		color: @black;
+
+		&:hover,
+		&:focus,
+		&:active {
+			background: darken(@darkgrey,6%);
+			color: @black;
+		}
 	}
 
 	i {

@@ -26,6 +26,12 @@ textarea {
 	}
 }
 
+select {
+	border: 1px solid @darkgrey;
+	background: @lightgrey;
+	color: @c-text;
+}
+
 // radio replacement
 input[type=radio] {
 	display: none;
@@ -84,10 +90,18 @@ input[type=radio] {
 		width: 20%;
 	}
 
+	.form-label-text {
+		margin-top: 6px;
+	}
+
 	input[type=text],
 	textarea,
 	.form-radio {
 		width: 80%;
+	}
+
+	&-date {
+		position: relative;
 	}
 
 	input[type=text].form-date {
@@ -106,6 +120,13 @@ input[type=radio] {
 .form-hint::before {
 	content: "* ";
 	color: @red;
+}
+
+// datepicker input (icon)
+.input-icon {
+	position: absolute;
+	top: 7px;
+	right: 62%;
 }
 
 
@@ -127,10 +148,10 @@ input[type=radio] {
 		.form-radio {
 			width: 100%;
 		}
+	}
 
-		input[type=text].form-date {
-			width: 80%;
-		}
+	.input-icon {
+		right: 66%;
 	}
 }
 
@@ -140,5 +161,20 @@ input[type=radio] {
 	.btn-cancel {
 		float: none;
 		max-width: 100%;
+	}
+
+	.form-radio {
+		margin: 6px 0 0 -50px;
+	}
+
+	.form-row {
+		input[type=text].form-date {
+			width: 100%;
+		}
+	}
+
+	.input-icon {
+		top: 24px;
+		right: 10px;
 	}
 }
