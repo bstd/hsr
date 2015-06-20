@@ -1,0 +1,184 @@
+.container {
+	margin: 0 auto;
+	max-width: @page-width-max;
+}
+
+main {
+	padding: 20px @content-padding-side;
+}
+
+// controls
+.controls {
+	padding: 20px 0;
+	.box-shadow(@shadow-box);
+
+	a {
+		display: inline-block;
+		border: 1px solid @c-active;
+		padding: 2px 4px;
+
+		&.state-active {
+			background: @black;
+			color: @white;
+		}
+	}
+}
+
+.controls-column {
+	float: left;
+}
+
+.controls-primary,
+.controls-secondary {
+	overflow: hidden;
+}
+
+.controls-primary {
+
+	.controls-column {
+		width: 20%;
+
+		&:last-child {
+			width: 80%;
+			text-align: right;
+		}
+	}
+}
+
+.controls-secondary {
+	margin-top: 20px;
+
+	.controls-column {
+		width: 80%;
+
+		&:last-child {
+			width: 20%;
+			text-align: right;
+		}
+	}
+}
+
+.sort {
+	&.state-active {
+	}
+}
+
+.filter {
+	text-align: left;
+
+	&.state-active {
+	}
+}
+
+
+// items
+.items {
+	display: table;
+	table-layout: fixed;
+	margin: 0 0 10px 0;
+	padding: 20px 0;
+	width: 100%;
+}
+
+.item {
+	display: table-row;
+
+	&:nth-child(odd) {
+		background-color: @lightgrey;
+	}
+
+	&:hover {
+		.box-shadow(@shadow-item-hover);
+	}
+}
+
+.item-col {
+	display: table-cell;
+	vertical-align: top;
+
+	// vertical align helpers
+	&.va-middle {
+		vertical-align: middle;
+	}
+}
+
+.item-due {
+	padding: 10px;
+
+	p {
+		padding-bottom: 4px;
+	}
+}
+
+.item-title {
+	padding: 10px 10px 10px 0;
+	font-weight: bold;
+}
+
+.item-desc {
+	position: relative;
+	border: 1px dashed transparent;
+	padding: 10px 20px 10px 0;
+	cursor: pointer;
+
+	p {
+		.no-select();
+	}
+
+	i {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		font-size: 20px;
+		cursor: pointer;
+	}
+
+	&.state-expanded {
+		border: 1px dashed @lightgrey;
+		padding-left: 10px;
+		background-color: @darkgrey;
+	}
+}
+
+.item-importance {
+	padding: 10px 0;
+}
+
+.item-action {
+	padding-left: 20px;
+}
+
+
+@media screen and (max-width: @bp-m) {
+}
+
+
+
+@media screen and (max-width: @bp-s) {
+	.controls-secondary {
+		.controls-column {
+			width: 50%;
+
+			&:last-child {
+				width: 50%;
+			}
+		}
+	}
+
+	.sort {
+		margin: 0 10px 10px 0;
+	}
+
+	.item {
+		display: block;
+		margin-bottom: 30px;
+	}
+
+	.item-col {
+		display: block;
+	}
+
+	.item-action {
+		padding-left: 0;
+	}
+}

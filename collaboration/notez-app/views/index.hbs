@@ -1,2 +1,79 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="container">
+	<main class="js-module">
+		<div class="controls">
+			<div class="controls-primary">
+				<div class="controls-column">
+					<button class="btn js-new">
+						<i class="icon-file-empty"></i>
+						<span>Notiz erstellen</span>
+					</button>
+				</div>
+
+				<div class="controls-column">
+					<select class="js-switch-style">
+						<option selected>Standard Theme</option>
+						<option value="0">Schwarz-Weiss Theme</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="controls-secondary">
+				<div class="controls-column">
+					<a href="#" class="sort js-sort" data-sort="due" title="Einträge sortieren nach">Erledigungsdatum</a>
+					<a href="#" class="sort js-sort" data-sort="created" title="Einträge sortieren nach">Erstellungsdatum</a>
+					<a href="#" class="sort js-sort" data-sort="importance" title="Einträge sortieren nach">Wichtigkeit</a>
+				</div>
+
+				<div class="controls-column">
+					<a href="#" class="filter js-filter" data-filter="done">erledigte anzeigen</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="notes" class="items js-init"></div>
+		<p class="js-no-items">Keine Einträge</p>
+
+		<script id="notes-template" type="text/x-handlebars-template">
+			{{#each items}}
+				<div class="item">
+					<div class="item-col size1of5">
+						<div class="item-due">
+							<p>{{dueDate}}</p>
+							<input class="js-done" type="checkbox" id="inp{{id}}" name="inp{{id}}" value="{{id}}"{{#if done}} checked{{/if}}>
+							<label for="inp{{id}}">erledigt</label>
+						</div>
+					</div>
+
+					<div class="item-col size3of5">
+						<div class="line">
+							<div class="col size4of5">
+								<p class="item-title">{{title}}</p>
+							</div>
+							<div class="col size1of5">
+								<div class="item-importance" title="Wichtigkeit">
+									{{#if importance}}
+										{{!-- use markup, do not escape --}}
+										{{{importanceHelper importance}}}
+									{{/if}}
+								</div>
+							</div>
+						</div>
+						<div class="item-desc js-expand">
+							<p class="ellipsis">{{text}}</p>
+							<i class="icon-zoom-in"></i>
+						</div>
+					</div>
+
+					<div class="item-col size1of5 va-middle">
+						<div class="item-action">
+							<button class="btn js-edit" data-item="{{id}}">
+								<i class="icon-pencil2"></i>
+								<span>Bearbeiten</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			{{/each}}
+		</script>
+	</main>
+</div>
