@@ -1,0 +1,21 @@
+// define variables for skin values here
+@skin-bg-color: #ade1ee;
+@skin-c-text: @white;
+@skin-c-active: @black;
+
+
+// overwrite default skin
+.skin-blackwhite {
+	// buttons
+	.btn {
+		color: @skin-c-text;
+		background-color: @skin-c-active;
+	}
+
+	// notez
+	.controls {
+		a {
+			border: 1px solid @skin-c-active;
+		}
+	}
+}

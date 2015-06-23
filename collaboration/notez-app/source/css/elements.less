@@ -1,0 +1,22 @@
+// box sizing border-box for all elements
+*,
+*:before,
+*:after {
+	.box-sizing(border-box);
+}
+
+body {
+	font-family: @font-family-simple;
+	font-size: @font-size-base;
+	color: @c-text;
+}
+
+a {
+	.transition(all 300ms ease);
+	text-decoration: none;
+	color: inherit;
+	&:hover,
+	&:active {
+		color: @c-active;
+	}
+}

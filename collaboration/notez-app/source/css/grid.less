@@ -1,0 +1,46 @@
+// column container, clearing
+.line {
+	overflow: hidden;
+}
+
+// float column
+.col {
+	float: left;
+}
+
+// column widths, general use
+.size1of5 {
+	width: 20%;
+}
+.size2of5 {
+	width: 40%;
+}
+.size3of5 {
+	width: 60%;
+}
+.size4of5 {
+	width: 80%;
+}
+.size5of5 {
+	width: 100%;
+}
+
+
+@media screen and (max-width: @bp-m) {
+	
+}
+
+
+
+@media screen and (max-width: @bp-s) {
+	.col {
+		float: none;
+	}
+
+	.size1of5,
+	.size2of5,
+	.size3of5,
+	.size4of5 {
+		width: 100%;
+	}
+}

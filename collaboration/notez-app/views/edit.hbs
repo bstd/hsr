@@ -1,0 +1,71 @@
+<div class="container">
+	<main class="js-module">
+		<form class="form-wrap js-form" method="post" action="index.html">
+			<div id="edit"></div>
+
+			<script id="edit-template" type="text/x-handlebars-template">
+				<input type="hidden" id="inpDone" name="inpDone" value="{{done}}">
+
+				<div class="form-row form-required">
+					<label class="form-label-text" for="inpTitle">Notiztitel</label>
+					<input type="text" name="inpTitle" id="inpTitle" placeholder="Titel" required value="{{title}}" maxlength="200">
+				</div>
+
+				<div class="form-row">
+					<label class="form-label-text" for="inpDescription">Notizbeschreibung</label>
+					<textarea name="inpDescription" id="inpDescription" cols="80" rows="5" placeholder="Beschreibung" required>{{text}}</textarea>
+				</div>
+
+				<div class="form-row">
+					<fieldset>
+						<legend class="form-label-group">Wichtigkeit</legend>
+						<div class="form-radio">
+							<input type="hidden" id="inpImportanceHidden" name="inpImportanceHidden" value="{{importance}}">
+
+							<div class="line">
+								<div class="col">
+									{{#if importance}}
+										{{!-- use markup, do not escape --}}
+										{{{checkedHelper importance}}}
+									{{else}}
+										{{{checkedHelper 0}}}
+									{{/if}}
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+
+				<div class="form-row form-row-date form-required">
+					<label class="form-label-text" for="inpDue">Erledigt bis</label>
+					<input class="form-date js-dp" type="text" name="inpDue" id="inpDue" placeholder="tt.mm.jjjj" required value="{{dueDate}}" maxlength="10">
+					<i class="input-icon icon-calendar"></i>
+				</div>
+			</script>
+
+			<div class="form-row">
+				<div class="form-input">
+					<p class="form-hint">Pflichtfeld</p>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-input">
+					<button class="btn btn-submit js-form-submit" type="submit">
+						<i class="icon-floppy-disk"></i>
+						<span>Speichern</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-input">
+					<a href="index.html" class="btn btn-cancel">
+						<i class="icon-cross"></i>
+						<span>Abbrechen</span>
+					</a>
+				</div>
+			</div>
+		</form>
+	</main>
+</div>
