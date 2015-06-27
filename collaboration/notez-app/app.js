@@ -1,4 +1,6 @@
 var express = require('express');
+var hbs = require('hbs');// explicit, because we need registerHelper
+var helpers = require('./util/handlebars.helper');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -6,18 +8,20 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
+var notez = require('./routes/notez');
 
 var app = express();
 
 
-//app.use(express.static(__dirname + "/public"));
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+
+
+// handelbars setup
 app.set('view engine', 'hbs');
 
 
-// uncomment after placing your favicon in /public
+// middlewares
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -26,6 +30,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use('/notes', notez);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -33,6 +39,7 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
 
 // error handlers
 

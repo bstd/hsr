@@ -1,15 +1,10 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express'),
+	notezController = require('../controller/notezController'),
+	router = express.Router();
 
-// notez routes
-//Notiz erstellen / bearbeiten
-/*
-router.post("/notes", orders.createPizza);
-router.get("/notes/:id/", orders.showOrder);
-*/
-
-/*router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});*/
+// notez routes: all at /notes
+router.get('/:id/', notezController.showNote);
+router.put('/:id/', notezController.editNote);
+router.post('/', notezController.addNote);
 
 module.exports = router;
