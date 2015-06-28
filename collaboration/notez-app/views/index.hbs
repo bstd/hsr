@@ -45,58 +45,55 @@
 					</div>
 				</div>
 
-				<div id="notes" class="items js-init"></div>
-				<p class="js-no-items">Keine Einträge</p>
-
 				{{#if items}}
-					ok
-				{{else}}
-					nok
-				{{/if}}
-				<!--script id="notes-template" type="text/x-handlebars-template"-->
-					{{#each items}}
-						<div class="item">
-							<div class="item-col size1of5">
-								<div class="item-due">
-									<p>{{dueDate}}</p>
-									<input class="js-done" type="checkbox" id="inp{{id}}" name="inp{{id}}" value="{{id}}"{{#if done}} checked{{/if}}>
-									<label for="inp{{id}}">erledigt</label>
-								</div>
-							</div>
-
-							<div class="item-col size3of5">
-								<div class="line">
-									<div class="col size4of5">
-										<p class="item-title">{{title}}</p>
+					<div id="notes" class="items js-init">
+						{{#each items}}
+							<div class="item">
+								<div class="item-col size1of5">
+									<div class="item-due">
+										<p>{{dueDate}}</p>
+										<input class="js-done" type="checkbox" id="inp{{_id}}" name="inp{{_id}}" value="{{_id}}"{{#if done}} checked{{/if}}>
+										<label for="inp{{_id}}">erledigt</label>
 									</div>
-									<div class="col size1of5">
-										<div class="item-importance" title="Wichtigkeit">
-											{{#if importance}}
-												{{!-- use markup, do not escape --}}
-												{{{importanceHelper importance}}}
-											{{/if}}
+								</div>
+
+								<div class="item-col size3of5">
+									<div class="line">
+										<div class="col size4of5">
+											<p class="item-title">{{title}}</p>
+										</div>
+										<div class="col size1of5">
+											<div class="item-importance" title="Wichtigkeit">
+												{{#if importance}}
+													{{!-- use markup, do not escape --}}
+													{{{importanceHelper importance}}}
+												{{/if}}
+											</div>
 										</div>
 									</div>
+									<div class="item-desc js-expand">
+										<p class="ellipsis">{{text}}</p>
+										<i class="icon-zoom-in"></i>
+									</div>
 								</div>
-								<div class="item-desc js-expand">
-									<p class="ellipsis">{{text}}</p>
-									<i class="icon-zoom-in"></i>
-								</div>
-							</div>
 
-							<div class="item-col size1of5 va-middle">
-								<div class="item-action">
-									<button class="btn js-edit" data-item="{{id}}">
-										<i class="icon-pencil2"></i>
-										<span>Bearbeiten</span>
-									</button>
+								<div class="item-col size1of5 va-middle">
+									<div class="item-action">
+										<button class="btn js-edit" data-item="{{_id}}">
+											<i class="icon-pencil2"></i>
+											<span>Bearbeiten</span>
+										</button>
+									</div>
 								</div>
 							</div>
-						</div>
-					{{/each}}
-				<!--/script-->
+						{{/each}}
+					</div>
+				{{else}}
+					<p class="js-no-items">Keine Einträge</p>
+				{{/if}}
 			</main>
 		</div>
+
 		<noscript>Diese Seite benötigt aktiviertes Javascript</noscript>
 		<script src="/js/script.min.js"></script>
 	</body>

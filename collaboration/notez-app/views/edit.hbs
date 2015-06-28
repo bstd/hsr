@@ -15,48 +15,44 @@
 	<body>
 		<div class="container">
 			<main class="js-module">
-				<form class="form-wrap js-form" method="post" action="index.html">
-					<div id="edit"></div>
+				<form class="form-wrap js-form" method="post" action="/notes">
+					<input type="hidden" id="inpDone" name="inpDone" value="{{done}}">
 
-					<!--script id="edit-template" type="text/x-handlebars-template"-->
-						<input type="hidden" id="inpDone" name="inpDone" value="{{done}}">
+					<div class="form-row form-required">
+						<label class="form-label-text" for="inpTitle">Notiztitel</label>
+						<input type="text" name="inpTitle" id="inpTitle" placeholder="Titel" required value="{{title}}" maxlength="200">
+					</div>
 
-						<div class="form-row form-required">
-							<label class="form-label-text" for="inpTitle">Notiztitel</label>
-							<input type="text" name="inpTitle" id="inpTitle" placeholder="Titel" required value="{{title}}" maxlength="200">
-						</div>
+					<div class="form-row">
+						<label class="form-label-text" for="inpDescription">Notizbeschreibung</label>
+						<textarea name="inpDescription" id="inpDescription" cols="80" rows="5" placeholder="Beschreibung" required>{{text}}</textarea>
+					</div>
 
-						<div class="form-row">
-							<label class="form-label-text" for="inpDescription">Notizbeschreibung</label>
-							<textarea name="inpDescription" id="inpDescription" cols="80" rows="5" placeholder="Beschreibung" required>{{text}}</textarea>
-						</div>
+					<div class="form-row">
+						<fieldset>
+							<legend class="form-label-group">Wichtigkeit</legend>
+							<div class="form-radio">
+								<!--input type="hidden" id="inpImportanceHidden" name="inpImportanceHidden" value="{{importance}}"-->
 
-						<div class="form-row">
-							<fieldset>
-								<legend class="form-label-group">Wichtigkeit</legend>
-								<div class="form-radio">
-									<input type="hidden" id="inpImportanceHidden" name="inpImportanceHidden" value="{{importance}}">
-
-									<div class="line">
-										<div class="col">
-											{{#if importance}}
-												{{!-- use markup, do not escape --}}
-												{{{checkedHelper importance}}}
-											{{else}}
-												{{{checkedHelper 0}}}
-											{{/if}}
-										</div>
+								<div class="line">
+									<div class="col">
+										{{#if importance}}
+											{{!-- use markup, do not escape --}}
+											{{{checkedHelper importance}}}
+										{{else}}
+											{{{checkedHelper 0}}}
+										{{/if}}
 									</div>
 								</div>
-							</fieldset>
-						</div>
+							</div>
+						</fieldset>
+					</div>
 
-						<div class="form-row form-row-date form-required">
-							<label class="form-label-text" for="inpDue">Erledigt bis</label>
-							<input class="form-date js-dp" type="text" name="inpDue" id="inpDue" placeholder="tt.mm.jjjj" required value="{{dueDate}}" maxlength="10">
-							<i class="input-icon icon-calendar"></i>
-						</div>
-					<!--/script-->
+					<div class="form-row form-row-date form-required">
+						<label class="form-label-text" for="inpDue">Erledigt bis</label>
+						<input class="form-date js-dp" type="text" name="inpDue" id="inpDue" placeholder="tt.mm.jjjj" required value="{{dueDate}}" maxlength="10">
+						<i class="input-icon icon-calendar"></i>
+					</div>
 
 					<div class="form-row">
 						<div class="form-input">
@@ -75,7 +71,7 @@
 
 					<div class="form-row">
 						<div class="form-input">
-							<a href="index.html" class="btn btn-cancel">
+							<a href="/" class="btn btn-cancel">
 								<i class="icon-cross"></i>
 								<span>Abbrechen</span>
 							</a>
@@ -84,6 +80,7 @@
 				</form>
 			</main>
 		</div>
+
 		<noscript>Diese Seite benötigt aktiviertes Javascript</noscript>
 		<script src="/js/script.min.js"></script>
 	</body>

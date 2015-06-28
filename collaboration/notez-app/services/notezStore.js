@@ -1,10 +1,10 @@
 var Datastore = require('nedb'),
-	db = new Datastore({ filename: '/data/notez.db', autoload: true });
+	db = new Datastore({ filename: '../data/notez.db', autoload: true });
 
 
 // TODO note properties
-function Note(id, title, text, importance, creationDate, dueDate, done) {
-	this.id = id;
+// nedb automatically generates index (_id)!
+function Note(title, text, importance, dueDate, done) {
 	this.title = title;
 	this.text = text;
 	this.importance = importance;
@@ -15,14 +15,23 @@ function Note(id, title, text, importance, creationDate, dueDate, done) {
 
 
 // add note
-function publicAdd(id, title, text, importance, creationDate, dueDate, done, callback) {
-	var note = new Note(id, title, text, importance, creationDate, dueDate, done);
+// TODO 
+function publicAdd(inpTitle, inpDescription, importance, inpDue, inpDone, callback) {
+	// map req.body (form fields) to our short note properties
+	var title = inpTitle,
+		text = inpDescription,
+		importance = importance,
+		dueDate = inpDue,
+		done = inpDone;
 
-	db.insert(note, function(err, newNote) {
+	var note = new Note(title, text, importance, dueDate, done);
+
+console.log(note);
+	/*db.insert(note, function(err, newNote) {
 		if (callback) {
 			callback(err, newNote);
 		}
-	});
+	});*/
 }
 
 
