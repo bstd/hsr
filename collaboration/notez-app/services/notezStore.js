@@ -2,43 +2,57 @@ var Datastore = require('nedb'),
 	db = new Datastore({ filename: '../data/notez.db', autoload: true });
 
 
-// TODO note properties
+// TODO: note properties
 // nedb automatically generates index (_id)!
 function Note(title, text, importance, dueDate, done) {
 	this.title = title;
 	this.text = text;
 	this.importance = importance;
-	this.creationDate = JSON.stringify(new Date());
+	this.creationDate = JSON.stringify(new Date());// always new
 	this.dueDate = dueDate;
-	this.done = false;
+	this.done = false;// initially false
 }
 
 
 // add note
-// TODO 
-function publicAdd(inpTitle, inpDescription, importance, inpDue, inpDone, callback) {
+function publicAdd(reqBody, callback) {
 	// map req.body (form fields) to our short note properties
-	var title = inpTitle,
-		text = inpDescription,
-		importance = importance,
-		dueDate = inpDue,
-		done = inpDone;
+	var title = reqBody.inpTitle,
+		text = reqBody.inpDescription,
+		importance = reqBody.importance,
+		dueDate = reqBody.inpDue,
+		done = reqBody.inpDone;
 
 	var note = new Note(title, text, importance, dueDate, done);
 
-console.log(note);
-	/*db.insert(note, function(err, newNote) {
+	db.insert(note, function(err, newNote) {
 		if (callback) {
 			callback(err, newNote);
 		}
-	});*/
+	});
 }
 
 
-// TODO edit note (db.update)
+// edit note
+function publicEdit(id, reqBody, callback) {
+	var id = id,
+		title = reqBody.inpTitle,
+		text = reqBody.inpDescription,
+		importance = reqBody.importance,
+		dueDate = reqBody.inpDue,
+		done = reqBody.inpDone;
+
+	var note = new Note(title, text, importance, dueDate, done);
+
+	db.update({ _id: id }, note, {}, function (err, count) {
+		if (callback) {
+			callback(err, count);
+		}
+	});
+}
 
 
-// get note
+// get single note
 function publicGet(id, callback) {
 	db.findOne({ _id: id }, function(err, note) {
 		callback(err, note);
@@ -46,7 +60,7 @@ function publicGet(id, callback) {
 }
 
 
-// GET all
+// get all notes
 function publicAll(callback) {
 	db.find({}, function(err, all) {
 		if (err) {
@@ -56,4 +70,4 @@ function publicAll(callback) {
 	});
 }
 
-module.exports = { add: publicAdd, get: publicGet, all: publicAll };
+module.exports = { add: publicAdd, edit: publicEdit, get: publicGet, all: publicAll };

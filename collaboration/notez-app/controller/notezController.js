@@ -10,13 +10,16 @@ module.exports.showNote = function(req, res, next) {
 
 // PUT note detail (edit)
 module.exports.editNote = function(req, res, next) {
-	res.send('put');
+	//res.send('put');
+	notezStore.edit(req.params.id, req.body, function(err, note) {
+		res.redirect('/');
+	});
 }
 
 // POST note (save new)
 module.exports.addNote = function(req, res, next) {
-	res.json(req.body);
-	/*notezStore.add(req.body, function(err, note) {
+	//res.json(req.body);
+	notezStore.add(req.body, function(err) {
 		res.redirect('/');
-	});*/
+	});
 };

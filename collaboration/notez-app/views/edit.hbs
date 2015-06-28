@@ -15,7 +15,10 @@
 	<body>
 		<div class="container">
 			<main class="js-module">
-				<form class="form-wrap js-form" method="post" action="/notes">
+				<form class="form-wrap js-form" method="post" action="/notes{{#if _id}}/{{_id}}{{/if}}" enctype="application/x-www-form-urlencoded">
+					{{#if _id}}
+						<input type="hidden" name="_method" value="put">
+					{{/if}}
 					<input type="hidden" id="inpDone" name="inpDone" value="{{done}}">
 
 					<div class="form-row form-required">
