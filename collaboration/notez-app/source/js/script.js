@@ -239,8 +239,7 @@ console.log('invalid sorter');
 		var $ctx = $(document).find('.js-module'),
 			isMainView = $ctx.find('.js-init').length !== 0,
 			arrItems = [],
-			$noItems = $ctx.find('.js-no-items'),
-			strCookieStyle = '';
+			$noItems = $ctx.find('.js-no-items');
 console.log('$ctx=',$ctx);
 console.log('isMainView=',isMainView);
 
@@ -335,11 +334,9 @@ console.log('blnFilterAlreadyActive:',blnFilterAlreadyActive);
 			// edit via data-item
 			$ctx.on('click', '.js-edit', function(e){
 				e.preventDefault();
-console.log('edit via data-item');
 
 				var $item = $(this),
 					i = $item.data('item');
-console.log('data-item=',i);
 
 				location.href = '/notes/' + i;
 			});
@@ -357,9 +354,11 @@ console.log('toggle item detail and icon');
 				$icon.toggleClass('icon-zoom-in').toggleClass('icon-zoom-out');
 			});
 
+
 			// click checkbox: update item.done to :checked ? true:false
 			$ctx.on('click', '.js-done', function(e){
 console.log('update item.done true:false');
+				// TODO PUT via REST
 				var $this = $(this),
 					id = $this.val(),
 					$activeFilter = $ctx.find('.js-filter.state-active'),
@@ -395,7 +394,7 @@ console.log('id:',id);
 				// TODO
 
 				// compile handlebar with items array
-				handle('#notes-template', '#notes', { items: filteredItems });// TODO use sortedItems when implemented
+				//handle('#notes-template', '#notes', { items: filteredItems });// TODO use sortedItems when implemented
 			});
 		}
 		else {
