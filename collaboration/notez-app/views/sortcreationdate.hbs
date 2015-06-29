@@ -36,7 +36,7 @@
                 <div class="controls-column">
                     <a href="/sortduedate" class="sort js-sort" data-sort="due" title="Einträge sortieren nach">Erledigungsdatum</a>
                     <a href="/" class="sort js-sort state-active" data-sort="created" title="Einträge sortieren nach">Erstellungsdatum</a>
-                    <a href="#" class="sort js-sort" data-sort="importance" title="Einträge sortieren nach">Wichtigkeit</a>
+                    <a href="/sortimportance" class="sort js-sort" data-sort="importance" title="Einträge sortieren nach">Wichtigkeit</a>
                 </div>
 
                 <div class="controls-column">
@@ -47,7 +47,7 @@
 
         {{#if items}}
             <div id="notes" class="items js-init">
-                {{#eachCreationDate items}}
+                {{#each items}}
                     <div class="item">
                         <div class="item-col size1of5">
                             <div class="item-due">
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                     </div>
-                {{/eachCreationDate}}
+                {{/each}}
             </div>
         {{else}}
             <p class="js-no-items">Keine Einträge</p>

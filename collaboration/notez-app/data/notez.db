@@ -1,8 +1,13 @@
 {"title":"ti2zu3upd3","text":"deupd3","importance":"4","creationDate":"\"2015-06-28T11:07:29.044Z\"","dueDate":"30.06.2015","done":false,"_id":"7vCURRzNloNN9X2l"}
 {"title":"ti","text":"de","importance":"2","creationDate":"\"2015-06-28T09:33:58.526Z\"","dueDate":"29.06.2015","done":false,"_id":"8tq6PUhOXlnHeCg5"}
+{"title":"t2 Notiztitel wieder","text":"d2 Lorem ipsum dolor sit...thaginem esse delendam.","importance":"1","creationDate":"Sat Jun 20 2015 10:46:01 GMT+0200","dueDate":"11.02.2016","done":"false","_id":"D7dQngIahcJSLPYl"}
 {"title":"ti","text":"de","importance":"3","creationDate":"\"2015-06-28T09:48:20.352Z\"","dueDate":"30.06.2015","done":false,"_id":"Oo6t4WxQSRo8JarU"}
+{"title":"t5","text":"d5 lorem Lorem ipsum dol...thaginem esse delendam.","importance":"4","creationDate":"Sat Jun 20 2015 10:46:01 GMT+0200","dueDate":"13.02.2016","done":"false","_id":"VBgH3aCoL6276qSD"}
 {"title":"ti","text":"de","importance":"3","creationDate":"\"2015-06-28T09:47:45.622Z\"","dueDate":"30.06.2015","done":false,"_id":"adSqbFR9vqN6dJvQ"}
 {"title":"ti","text":"de","importance":"3","creationDate":"\"2015-06-28T09:40:35.904Z\"","dueDate":"24.06.2015","done":false,"_id":"dHRMNL3UbyaTkLnB"}
-{"title":"Test neu 29","text":"test text","importance":"5","creationDate":"\"2015-06-29T14:24:17.374Z\"","dueDate":"30.06.2015","done":false,"_id":"e0vExYiyE6PY3BcY"}
 {"title":"t99","text":"d99","importance":"3","creationDate":"\"2015-06-28T10:36:45.952Z\"","dueDate":"30.06.2015","done":false,"_id":"jJqUtki4bE7BhbI1"}
+{"title":"t4","text":"d4 lorem Lorem ipsum dol...thaginem esse delendam.","importance":"3","creationDate":"Sat Jun 20 2015 10:46:01 GMT+0200","dueDate":"12.02.2016","done":"true","_id":"kQiszHseaq3yB4k2"}
+{"title":"t3","text":"d3 Text <script>alert('xss');</script> lorem","importance":"2","creationDate":"Sat Jun 20 2015 10:46:01 GMT+0200","dueDate":"11.02.2016","done":"false","_id":"kYhme0eMXFVO5xlh"}
 {"title":"tix","text":"dex","creationDate":"\"2015-06-28T09:48:55.802Z\"","dueDate":"30.06.2015","done":false,"_id":"ql4wugKy9nUaLcCH"}
+{"title":"t1 Notzititel lorem ipsum","text":"d1","importance":"0","creationDate":"Sat Jun 20 2015 10:46:01 GMT+0200","dueDate":"","done":"false","_id":"v9LVu3BnG9lJE2hc"}
+{"title":"t6","text":"d6 lorem Lorem ipsum dol...thaginem esse delendam.","importance":"5","creationDate":"Sat Jun 20 2015 10:46:01 GMT+0200","dueDate":"11.04.2016","done":"false","_id":"za7FjIMwFIH8YqI1"}

@@ -50,16 +50,12 @@ function publicEdit(id, reqBody, callback) {
 		}
 	});
 }
-
-
 // get single note
 function publicGet(id, callback) {
 	db.findOne({ _id: id }, function(err, note) {
 		callback(err, note);
 	});
 }
-
-
 // get all notes
 function publicAll(callback) {
 	db.find({}, function(err, all) {
@@ -69,7 +65,24 @@ function publicAll(callback) {
 		callback(err, all);
 	});
 }
-
+// get sort creation date
+function publicSortDueDate(callback) {
+	db.find({}).sort({ dueDate: -1 }).skip(1).exec(function (err, dueDate) {
+		if (err) {
+			res.send(err);
+		}
+		callback(err, dueDate);
+	});
+}
+// get sort creation date
+function publicSortCreationDate(callback) {
+	db.find({}).sort({ creationDate: -1 }).skip(1).exec(function (err, creationDate) {
+		if (err) {
+			res.send(err);
+		}
+		callback(err, creationDate);
+	});
+}
 // get sort importance
 function publicSortImportance(callback) {
 	db.find({}).sort({ importance: -1 }).skip(1).exec(function (err, sortImportance) {
@@ -80,4 +93,4 @@ function publicSortImportance(callback) {
 	});
 }
 
-module.exports = { add: publicAdd, edit: publicEdit, get: publicGet, all: publicAll, allSortImportance: publicSortImportance  };
+module.exports = { add: publicAdd, edit: publicEdit, get: publicGet, all: publicAll, allSortImportance: publicSortImportance, sortCreationDate: publicSortCreationDate, sortDueDate: publicSortDueDate  };
