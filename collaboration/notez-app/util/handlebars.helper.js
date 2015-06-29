@@ -74,3 +74,12 @@ hbs.registerHelper('checkedHelper', function(level) {
 
 	return buffer;
 });
+hbs.registerHelper('each_whenDone', function(list, k, v, opts) {
+	console.log('eachDone:'+arguments);
+	var i, result = '';
+	for(i = 0; i < list.length; ++i)
+		if(list[i][k] == v)
+			result = result + opts.fn(list[i]);
+	return result;
+});
+

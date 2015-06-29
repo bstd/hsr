@@ -299,11 +299,11 @@ console.log('blnFilterAlreadyActive:',blnFilterAlreadyActive);
 
 				if (filtered.length > 0) {
 					// compile handlebar with items array
-					//handle('#notes-template', '#notes', { items: filtered });
+					handle('#notes-template', '#notes', { items: filtered });
 					$noItems.hide();
 				}
 				else {
-					$('#notes').empty();// TODO cache el
+					$('#notes').empty();
 					$noItems.show();
 				}
 			});

@@ -47,7 +47,7 @@
 
 				{{#if items}}
 					<div id="notes" class="items js-init">
-						{{#each items}}
+						{{#each_whenDone items "done" "true"}}
 							<div class="item">
 								<div class="item-col size1of5">
 									<div class="item-due">
@@ -86,7 +86,7 @@
 									</div>
 								</div>
 							</div>
-						{{/each}}
+						{{/each_whenDone}}
 					</div>
 				{{else}}
 					<p class="js-no-items">Keine Einträge</p>
