@@ -10,38 +10,6 @@
 	//
 
 	/**
-		check localStorage support
-
-		@return {Boolean}
-	*/
-	function clientSupportsLocalStorage() {
-		/*try {
-			return 'localStorage' in window && window['localStorage'] !== null;
-		} catch (e) {
-			return false;
-		}*/
-		return typeof localStorage !== 'undefined';
-	}
-
-	/**
-		get id from url query params
-		given url is only containing ?id=x
-
-		@return {String} id
-	*/
-	function getIdFromQueryString() {
-		var query = location.search,// ?id=x
-			arrId = query.substring(1).split('='),// ['id','x']
-			id;
-
-		if (arrId[0] === 'id') {
-			id = arrId[1];
-		}
-
-		return id;
-	}
-
-	/**
 		change theme via styleswitcher
 		add/remove .skin-... classes on <html>
 
@@ -146,81 +114,7 @@ console.log('invalid sorter');
 	}
 
 
-	//---
-	// HANDLEBARS
-	//
-
-	/**
-		shortcut for hbs compile
-		provide source ID selector, target ID selector
-		and data object
-
-		@param {String} strSourceId
-		@param {String} strTargetId
-		@param {Object} objData
-	*/
-	function handle(strSourceId, strTargetId, objData) {
-		var source = $(strSourceId).html(),
-			template = Handlebars.compile(source),
-			data = objData;
-console.log('handle:');
-console.log('target:',$(strTargetId));
-console.log('data:',data);
-		$(strTargetId).html(template(data));
-	}
-
-	/**
-		helper: return html snippet
-		for importance as many times as level indicates
-		used on main view
-
-		@param {String} level
-
-		@return {String} buffer
-	*/
-	Handlebars.registerHelper('importanceHelper', function(level) {
-		var buffer = '',
-			snippet = '<i class=\"icon-power\"></i>';
-
-		for (var i = 0; i < level; i++) {
-			buffer += snippet;
-		}
-
-		return buffer;
-	});
-
-	/**
-		helper: return html snippet
-		for importance with checked state for level
-		used on edit view
-
-		@param {String} level
-
-		@return {String} buffer
-	*/
-	// Todo passing nodeEntry
-	Handlebars.registerHelper('checkedHelper', function(level) {
-		var buffer = '',
-			maxItems = 5,
-			intLevel = parseInt(level,10);
-
-		// inverse loop in order to match float:right (we need 5,4,3,2,1)
-		for (var i = maxItems; i > 0; i--) {
-			if (intLevel === i) {
-				buffer += '<input id=\"inpImportance' + i + '\" type=\"radio\" name=\"importance\" value=\"' + i + '\" checked=\"checked\" />';
-			}
-			else {
-				buffer += '<input id=\"inpImportance' + i + '\" type=\"radio\" name=\"importance\" value=\"' + i + '" />';
-			}
-
-			buffer +=	'<label for=\"inpImportance' + i + '\"> \
-							<i class=\"icon-power\" title=\"Wichtigkeit: ' + i + '\"></i>' + i + ' \
-						</label>';
-		}
-
-		return buffer;
-	});
-
+	// TODO replace with REST/expressjs
 	/* Revealing Module */
 	// Todo Finish Module
 	var notesEntry = (function() {
@@ -334,27 +228,6 @@ console.log('data:',data);
 
 		// check if main view active
 		if (isMainView) {
-			if (clientSupportsLocalStorage) {
-console.log('localStorage.length:',localStorage.length);
-				if (localStorage.length !== 0) {
-					$noItems.hide();
-
-					// load all items
-					arrItems = notesEntry.showNotesEntry();
-
-					// compile handlebar with items array
-					handle('#notes-template', '#notes', { items: arrItems });
-				}
-				else {
-					$noItems.show();
-				}
-			}
-			else {
-				alert('achtung kein localStorage');
-				// TODO cookie alternative
-			}
-
-
 			//---
 			// MAIN VIEW
 			//
@@ -363,13 +236,7 @@ console.log('localStorage.length:',localStorage.length);
 			$ctx.on('click', '.js-new', function(e){
 				e.preventDefault();
 
-				// calculate new id (count existing)
-				if (clientSupportsLocalStorage()) {
-					var newStorageIndex = localStorage.length + 1;// use item length of localStorage to generate id for new entry
-
-					location.href = 'edit.html?id=' + newStorageIndex;
-
-				}
+				location.href = '/notes/new';
 			});
 
 
@@ -432,7 +299,7 @@ console.log('blnFilterAlreadyActive:',blnFilterAlreadyActive);
 
 				if (filtered.length > 0) {
 					// compile handlebar with items array
-					handle('#notes-template', '#notes', { items: filtered });
+					//handle('#notes-template', '#notes', { items: filtered });
 					$noItems.hide();
 				}
 				else {
@@ -451,7 +318,7 @@ console.log('edit via data-item');
 					i = $item.data('item');
 console.log('data-item=',i);
 
-				location.href = 'edit.html?id=' + i;
+				location.href = '/notes/' + i;
 			});
 
 
@@ -514,24 +381,14 @@ console.log('id:',id);
 			//
 
 
-			// load item data to be edited by id
-			var editId = getIdFromQueryString(),
-				editItem,
-				$dp,
-				cfgRegion = 'de',
-				cfgFormat = 'dd.mm.yy';
-
-			if (typeof editId !== 'undefined') {
-				// TODO invalid ids
-				editItem = notesEntry.getNotesEntry(editId);
-
-				// compile handlebar with editItem
-				handle('#edit-template', '#edit', editItem);
-			}
+			// TODO invalid ids
 
 
 			// datepicker https://jqueryui.com/datepicker/
-			$dp = $ctx.find('.js-dp');
+			var $dp = $ctx.find('.js-dp'),
+				cfgRegion = 'de',
+				cfgFormat = 'dd.mm.yy';
+
 			$dp.datepicker(
 				$.extend(
 					{},
@@ -548,27 +405,28 @@ console.log('id:',id);
 
 			// form submit
 			$ctx.on('submit', '.js-form', function(e) {
+				// TODO serialize all necessary hidden fields
 				// TODO clientside validate date (format, not in past), alert onerror
-				var $frm = $(this),
+				/*var $frm = $(this),
 					id = getIdFromQueryString(),
 					title = $frm.find('#inpTitle').val(),
 					text = $frm.find('#inpDescription').val(),
 					importanceValue = $frm.find('input[name=importance]:checked').val(),// workaround for hidden radio
-					$hiddenImportance = $frm.find('#inpImportanceHidden'),
+					$hiddenImportance = $frm.find('#inpImportanceHidden');
 					created = Date(),
 					dueDate = $frm.find('#inpDue').val(),
 					done = $frm.find('#inpDone').val() === 'true' ? true : false;// include hidden value for done state, not editable here by user
 
 				if (typeof id !== 'undefined') {
-					// update hidden field with checked radio value
+					 update hidden field with checked radio value
 					$hiddenImportance.val(importanceValue);
-					/* passing data into a private method */
+					// passing data into a private method
 					notesEntry.addNotesEntry(id, title, text, importanceValue, created, dueDate, done);
 				}
 				else {
 					console.log('error: id undefined');
 					return false;
-				}
+				}*/
 			});
 		}
 	})($);
