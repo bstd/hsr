@@ -2,7 +2,7 @@ var Datastore = require('nedb'),
 	db = new Datastore({ filename: '../data/notez.db', autoload: true });
 
 
-// TODO: note properties
+// note properties
 // nedb automatically generates index (_id)!
 function Note(title, text, importance, dueDate, done) {
 	this.title = title;
@@ -10,7 +10,7 @@ function Note(title, text, importance, dueDate, done) {
 	this.importance = importance;
 	this.creationDate = JSON.stringify(new Date());// always new
 	this.dueDate = dueDate;
-	this.done = false;// initially false
+	this.done = done;
 }
 
 
@@ -21,7 +21,7 @@ function publicAdd(reqBody, callback) {
 		text = reqBody.inpDescription,
 		importance = reqBody.importance,
 		dueDate = reqBody.inpDue,
-		done = reqBody.inpDone;
+		done = false;// initially false
 
 	var note = new Note(title, text, importance, dueDate, done);
 
