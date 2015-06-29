@@ -10,10 +10,25 @@
 	//
 
 	/**
+		set theme if cookie found
+
+		@param {jQuery} $context
+	*/
+	function setTheme($context) {
+		var strCookieStyle = Cookies.get('theme');
+
+		if (typeof strCookieStyle !== 'undefined') {
+			$context.find('.js-switch-style').val(strCookieStyle);
+			setSkin(strCookieStyle);
+		}
+	}
+
+	/**
 		change theme via styleswitcher
 		add/remove .skin-... classes on <html>
+		update cookie
 
-		@param {Number} code
+		@param {String|Number} code
 	*/
 	function setSkin(code) {
 		var arrSkins = ['skin-blackwhite'],
@@ -25,7 +40,8 @@
 			$('html').addClass(arrSkins[code]);
 		}
 
-		// TODO store chosen skin in cookie
+		//  store chosen code in cookie
+		Cookies.set('theme', code, { expires: 100 });
 	}
 
 	/**
@@ -223,7 +239,10 @@ console.log('invalid sorter');
 		var $ctx = $(document).find('.js-module'),
 			isMainView = $ctx.find('.js-init').length !== 0,
 			arrItems = [],
-			$noItems = $ctx.find('.js-no-items');
+			$noItems = $ctx.find('.js-no-items'),
+			strCookieStyle = '';
+console.log('$ctx=',$ctx);
+console.log('isMainView=',isMainView);
 
 
 		// check if main view active
@@ -231,6 +250,11 @@ console.log('invalid sorter');
 			//---
 			// MAIN VIEW
 			//
+
+
+			// set theme
+			setTheme($ctx);
+
 
 			// create new note
 			$ctx.on('click', '.js-new', function(e){
@@ -242,7 +266,6 @@ console.log('invalid sorter');
 
 			// switch style
 			$ctx.on('change', '.js-switch-style', function(e){
-				e.preventDefault();
 console.log('switch style');
 				var strVal = $(this).val(),
 					codeSkin = isFinite(parseInt(strVal,10)) ? parseInt(strVal,10) : 'default';
@@ -379,6 +402,10 @@ console.log('id:',id);
 			//---
 			// OTHER VIEW
 			//
+
+
+			// set theme
+			setTheme($ctx);
 
 
 			// TODO invalid ids
