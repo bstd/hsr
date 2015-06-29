@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notez App Startseite</title>
+
+    <meta charset="utf-8"/>
+    <meta name="robots" content="noindex, nofollow"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="/css/styles.min.css" type="text/css" />
+</head>
+<body>
+<div class="container">
+    <main class="js-module">
+        <div class="controls">
+            <div class="controls-primary">
+                <div class="controls-column">
+                    <button class="btn js-new">
+                        <i class="icon-file-empty"></i>
+                        <span>Notiz erstellen</span>
+                    </button>
+                </div>
+
+                <div class="controls-column">
+                    <select class="js-switch-style">
+                        <option value="default">Standard Theme</option>
+                        <option value="0">Schwarz-Weiss Theme</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="controls-secondary">
+                <div class="controls-column">
+                    <a href="#" class="sort js-sort" data-sort="due" title="Einträge sortieren nach">Erledigungsdatum</a>
+                    <a href="#" class="sort js-sort" data-sort="created" title="Einträge sortieren nach">Erstellungsdatum</a>
+                    <a href="#" class="sort js-sort" data-sort="importance" title="Einträge sortieren nach">Wichtigkeit</a>
+                </div>
+
+                <div class="controls-column">
+                    <a href="/" class="filter js-filter state-active" data-filter="done">erledigte anzeigen</a>
+                </div>
+            </div>
+        </div>
+
+        {{#if items}}
+            <div id="notes" class="items js-init">
+                {{#each_whenDone items "done" "true"}}
+                    <div class="item">
+                        <div class="item-col size1of5">
+                            <div class="item-due">
+                                <p>{{dueDate}}</p>
+                                <input class="js-done" type="checkbox" id="inp{{_id}}" name="inp{{_id}}" value="{{_id}}"{{#if done}} checked{{/if}}>
+                                <label for="inp{{_id}}">erledigt</label>
+                            </div>
+                        </div>
+
+                        <div class="item-col size3of5">
+                            <div class="line">
+                                <div class="col size4of5">
+                                    <p class="item-title">{{title}}</p>
+                                </div>
+                                <div class="col size1of5">
+                                    <div class="item-importance" title="Wichtigkeit">
+                                        {{#if importance}}
+                                        {{!-- use markup, do not escape --}}
+                                            {{{importanceHelper importance}}}
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-desc js-expand">
+                                <p class="ellipsis">{{text}}</p>
+                                <i class="icon-zoom-in"></i>
+                            </div>
+                        </div>
+
+                        <div class="item-col size1of5 va-middle">
+                            <div class="item-action">
+                                <button class="btn js-edit" data-item="{{_id}}">
+                                    <i class="icon-pencil2"></i>
+                                    <span>Bearbeiten</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {{/each_whenDone}}
+            </div>
+        {{else}}
+            <p class="js-no-items">Keine Einträge</p>
+        {{/if}}
+    </main>
+</div>
+
+<noscript>Diese Seite benötigt aktiviertes Javascript</noscript>
+<script src="/js/script.min.js"></script>
+</body>
+</html>

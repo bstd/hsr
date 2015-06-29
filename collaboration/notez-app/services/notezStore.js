@@ -70,4 +70,14 @@ function publicAll(callback) {
 	});
 }
 
-module.exports = { add: publicAdd, edit: publicEdit, get: publicGet, all: publicAll };
+// get sort importance
+function publicSortImportance(callback) {
+	db.find({}).sort({ importance: -1 }).skip(1).exec(function (err, sortImportance) {
+		if (err) {
+			res.send(err);
+		}
+		callback(err, sortImportance);
+	});
+}
+
+module.exports = { add: publicAdd, edit: publicEdit, get: publicGet, all: publicAll, allSortImportance: publicSortImportance  };

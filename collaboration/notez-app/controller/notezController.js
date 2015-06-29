@@ -21,3 +21,5 @@ module.exports.addNote = function(req, res, next) {
 		res.redirect('/');
 	});
 };
+
+

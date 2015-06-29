@@ -273,65 +273,6 @@ console.log('switch style');
 				setSkin(codeSkin);
 			});
 
-
-			// sort by data-sort
-			$ctx.on('click', '.js-sort', function(e){
-				e.preventDefault();
-console.log('sort by data-sort');
-
-				var $sorter = $(this),
-					by = $sorter.data('sort'),
-					arrItems = [],
-					sortedItems = [],
-					blnSorterAlreadyActive = $sorter.is('.state-active');
-//console.log('data-sort=',by);
-console.log('blnSorterAlreadyActive:',blnSorterAlreadyActive);
-
-				// state toggle
-				$sorter.toggleClass('state-active');
-
-				// load items
-				arrItems = notesEntry.showNotesEntry();
-
-				// sort, only if active state false
-				sortedItems = blnSorterAlreadyActive ? arrItems : sort(arrItems, by);
-
-				// compile handlebar with items array
-				handle('#notes-template', '#notes', { items: sortedItems });
-			});
-
-
-			// filter by data-filter
-			$ctx.on('click', '.js-filter', function(e){
-				e.preventDefault();
-console.log('filter by data-filter');
-
-				var $filter = $(this),
-					only = $filter.data('filter'),
-					filtered = [],
-					blnFilterAlreadyActive = $filter.is('.state-active');
-//console.log('data-filter=',only);
-console.log('blnFilterAlreadyActive:',blnFilterAlreadyActive);
-
-				// state toggle
-				$filter.toggleClass('state-active');
-
-				// toggle filter and update view
-				// filter, only if active state false
-				filtered = blnFilterAlreadyActive ? arrItems : filter(arrItems, only);
-
-				if (filtered.length > 0) {
-					// compile handlebar with items array
-					handle('#notes-template', '#notes', { items: filtered });
-					$noItems.hide();
-				}
-				else {
-					$('#notes').empty();
-					$noItems.show();
-				}
-			});
-
-
 			// edit via data-item
 			$ctx.on('click', '.js-edit', function(e){
 				e.preventDefault();
@@ -343,7 +284,6 @@ console.log('data-item=',i);
 
 				location.href = '/notes/' + i;
 			});
-
 
 			// toggle item detail and icon
 			$ctx.on('click', '.js-expand', function(e){
