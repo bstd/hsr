@@ -2,15 +2,7 @@
 <html>
 	<head>
 		<title>Notiz erstellen / bearbeiten</title>
-
-		<meta charset="utf-8"/>
-		<meta name="robots" content="noindex, nofollow"/>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-		<meta name="viewport" content="width=device-width,initial-scale=1"/>
-
-		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-
-		<link rel="stylesheet" href="/css/styles.min.css" type="text/css" />
+		{{> head}}
 	</head>
 	<body>
 		<div class="container">
@@ -35,15 +27,13 @@
 						<fieldset>
 							<legend class="form-label-group">Wichtigkeit</legend>
 							<div class="form-radio">
-								<!--input type="hidden" id="inpImportanceHidden" name="inpImportanceHidden" value="{{importance}}"-->
-
 								<div class="line">
 									<div class="col">
 										{{#if importance}}
 											{{!-- use markup, do not escape --}}
-											{{{checkedHelper importance}}}
+											{{{importanceCheckedHelper importance}}}
 										{{else}}
-											{{{checkedHelper 0}}}
+											{{{importanceCheckedHelper 0}}}
 										{{/if}}
 									</div>
 								</div>
@@ -84,7 +74,6 @@
 			</main>
 		</div>
 
-		<noscript>Diese Seite benötigt aktiviertes Javascript</noscript>
-		<script src="/js/script.min.js"></script>
+		{{> foot}}
 	</body>
 </html>

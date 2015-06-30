@@ -325,7 +325,7 @@ console.log('update item.done');
 							inpDescription: data.text,
 							importance: data.importance,
 							inpDue: data.dueDate,
-							inpDone: !data.done// toogle boolean
+							inpDone: blnDone
 						}
 //console.log('tmpData=',tmpData);
 //console.log(tmpData.inpDone);
@@ -336,9 +336,12 @@ console.log('update item.done');
 							url: '/notes/' + id,
 							dataType: 'json',
 							data: tmpData,
-							success: function(data, status, jqXHR) {
-//console.log('success data=',data);
+							success: function(result, status, jqXHR) {
+//console.log('success result=',result);
 //console.log('status=',status);
+								if (result.status == 200) {
+									location.href = '/';
+								}
 							},
 							error: function(jqXHR, status) {
 //console.log(jqXHR, status);

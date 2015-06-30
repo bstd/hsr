@@ -20,6 +20,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 // handlebars setup
 app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials');
 
 
 // middlewares

@@ -1,27 +1,8 @@
 var hbs = require('hbs');
 
 //---
-// HANDLEBARS
+// HANDLEBARS HELPER
 //
-
-/**
-	shortcut for hbs compile
-	provide source ID selector, target ID selector
-	and data object
-
-	@param {String} strSourceId
-	@param {String} strTargetId
-	@param {Object} objData
-*/
-function handle(strSourceId, strTargetId, objData) {
-	var source = $(strSourceId).html(),
-		template = hbs.compile(source),
-		data = objData;
-console.log('handle:');
-console.log('target:',$(strTargetId));
-console.log('data:',data);
-	$(strTargetId).html(template(data));
-}
 
 /**
 	helper: return html snippet
@@ -52,8 +33,7 @@ hbs.registerHelper('importanceHelper', function(level) {
 
 	@return {String} buffer
 */
-// Todo passing nodeEntry
-hbs.registerHelper('checkedHelper', function(level) {
+hbs.registerHelper('importanceCheckedHelper', function(level) {
 	var buffer = '',
 		maxItems = 5,
 		intLevel = parseInt(level,10);
@@ -75,6 +55,28 @@ hbs.registerHelper('checkedHelper', function(level) {
 	return buffer;
 });
 
+/**
+	helper: return html snippet
+	for checkbox checked state
+	toggled by converted string to boolean
+	used on index view
+
+	@param {String} str
+
+	@return {String} buffer
+*/
+hbs.registerHelper('checkedHelper', function(str) {
+	var buffer = '',
+		blnChecked = (str === 'true');
+
+	buffer += blnChecked ? ' checked=\"checked\"' : '';
+
+	return buffer;
+});
+
+/**
+	helper: TODO
+*/
 hbs.registerHelper('each_whenDone', function(list, k, v, opts) {
 	console.log('eachDone:'+arguments);
 	var i, result = '';

@@ -24,7 +24,7 @@ module.exports.editNote = function(req, res, next) {
 				res.redirect('/');
 			},
 			'application/json': function(){
-				res.end();;// no redirect for json typed calls
+				res.end('{"success" : "Updated Successfully", "status" : 200}');// no redirect for json typed calls
 			}
 		});
 	});
@@ -36,5 +36,3 @@ module.exports.addNote = function(req, res, next) {
 		res.redirect('/');
 	});
 };
-
-

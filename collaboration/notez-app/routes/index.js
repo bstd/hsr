@@ -6,20 +6,26 @@ var express = require('express'),
 router.get('/', function(req, res) {
 	indexController.index(req, res);
 });
+
 // route filtered
-router.get('/filtered', function (req, res) {
+router.get('/filtered', function(req, res) {
 	indexController.filtered(req, res);
 });
+
 // route sort due date
-router.get('/sortduedate', function (req, res) {
+router.get('/sortduedate', function(req, res) {
 	indexController.sortduedate(req, res);
 });
+
 // route sort creation date
-router.get('/sortcreationdate', function (req, res) {
+router.get('/sortcreationdate', function(req, res) {
 	indexController.sortcreationdate(req, res);
 });
+
 // route sort importance
-router.get('/sortimportance', function (req, res) {
+router.get('/sortimportance', function(req, res) {
 	indexController.sortimportance(req, res);
 });
+
+
 module.exports = router;

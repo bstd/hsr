@@ -2,15 +2,7 @@
 <html>
 	<head>
 		<title>Notez App Startseite</title>
-
-		<meta charset="utf-8"/>
-		<meta name="robots" content="noindex, nofollow"/>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-		<meta name="viewport" content="width=device-width,initial-scale=1"/>
-
-		<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-
-		<link rel="stylesheet" href="/css/styles.min.css" type="text/css" />
+		{{> head}}
 	</head>
 	<body>
 		<div class="container">
@@ -52,8 +44,8 @@
 								<div class="item-col size1of5">
 									<div class="item-due">
 										<p>{{dueDate}}</p>
-										<input class="js-done" type="checkbox" id="inp{{_id}}" name="inp{{_id}}" value="{{_id}}"{{#if done}} checked{{/if}}>
-										<label for="inp{{_id}}">erledigt</label>
+										<input class="js-done" type="checkbox" id="inp{{_id}}" name="inp{{_id}}" value="{{_id}}"{{{checkedHelper done}}}>
+										<label for="inp{{_id}}">erledigt-{{done}}</label>
 									</div>
 								</div>
 
@@ -94,7 +86,6 @@
 			</main>
 		</div>
 
-		<noscript>Diese Seite benötigt aktiviertes Javascript</noscript>
-		<script src="/js/script.min.js"></script>
+		{{> foot}}
 	</body>
 </html>
