@@ -14,7 +14,7 @@ module.exports.showNote = function(req, res, next) {
 			}
 		});
 	});
-}
+};
 
 // PUT note detail (edit)
 module.exports.editNote = function(req, res, next) {
@@ -28,7 +28,7 @@ module.exports.editNote = function(req, res, next) {
 			}
 		});
 	});
-}
+};
 
 // POST note (save new)
 module.exports.addNote = function(req, res, next) {

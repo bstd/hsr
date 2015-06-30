@@ -75,7 +75,11 @@ hbs.registerHelper('checkedHelper', function(str) {
 });
 
 /**
-	helper: TODO
+ helper: return filtered done state
+
+ @param {String} list, k, v, opts
+
+ @return {String} result
 */
 hbs.registerHelper('each_whenDone', function(list, k, v, opts) {
 	console.log('eachDone:'+arguments);

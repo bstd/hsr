@@ -326,7 +326,7 @@ console.log('update item.done');
 							importance: data.importance,
 							inpDue: data.dueDate,
 							inpDone: blnDone
-						}
+						};
 //console.log('tmpData=',tmpData);
 //console.log(tmpData.inpDone);
 

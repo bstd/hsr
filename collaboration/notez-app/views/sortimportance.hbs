@@ -52,8 +52,8 @@
                         <div class="item-col size1of5">
                             <div class="item-due">
                                 <p>{{dueDate}}</p>
-                                <input class="js-done" type="checkbox" id="inp{{_id}}" name="inp{{_id}}" value="{{_id}}"{{#if done}} checked{{/if}}>
-                                <label for="inp{{_id}}">erledigt</label>
+                                <input class="js-done" type="checkbox" id="inp{{_id}}" name="inp{{_id}}" value="{{_id}}"{{{checkedHelper done}}}>
+                                <label for="inp{{_id}}">erledigt-{{done}}</label>
                             </div>
                         </div>
 

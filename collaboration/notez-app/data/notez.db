@@ -11,3 +11,5 @@
 {"title":"tix","text":"dex","creationDate":"\"2015-06-28T09:48:55.802Z\"","dueDate":"30.06.2015","done":"false","_id":"ql4wugKy9nUaLcCH"}
 {"title":"t1 Notzititel lorem ipsum","text":"d1","importance":"0","creationDate":"Sat Jun 20 2015 10:46:01 GMT+0200","dueDate":"","done":"false","_id":"v9LVu3BnG9lJE2hc"}
 {"title":"t6","text":"d6 lorem Lorem ipsum dol...thaginem esse delendam.","importance":"5","creationDate":"Sat Jun 20 2015 10:46:01 GMT+0200","dueDate":"11.04.2016","done":"false","_id":"za7FjIMwFIH8YqI1"}
+{"title":"t2 Notiztitel wieder","text":"d2 Lorem ipsum dolor sit...thaginem esse delendam.","importance":"1","creationDate":"\"2015-06-30T12:17:54.029Z\"","dueDate":"11.02.2016","done":"true","_id":"D7dQngIahcJSLPYl"}
+{"title":"t5","text":"d5 lorem Lorem ipsum dol...thaginem esse delendam.","importance":"4","creationDate":"\"2015-06-30T12:17:56.482Z\"","dueDate":"13.02.2016","done":"true","_id":"VBgH3aCoL6276qSD"}
