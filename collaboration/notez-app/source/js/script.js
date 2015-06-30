@@ -1,4 +1,4 @@
-// NAMESPACE: self contained via IIFE
+﻿// NAMESPACE: self contained via IIFE
 //	jquery scope
 //	window, document directly accessible
 //	undefined immutable
@@ -239,10 +239,13 @@ console.log('invalid sorter');
 		var $ctx = $(document).find('.js-module'),
 			isMainView = $ctx.find('.js-init').length !== 0,
 			arrItems = [],
-			$noItems = $ctx.find('.js-no-items'),
-			strCookieStyle = '';
+			$noItems = $ctx.find('.js-no-items');
 console.log('$ctx=',$ctx);
 console.log('isMainView=',isMainView);
+
+
+		// avoid ajax caching
+		$.ajaxSetup({ cache: false });
 
 
 		// check if main view active
@@ -273,17 +276,17 @@ console.log('switch style');
 				setSkin(codeSkin);
 			});
 
+
 			// edit via data-item
 			$ctx.on('click', '.js-edit', function(e){
 				e.preventDefault();
-console.log('edit via data-item');
 
 				var $item = $(this),
 					i = $item.data('item');
-console.log('data-item=',i);
 
 				location.href = '/notes/' + i;
 			});
+
 
 			// toggle item detail and icon
 			$ctx.on('click', '.js-expand', function(e){
@@ -297,45 +300,59 @@ console.log('toggle item detail and icon');
 				$icon.toggleClass('icon-zoom-in').toggleClass('icon-zoom-out');
 			});
 
+
 			// click checkbox: update item.done to :checked ? true:false
 			$ctx.on('click', '.js-done', function(e){
-console.log('update item.done true:false');
+console.log('update item.done');
 				var $this = $(this),
 					id = $this.val(),
-					$activeFilter = $ctx.find('.js-filter.state-active'),
-					filterOnly,
-					filteredItems = [],
-					oldItem,
-					newItem;
+					blnDone = $this.is(':checked'),
+					blnProceed = false,
+					tmpData = {};
 
-				// update localStorage
-				oldItem = notesEntry.getNotesEntry(id);
-console.log('oldItem.done:',oldItem.done);
-				oldItem.done = $this.is(':checked');
+				// ask confirmation before proceeding
+				blnProceed = window.confirm('Erledigung bestätigen?');
 
-				newItem = oldItem;
-console.log('newItem.done:',newItem.done);
-console.log('id:',id);
+				if (blnProceed) {
+					$.when(
+						// get note by id
+						$.getJSON('/notes/' + id, function(data) {})
+					).then(function(data, textStatus, jqXHR) {
+						// if we use the same notezStore function, we have to pass in the same names as with form fields
+						tmpData = {
+							id: data.id,
+							inpTitle: data.title,
+							inpDescription: data.text,
+							importance: data.importance,
+							inpDue: data.dueDate,
+							inpDone: !data.done// toogle boolean
+						}
+//console.log('tmpData=',tmpData);
+//console.log(tmpData.inpDone);
 
-				notesEntry.changeNotesEntry(id, newItem);
-
-				// load updated items
-				arrItems = notesEntry.showNotesEntry();
-
-				// apply active filter
-				if ($activeFilter.length > 0) {
-					filterOnly = $activeFilter.data('filter');
-					filteredItems = filter(arrItems, filterOnly);
+						// RESTful PUT for id with updated tmpData
+						$.ajax({
+							type: 'put',
+							url: '/notes/' + id,
+							dataType: 'json',
+							data: tmpData,
+							success: function(data, status, jqXHR) {
+//console.log('success data=',data);
+//console.log('status=',status);
+							},
+							error: function(jqXHR, status) {
+//console.log(jqXHR, status);
+							}
+						});
+					});
 				}
 				else {
-					filteredItems = arrItems;
+					e.preventDefault();
 				}
 
-				// apply active sort
-				// TODO
 
-				// compile handlebar with items array
-				handle('#notes-template', '#notes', { items: filteredItems });// TODO use sortedItems when implemented
+				// TODO apply default filter/sort ?
+				//$activeFilter = $ctx.find('.js-filter.state-active'),
 			});
 		}
 		else {

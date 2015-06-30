@@ -50,12 +50,16 @@ function publicEdit(id, reqBody, callback) {
 		}
 	});
 }
+
+
 // get single note
 function publicGet(id, callback) {
 	db.findOne({ _id: id }, function(err, note) {
 		callback(err, note);
 	});
 }
+
+
 // get all notes
 function publicAll(callback) {
 	db.find({}, function(err, all) {
@@ -65,6 +69,8 @@ function publicAll(callback) {
 		callback(err, all);
 	});
 }
+
+
 // get sort creation date
 function publicSortDueDate(callback) {
 	db.find({}).sort({ dueDate: -1 }).skip(1).exec(function (err, dueDate) {
