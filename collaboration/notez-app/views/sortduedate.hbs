@@ -47,7 +47,7 @@
 
         {{#if items}}
             <div id="notes" class="items js-init">
-                {{#eachDueDate items}}
+                {{#each items}}
                     <div class="item">
                         <div class="item-col size1of5">
                             <div class="item-due">
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                     </div>
-                {{/eachDueDate}}
+                {{/each}}
             </div>
         {{else}}
             <p class="js-no-items">Keine Einträge</p>
