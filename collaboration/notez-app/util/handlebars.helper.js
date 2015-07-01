@@ -89,3 +89,7 @@ hbs.registerHelper('each_whenDone', function(list, k, v, opts) {
 			result = result + opts.fn(list[i]);
 	return result;
 });
+// Comments
+hbs.registerHelper("shortDate", function(creationDate) {
+	return new Date(creationDate).toString('yyyy-MM-dd')
+});

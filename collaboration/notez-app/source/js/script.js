@@ -285,8 +285,6 @@ console.log('update item.done');
 					}
 				)
 			);
-
-
 			// form submit
 			$ctx.on('submit', '.js-form', function(e) {
 				// TODO serialize all necessary hidden fields
