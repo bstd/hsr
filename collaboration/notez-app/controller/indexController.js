@@ -16,19 +16,19 @@ module.exports.filtered= function(req, res, next) {
 // Get sort due date
 module.exports.sortduedate= function(req, res, next) {
 	notezStore.sortDueDate(function(err, sortDueDate) {
-		res.render('sortduedate', {items: sortDueDate});
+		res.render('sorting', {items: sortDueDate});
 	});
 };
 
 // Get sort creation date
 module.exports.sortcreationdate= function(req, res, next) {
 	notezStore.sortCreationDate(function(err, sortCreationDate) {
-		res.render('sortcreationdate', {items: sortCreationDate});
+		res.render('sorting', {items: sortCreationDate});
 	});
 };
 // Get sort creation date
 module.exports.sortimportance= function(req, res, next) {
 	notezStore.allSortImportance(function(err, allSortImportance) {
-		res.render('sortimportance', {items: allSortImportance});
+		res.render('sorting', {items: allSortImportance});
 	});
 };
