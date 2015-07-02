@@ -270,15 +270,19 @@ console.log('update item.done');
 
 			// datepicker https://jqueryui.com/datepicker/
 			var $dp = $ctx.find('.js-dp'),
+				$isoDateField = $ctx.find('.js-date'),
 				cfgRegion = 'de',
-				cfgFormat = 'dd.mm.yy';
+				cfgUiFormat = 'dd.mm.yy',
+				cfgDbFormat = 'yy-mm-dd';// ISO_8601
 
 			$dp.datepicker(
 				$.extend(
 					{},
 					$.datepicker.regional[cfgRegion], {
-						'dateFormat': cfgFormat,
+						'dateFormat': cfgUiFormat,
 						'defaultDate': $dp.val(),
+						'altField': $isoDateField,
+						'altFormat': cfgDbFormat,
 						'changeMonth': true,
 						'changeYear': true,
 						'yearRange': '2015:2020'
@@ -287,6 +291,10 @@ console.log('update item.done');
 			);
 			// form submit
 			$ctx.on('submit', '.js-form', function(e) {
+				/*console.log($dp);
+				console.log($isoDateField);
+				return false;*/
+
 				// TODO serialize all necessary hidden fields
 				// TODO clientside validate date (format, not in past), alert onerror
 				/*var $frm = $(this),

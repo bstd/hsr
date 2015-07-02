@@ -12,6 +12,7 @@
 						<input type="hidden" name="_method" value="put">
 					{{/if}}
 					<input type="hidden" id="inpDone" name="inpDone" value="{{done}}">
+					<input type="hidden" id="inpDue" name="inpDue" value="{{inpDue}}" class="js-date">
 
 					<div class="form-row form-required">
 						<label class="form-label-text" for="inpTitle">Notiztitel</label>
@@ -43,7 +44,7 @@
 
 					<div class="form-row form-row-date form-required">
 						<label class="form-label-text" for="inpDue">Erledigt bis</label>
-						<input class="form-date js-dp" type="text" name="inpDue" id="inpDue" placeholder="tt.mm.jjjj" required value="{{dueDate}}" maxlength="10">
+						<input class="form-date js-dp" type="text" name="inpDueDp" id="inpDueDp" placeholder="tt.mm.jjjj" required value="{{dateFormat dueDate}}" maxlength="10">
 						<i class="input-icon icon-calendar"></i>
 					</div>
 

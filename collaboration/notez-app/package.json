@@ -21,6 +21,7 @@
     "grunt-less-imports": "^1.1.0",
     "hbs": "~2.9.0",
     "method-override": "^2.3.3",
+    "moment": "^2.10.3",
     "morgan": "~1.5.1",
     "nedb": "^1.1.2",
     "serve-favicon": "~2.2.0"
