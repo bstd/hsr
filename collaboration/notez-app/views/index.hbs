@@ -43,9 +43,10 @@
 							<div class="item">
 								<div class="item-col size1of5">
 									<div class="item-due">
-										<p>{{dueDate}}</p>
+										<p>fällig: {{dateFormat dueDate}}</p>
 										<input class="js-done" type="checkbox" id="inp{{_id}}" name="inp{{_id}}" value="{{_id}}"{{{checkedHelper done}}}>
 										<label for="inp{{_id}}">erledigt-{{done}}</label>
+										<p>(erstellt: {{dateFormat creationDate}})</p>
 									</div>
 								</div>
 

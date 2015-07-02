@@ -1,5 +1,6 @@
 var Datastore = require('nedb'),
-	db = new Datastore({ filename: '../data/notez.db', autoload: true });
+	db = new Datastore({ filename: '../data/notez.db', autoload: true }),
+	util = require('../util/date.helper.js');
 
 
 // note properties
@@ -9,7 +10,7 @@ function Note(title, text, importance, dueDate, done) {
 	this.text = text;
 	this.importance = importance;
 	this.creationDate = JSON.stringify(new Date());// always new
-	this.dueDate = dueDate;
+	this.dueDate = JSON.stringify(new Date(dueDate));
 	this.done = done;
 }
 
@@ -20,7 +21,7 @@ function publicAdd(reqBody, callback) {
 	var title = reqBody.inpTitle,
 		text = reqBody.inpDescription,
 		importance = reqBody.importance,
-		dueDate = reqBody.inpDue,
+		dueDate = reqBody.inpDue,// date: 'yy-mm-dd' -> ISO_8601
 		done = false;// initially false
 
 	var note = new Note(title, text, importance, dueDate, done);
@@ -39,7 +40,7 @@ function publicEdit(id, reqBody, callback) {
 		title = reqBody.inpTitle,
 		text = reqBody.inpDescription,
 		importance = reqBody.importance,
-		dueDate = reqBody.inpDue,
+		dueDate = reqBody.inpDue,// date: 'yy-mm-dd' -> ISO_8601
 		done = reqBody.inpDone;
 
 	var note = new Note(title, text, importance, dueDate, done);

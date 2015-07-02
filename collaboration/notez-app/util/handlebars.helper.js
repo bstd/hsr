@@ -1,4 +1,5 @@
-var hbs = require('hbs');
+var hbs = require('hbs'),
+	moment = require('moment');
 
 //---
 // HANDLEBARS HELPER
@@ -8,6 +9,8 @@ var hbs = require('hbs');
 	helper: return html snippet
 	for importance as many times as level indicates
 	used on main view
+
+	usage: {{{importanceHelper string}}}
 
 	@param {String} level
 
@@ -28,6 +31,8 @@ hbs.registerHelper('importanceHelper', function(level) {
 	helper: return html snippet
 	for importance with checked state for level
 	used on edit view
+
+	usage: {{{importanceCheckedHelper string}}}
 
 	@param {String} level
 
@@ -61,6 +66,8 @@ hbs.registerHelper('importanceCheckedHelper', function(level) {
 	toggled by converted string to boolean
 	used on index view
 
+	usage: {{{checkedHelper string}}}
+
 	@param {String} str
 
 	@return {String} buffer
@@ -84,4 +91,29 @@ hbs.registerHelper('each_whenDone', function(list, k, v, opts) {
 		if(list[i][k] == v)
 			result = result + opts.fn(list[i]);
 	return result;
+});
+
+/**
+	helper: return formatted date
+	using momentjs (http://momentjs.com/)
+
+	usage: {{dateFormat dateString}}
+
+	@param {String} dateString
+
+	@return {String} d
+*/
+hbs.registerHelper('dateFormat', function(dateString) {
+	var d = '',
+		l = 'de',// locale
+		f = 'L';// dd.mm.yyyy
+//console.log(dateString);
+//console.log(JSON.parse(dateString));
+//console.log(moment(JSON.parse(dateString)).format(f));
+	if (typeof dateString !== 'undefined') {
+		moment.locale(l);
+		d = moment(JSON.parse(dateString)).format(f);
+	}
+
+	return d;
 });
