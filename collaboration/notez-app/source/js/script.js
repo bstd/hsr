@@ -221,7 +221,7 @@ console.log('update item.done');
 							inpTitle: data.title,
 							inpDescription: data.text,
 							importance: data.importance,
-							inpDue: data.dueDate,
+							inpDue: moment(JSON.parse(data.dueDate)).format('YYYY-MM-DD'),// ISO_8601
 							inpDone: blnDone
 						};
 //console.log('tmpData=',tmpData);
@@ -289,6 +289,9 @@ console.log('update item.done');
 					}
 				)
 			);
+
+			// initialize fields (altField is not automatically set!)
+			$dp.datepicker('setDate', $dp.val());
 		}
 	})($);
 
