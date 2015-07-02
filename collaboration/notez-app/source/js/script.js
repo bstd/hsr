@@ -289,35 +289,6 @@ console.log('update item.done');
 					}
 				)
 			);
-			// form submit
-			$ctx.on('submit', '.js-form', function(e) {
-				/*console.log($dp);
-				console.log($isoDateField);
-				return false;*/
-
-				// TODO serialize all necessary hidden fields
-				// TODO clientside validate date (format, not in past), alert onerror
-				/*var $frm = $(this),
-					id = getIdFromQueryString(),
-					title = $frm.find('#inpTitle').val(),
-					text = $frm.find('#inpDescription').val(),
-					importanceValue = $frm.find('input[name=importance]:checked').val(),// workaround for hidden radio
-					$hiddenImportance = $frm.find('#inpImportanceHidden');
-					created = Date(),
-					dueDate = $frm.find('#inpDue').val(),
-					done = $frm.find('#inpDone').val() === 'true' ? true : false;// include hidden value for done state, not editable here by user
-
-				if (typeof id !== 'undefined') {
-					 update hidden field with checked radio value
-					$hiddenImportance.val(importanceValue);
-					// passing data into a private method
-					notesEntry.addNotesEntry(id, title, text, importanceValue, created, dueDate, done);
-				}
-				else {
-					console.log('error: id undefined');
-					return false;
-				}*/
-			});
 		}
 	})($);
 
