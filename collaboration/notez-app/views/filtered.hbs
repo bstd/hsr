@@ -4,16 +4,16 @@
                     <div class="item">
                         <div class="item-col size1of5">
                             <div class="item-due">
-                                <p>{{dueDate}}</p>
-                                <input class="js-done" type="checkbox" id="inp{{_id}}" name="inp{{_id}}" value="{{_id}}"{{#if done}} checked{{/if}}>
-                                <label for="inp{{_id}}">erledigt</label>
+                                <p>fällig: {{dateFormat dueDate}}</p>
+                                <input class="js-done" type="checkbox" id="inp{{_id}}" name="inp{{_id}}" value="{{_id}}"{{{checkedHelper done}}}>
+                                <label for="inp{{_id}}">erledigt-{{done}}</label>
+                                <!--<p>(erstellt: {{dateFormat creationDate}})</p>-->
                             </div>
                         </div>
-
                         <div class="item-col size3of5">
                             <div class="line">
                                 <div class="col size4of5">
-                                    <p class="item-title">{{title}} <span class="item-creation">(erstellt: {{creationDate}})</span></p>
+                                    <p class="item-title">{{title}} <span class="item-creation">({{dateFormat creationDate}}))</span></p>
                                 </div>
                                 <div class="col size1of5">
                                     <div class="item-importance" title="Wichtigkeit">
@@ -29,7 +29,6 @@
                                 <i class="icon-zoom-in"></i>
                             </div>
                         </div>
-
                         <div class="item-col size1of5 va-middle">
                             <div class="item-action">
                                 <button class="btn js-edit" data-item="{{_id}}">

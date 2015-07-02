@@ -17,13 +17,13 @@
 
     <div class="controls-secondary">
         <div class="controls-column">
-            <a href="/sortduedate" class="sort js-sort" data-sort="due" title="Einträge sortieren nach">Erledigungsdatum</a>
-            <a href="/sortcreationdate" class="sort js-sort" data-sort="created" title="Einträge sortieren nach">Erstellungsdatum</a>
-            <a href="/sortimportance" class="sort js-sort" data-sort="importance" title="Einträge sortieren nach">Wichtigkeit</a>
+            <a href="{{#ifPage pageName "Sort-Duedate"}}/{{else}}/sortduedate{{/ifPage}}" class="sort js-sort {{#ifPage pageName 'Sort-Duedate'}}state-active{{/ifPage}}" data-sort="due" title="Einträge sortieren nach">Erledigungsdatum</a>
+            <a href="{{#ifPage pageName "Sort-Creationdate"}}/{{else}}/sortcreationdate{{/ifPage}}" class="sort js-sort {{#ifPage pageName "Sort-Creationdate"}}state-active{{/ifPage}}" data-sort="created" title="Einträge sortieren nach">Erstellungsdatum</a>
+            <a href="{{#ifPage pageName "Sort-Importance"}}/{{else}}/sortimportance{{/ifPage}}" class="sort js-sort {{#ifPage pageName "Sort-Importance"}}state-active{{/ifPage}}" data-sort="importance" title="Einträge sortieren nach">Wichtigkeit</a>
         </div>
 
         <div class="controls-column">
-            <a href="/filtered" class="filter js-filter" data-filter="done">erledigte anzeigen</a>
+            <a href="{{#ifPage pageName "Filtered"}}/{{else}}/filtered{{/ifPage}}" class="filter js-filter {{#ifPage pageName "Filtered"}}state-active{{/ifPage}}" data-filter="done">erledigte anzeigen</a>
         </div>
     </div>
 </div>

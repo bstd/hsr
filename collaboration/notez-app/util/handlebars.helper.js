@@ -96,12 +96,6 @@ hbs.registerHelper('each_whenDone', function(list, k, v, opts) {
 			result = result + opts.fn(list[i]);
 	return result;
 });
-
-// Comments
-hbs.registerHelper("shortDate", function(creationDate) {
-	return new Date(creationDate).toString('yyyy-MM-dd')
-});
-
 /**
 	helper: return formatted date
 	using momentjs (http://momentjs.com/)
@@ -125,4 +119,20 @@ hbs.registerHelper('dateFormat', function(dateString) {
 	}
 
 	return d;
+});
+/**
+ helper: return if else Page
+
+ usage: {{#ifPage pageName String}}
+
+ @param {String} a, b
+
+ @return {String} opts
+ */
+hbs.registerHelper('ifPage', function(a, b, opts) {
+	if (a == b) {
+		return opts.fn(this);
+	} else {
+		return opts.inverse(this);
+	}
 });
