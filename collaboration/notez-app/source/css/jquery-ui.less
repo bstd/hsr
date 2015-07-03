@@ -1,44 +1,45 @@
 @ui-font-family: @font-family-simple;
-@ui-widget-content-border-color: #ddd;
-@ui-widget-content-background: #eee;
-@ui-widget-content-color: #333;
-@ui-widget-content-link-color: #333;
+@ui-widget-content-border-color: @lightgrey2;
+@ui-widget-content-background: @lightgrey;//#eee;
+@ui-widget-content-color: @darkgrey2;
+@ui-widget-content-link-color: @darkgrey2;
 
-@ui-widget-header-border-color: #e78f08;
-@ui-widget-header-background: #f6a828;
-@ui-widget-header-color: #fff;
-@ui-widget-header-link-color: #fff;
+@ui-widget-header-border-color: @c-active;//#e78f08; orange1
+@ui-widget-header-background: @c-active;//#f6a828; orange2
+@ui-widget-header-color: @white;
+@ui-widget-header-link-color: @white;
 
-@ui-widget-state-default-border-color: #ccc;
-@ui-widget-state-default-background: #f6f6f6;
-@ui-widget-state-default-color: #1c94c4;
-@ui-widget-state-default-link-color: #1c94c4;
+@ui-widget-state-default-border-color: @darkgrey;//#ccc;
+@ui-widget-state-default-background: @lightgrey;//#f6f6f6;// hellgrau
+@ui-widget-state-default-color: @darkgrey2;//#1c94c4;// mittelblau
+@ui-widget-state-default-link-color: @darkgrey2;//#1c94c4;
 
-@ui-widget-state-hover-border-color: #fbcb09;
-@ui-widget-state-hover-background: #fdf5ce;
-@ui-widget-state-hover-color: #c77405;
-@ui-widget-state-hover-link-color: #c77405;
+@ui-widget-state-hover-border-color: @c-active;//#fbcb09; gelb1
+@ui-widget-header-state-hover-border-color: @white;
+@ui-widget-state-hover-background: @c-active;//#fdf5ce; hellgelb
+@ui-widget-state-hover-color: @white;//#c77405; dunkelorange
+@ui-widget-state-hover-link-color: @c-active;//#c77405;
 
-@ui-widget-state-active-border-color: #fbd850;
-@ui-widget-state-active-background: #fff;
-@ui-widget-state-active-color: #eb8f00;
-@ui-widget-state-active-link-color: #eb8f00;
+@ui-widget-state-active-border-color: @black;//#fbd850; orange3
+@ui-widget-state-active-background: @c-active;//#fff;
+@ui-widget-state-active-color: @white;//#eb8f00; orange4
+@ui-widget-state-active-link-color: @white;//#eb8f00;
 
-@ui-widget-state-highlight-border-color: #fed22f;
-@ui-widget-state-highlight-background: #ffe45c;
-@ui-widget-state-highlight-color: #363636;
+@ui-widget-state-highlight-border-color: @c-active;//#fed22f; gelb2
+@ui-widget-state-highlight-background: @white;//#ffe45c; gelb3
+@ui-widget-state-highlight-color: @c-active;//#363636;// dunkelgrau
 
-@ui-widget-state-highlight-link-color: #363636;
+@ui-widget-state-highlight-link-color: @darkgrey2;//#363636;
 
-@ui-widget-state-error-border-color: #cd0a0a;
-@ui-widget-state-error-background-color: #b81900;
-@ui-widget-state-error-color: #fff;
+@ui-widget-state-error-border-color: @red;//#cd0a0a;// dunkelrot1
+@ui-widget-state-error-background-color: @red;//#b81900;// dunkelrot2
+@ui-widget-state-error-color: @white;
 
-@ui-widget-state-error-link-color: #fff;
-@ui-widget-state-error-text-color: #fff;
+@ui-widget-state-error-link-color: @white;
+@ui-widget-state-error-text-color: @white;
 
-@ui-widget-overlay-background-color: #666666;
-@ui-widget-overlay-shadow-background-color: #000;
+@ui-widget-overlay-background-color: @darkgrey2;//#666666;// grau
+@ui-widget-overlay-shadow-background-color: @black;
 
 
 
@@ -148,7 +149,7 @@
 }
 .ui-datepicker .ui-datepicker-prev-hover,
 .ui-datepicker .ui-datepicker-next-hover {
-	top: 1px;
+	//top: 1px;
 }
 .ui-datepicker .ui-datepicker-prev {
 	left: 2px;
@@ -157,10 +158,10 @@
 	right: 2px;
 }
 .ui-datepicker .ui-datepicker-prev-hover {
-	left: 1px;
+	//left: 1px;
 }
 .ui-datepicker .ui-datepicker-next-hover {
-	right: 1px;
+	//right: 1px;
 }
 .ui-datepicker .ui-datepicker-prev span,
 .ui-datepicker .ui-datepicker-next span {
@@ -314,7 +315,7 @@
 }
 .ui-widget-content {
 	border: 1px solid @ui-widget-content-border-color;
-	background: @ui-widget-content-background url('../img/ui-bg_highlight-soft_100_eeeeee_1x100.png') 50% top repeat-x;
+	background: @ui-widget-content-background;// url('../img/ui-bg_highlight-soft_100_eeeeee_1x100.png') 50% top repeat-x;
 	color: @ui-widget-content-color;
 }
 .ui-widget-content a {
@@ -322,7 +323,7 @@
 }
 .ui-widget-header {
 	border: 1px solid @ui-widget-header-border-color;
-	background: @ui-widget-header-background url('../img/ui-bg_gloss-wave_35_f6a828_500x100.png') 50% 50% repeat-x;
+	background: @ui-widget-header-background;// url('../img/ui-bg_gloss-wave_35_f6a828_500x100.png') 50% 50% repeat-x;
 	color: @ui-widget-header-color;
 	font-weight: bold;
 }
@@ -336,7 +337,7 @@
 .ui-widget-content .ui-state-default,
 .ui-widget-header .ui-state-default {
 	border: 1px solid @ui-widget-state-default-border-color;
-	background: @ui-widget-state-default-background url('../img/ui-bg_glass_100_f6f6f6_1x400.png') 50% 50% repeat-x;
+	background: @ui-widget-state-default-background;// url('../img/ui-bg_glass_100_f6f6f6_1x400.png') 50% 50% repeat-x;
 	font-weight: bold;
 	color: @ui-widget-state-default-color;
 }
@@ -353,10 +354,15 @@
 .ui-widget-content .ui-state-focus,
 .ui-widget-header .ui-state-focus {
 	border: 1px solid @ui-widget-state-hover-border-color;
-	background: @ui-widget-state-hover-background url('../img/ui-bg_glass_100_fdf5ce_1x400.png') 50% 50% repeat-x;
+	background: @ui-widget-state-hover-background;// url('../img/ui-bg_glass_100_fdf5ce_1x400.png') 50% 50% repeat-x;
 	font-weight: bold;
 	color: @ui-widget-state-hover-color;
 }
+.ui-widget-header .ui-state-hover,
+.ui-widget-header .ui-state-focus {
+	border: 1px solid @ui-widget-header-state-hover-border-color;
+}
+
 .ui-state-hover a,
 .ui-state-hover a:hover,
 .ui-state-hover a:link,
@@ -372,7 +378,7 @@
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
 	border: 1px solid @ui-widget-state-active-border-color;
-	background: @ui-widget-state-active-background url('../img/ui-bg_glass_65_ffffff_1x400.png') 50% 50% repeat-x;
+	background: @ui-widget-state-active-background;// url('../img/ui-bg_glass_65_ffffff_1x400.png') 50% 50% repeat-x;
 	font-weight: bold;
 	color: @ui-widget-state-active-color;
 }
@@ -389,7 +395,7 @@
 .ui-widget-content .ui-state-highlight,
 .ui-widget-header .ui-state-highlight {
 	border: 1px solid @ui-widget-state-highlight-border-color;
-	background: @ui-widget-state-highlight-background url('../img/ui-bg_highlight-soft_75_ffe45c_1x100.png') 50% top repeat-x;
+	background: @ui-widget-state-highlight-background;// url('../img/ui-bg_highlight-soft_75_ffe45c_1x100.png') 50% top repeat-x;
 	color: @ui-widget-state-highlight-color;
 }
 .ui-state-highlight a,
@@ -401,7 +407,7 @@
 .ui-widget-content .ui-state-error,
 .ui-widget-header .ui-state-error {
 	border: 1px solid @ui-widget-state-error-border-color;
-	background: @ui-widget-state-error-background-color url('../img/ui-bg_diagonals-thick_18_b81900_40x40.png') 50% 50% repeat;
+	background: @ui-widget-state-error-background-color;// url('../img/ui-bg_diagonals-thick_18_b81900_40x40.png') 50% 50% repeat;
 	color: @ui-widget-state-error-color;
 }
 .ui-state-error a,
@@ -453,17 +459,21 @@
 	background-image: url('../img/ui-icons_ffffff_256x240.png');
 }
 .ui-state-default .ui-icon {
-	background-image: url('../img/ui-icons_ef8c08_256x240.png');
+	//background-image: url('../img/ui-icons_ef8c08_256x240.png');
+	background-image: url('../img/ui-icons_222222_256x240.png');
 }
 .ui-state-hover .ui-icon,
 .ui-state-focus .ui-icon {
-	background-image: url('../img/ui-icons_ef8c08_256x240.png');
+	//background-image: url('../img/ui-icons_ef8c08_256x240.png');
+	background-image: url('../img/ui-icons_ffffff_256x240.png');
 }
 .ui-state-active .ui-icon {
-	background-image: url('../img/ui-icons_ef8c08_256x240.png');
+	//background-image: url('../img/ui-icons_ef8c08_256x240.png');
+	background-image: url('../img/ui-icons_ffffff_256x240.png');
 }
 .ui-state-highlight .ui-icon {
-	background-image: url('../img/ui-icons_228ef1_256x240.png');
+	//background-image: url('../img/ui-icons_228ef1_256x240.png');
+	background-image: url('../img/ui-icons_ffffff_256x240.png');
 }
 .ui-state-error .ui-icon,
 .ui-state-error-text .ui-icon {
