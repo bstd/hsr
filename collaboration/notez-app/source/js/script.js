@@ -188,7 +188,7 @@
 						'altFormat': cfgDbFormat,
 						'changeMonth': true,
 						'changeYear': true,
-						'yearRange': '2015:2020'
+						'minDate': 0
 					}
 				)
 			);
