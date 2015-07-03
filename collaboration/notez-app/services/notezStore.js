@@ -72,7 +72,7 @@ function publicAll(callback) {
 
 
 // SORTING
-// get sort creation date
+// get all notes sorted by due date
 function publicSortDueDate(callback) {
 	db.find({}).sort({ dueDate: -1 }).skip(1).exec(function (err, dueDate) {
 		if (err) {
@@ -82,7 +82,7 @@ function publicSortDueDate(callback) {
 	});
 }
 
-// get sort creation date
+// get all notes sorted by creation date
 function publicSortCreationDate(callback) {
 	db.find({}).sort({ creationDate: -1 }).skip(1).exec(function (err, creationDate) {
 		if (err) {
@@ -92,7 +92,7 @@ function publicSortCreationDate(callback) {
 	});
 }
 
-// get sort importance
+// get all notes sorted by importance
 function publicSortImportance(callback) {
 	db.find({}).sort({ importance: -1 }).skip(1).exec(function (err, sortImportance) {
 		if (err) {
