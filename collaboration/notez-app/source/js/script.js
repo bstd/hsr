@@ -221,7 +221,7 @@ console.log('update item.done');
 							inpTitle: data.title,
 							inpDescription: data.text,
 							importance: data.importance,
-							inpDue: moment(JSON.parse(data.dueDate)).format('YYYY-MM-DD'),// ISO_8601
+							inpDue: moment(JSON.parse(data.dueDate)).format('YYYY-MM-DD'),// ISO_8601 for momentJS
 							inpDone: blnDone
 						};
 //console.log('tmpData=',tmpData);
@@ -273,7 +273,7 @@ console.log('update item.done');
 				$isoDateField = $ctx.find('.js-date'),
 				cfgRegion = 'de',
 				cfgUiFormat = 'dd.mm.yy',
-				cfgDbFormat = 'yy-mm-dd';// ISO_8601
+				cfgDbFormat = 'yy-mm-dd';// ISO_8601 for datepicker
 
 			$dp.datepicker(
 				$.extend(
