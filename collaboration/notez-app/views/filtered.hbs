@@ -1,7 +1,7 @@
 {{> controls}}
 
 {{#if items}}
-	<div id="notes" class="items js-init">
+	<div class="items js-init">
 		{{#each_whenDone items "done" "true"}}
 			<div class="item">
 				<div class="item-col size1of5">
@@ -42,5 +42,5 @@
 		{{/each_whenDone}}
 	</div>
 {{else}}
-	<p class="js-no-items">Keine Einträge</p>
+	<p>Keine Einträge</p>
 {{/if}}
