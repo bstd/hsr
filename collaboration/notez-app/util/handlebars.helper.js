@@ -5,6 +5,7 @@ var hbs = require('hbs'),
 // HANDLEBARS HELPER
 //
 
+
 /**
 	helper: return html snippet
 	for importance as many times as level indicates
@@ -64,7 +65,7 @@ hbs.registerHelper('importanceCheckedHelper', function(level) {
 	helper: return html snippet
 	for checkbox checked state
 	toggled by converted string to boolean
-	used on index view
+	used on index, filtered views
 
 	usage: {{{checkedHelper string}}}
 
@@ -82,18 +83,23 @@ hbs.registerHelper('checkedHelper', function(str) {
 });
 
 /**
- helper: return filtered done state
+	helper: return filtered done state
 
- @param {String} list, k, v, opts
+	@param {String} list, k, v, opts
 
- @return {String} result
+	@return {String} result
 */
 hbs.registerHelper('each_whenDone', function(list, k, v, opts) {
-	console.log('eachDone:'+arguments);
-	var i, result = '';
-	for(i = 0; i < list.length; ++i)
-		if(list[i][k] == v)
+	var i,
+		l = list.length,
+		result = '';
+
+	for (i = 0; i < l; ++i) {
+		if (list[i][k] == v) {
 			result = result + opts.fn(list[i]);
+		}
+	}
+
 	return result;
 });
 
@@ -111,9 +117,7 @@ hbs.registerHelper('dateFormat', function(dateString) {
 	var d = '',
 		l = 'de',// locale
 		f = 'L';// dd.mm.yyyy
-//console.log(dateString);
-//console.log(JSON.parse(dateString));
-//console.log(moment(JSON.parse(dateString)).format(f));
+
 	if (typeof dateString !== 'undefined') {
 		moment.locale(l);
 		d = moment(JSON.parse(dateString)).format(f);
@@ -123,14 +127,14 @@ hbs.registerHelper('dateFormat', function(dateString) {
 });
 
 /**
- helper: return if else Page
+	helper: return if else Page
 
- usage: {{#ifPage pageName String}}
+	usage: {{#ifPage pageName String}}
 
- @param {String} a, b
+	@param {String} a, b
 
- @return {String} opts
- */
+	@return {String} opts
+*/
 hbs.registerHelper('ifPage', function(a, b, opts) {
 	if (a == b) {
 		return opts.fn(this);
