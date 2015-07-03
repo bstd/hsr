@@ -17,21 +17,21 @@ module.exports.filtered = function(req, res, next) {
 };
 
 // index, sorted by due date
-module.exports.sortduedate= function(req, res, next) {
+module.exports.sortduedate = function(req, res, next) {
 	notezStore.sortDueDate(function(err, sortDueDate) {
 		res.render('index', {pageTitle: pageTitleHome, items: sortDueDate, pageName: 'Sort-Duedate'});
 	});
 };
 
 // index, sorted by creation date
-module.exports.sortcreationdate= function(req, res, next) {
+module.exports.sortcreationdate = function(req, res, next) {
 	notezStore.sortCreationDate(function(err, sortCreationDate) {
 		res.render('index', {pageTitle: pageTitleHome, items: sortCreationDate, pageName: 'Sort-Creationdate'});
 	});
 };
 
-// index, sorted by creation date
-module.exports.sortimportance= function(req, res, next) {
+// index, sorted by importance
+module.exports.sortimportance = function(req, res, next) {
 	notezStore.allSortImportance(function(err, allSortImportance) {
 		res.render('index', {pageTitle: pageTitleHome, items: allSortImportance, pageName: 'Sort-Importance'});
 	});
