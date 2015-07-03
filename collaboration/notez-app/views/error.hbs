@@ -1,14 +1,5 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Fehler</title>
-		{{> head}}
-	</head>
-	<body>
-		<div class="container">
-			<h1>{{message}}</h1>
-			<h2>{{error.status}}</h2>
-			<pre>{{error.stack}}</pre>
-		</div>
-	</body>
-</html>
+<div class="error">
+	<h1>{{message}}</h1>
+	<h2>{{error.status}}</h2>
+	<pre>{{error.stack}}</pre>
+</div>

@@ -14,13 +14,17 @@ var notez = require('./routes/notez');
 var app = express();
 
 
+// set env
+//app.set('env', 'development');
+app.set('env', 'production');
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
 
 // handlebars setup
 app.set('view engine', 'hbs');
-
 hbs.registerPartials(__dirname + '/views/partials');
 
 
@@ -37,9 +41,11 @@ app.use(methodOverride(function(req, res){
 		return method;
 	}
 }));
-
+// static last
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// use routes
 app.use('/', routes);
 app.use('/notes', notez);
 
