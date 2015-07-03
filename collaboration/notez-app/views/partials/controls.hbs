@@ -1,29 +1,29 @@
 <div class="controls">
-    <div class="controls-primary">
-        <div class="controls-column">
-            <button class="btn js-new">
-                <i class="icon-file-empty"></i>
-                <span>Notiz erstellen</span>
-            </button>
-        </div>
+	<div class="controls-primary">
+		<div class="controls-column">
+			<button class="btn js-new">
+				<i class="icon-file-empty"></i>
+				<span>Notiz erstellen</span>
+			</button>
+		</div>
 
-        <div class="controls-column">
-            <select class="js-switch-style">
-                <option value="default">Standard Theme</option>
-                <option value="0">Schwarz-Weiss Theme</option>
-            </select>
-        </div>
-    </div>
+		<div class="controls-column">
+			<select class="js-switch-style">
+				<option value="default">Standard Theme</option>
+				<option value="0">Schwarz-Weiss Theme</option>
+			</select>
+		</div>
+	</div>
 
-    <div class="controls-secondary">
-        <div class="controls-column">
-            <a href="{{#ifPage pageName "Sort-Duedate"}}/{{else}}/sortduedate{{/ifPage}}" class="sort js-sort {{#ifPage pageName 'Sort-Duedate'}}state-active{{/ifPage}}" data-sort="due" title="Einträge sortieren nach">Erledigungsdatum</a>
-            <a href="{{#ifPage pageName "Sort-Creationdate"}}/{{else}}/sortcreationdate{{/ifPage}}" class="sort js-sort {{#ifPage pageName "Sort-Creationdate"}}state-active{{/ifPage}}" data-sort="created" title="Einträge sortieren nach">Erstellungsdatum</a>
-            <a href="{{#ifPage pageName "Sort-Importance"}}/{{else}}/sortimportance{{/ifPage}}" class="sort js-sort {{#ifPage pageName "Sort-Importance"}}state-active{{/ifPage}}" data-sort="importance" title="Einträge sortieren nach">Wichtigkeit</a>
-        </div>
+	<div class="controls-secondary">
+		<div class="controls-column">
+			<a href="{{#ifPage pageName "Sort-Duedate"}}/{{else}}/sortduedate{{/ifPage}}" class="sort js-sort {{#ifPage pageName 'Sort-Duedate'}}state-active{{/ifPage}}" data-sort="due" title="EintrÃ¤ge sortieren nach">Erledigungsdatum</a>
+			<a href="{{#ifPage pageName "Sort-Creationdate"}}/{{else}}/sortcreationdate{{/ifPage}}" class="sort js-sort {{#ifPage pageName "Sort-Creationdate"}}state-active{{/ifPage}}" data-sort="created" title="EintrÃ¤ge sortieren nach">Erstellungsdatum</a>
+			<a href="{{#ifPage pageName "Sort-Importance"}}/{{else}}/sortimportance{{/ifPage}}" class="sort js-sort {{#ifPage pageName "Sort-Importance"}}state-active{{/ifPage}}" data-sort="importance" title="EintrÃ¤ge sortieren nach">Wichtigkeit</a>
+		</div>
 
-        <div class="controls-column">
-            <a href="{{#ifPage pageName "Filtered"}}/{{else}}/filtered{{/ifPage}}" class="filter js-filter {{#ifPage pageName "Filtered"}}state-active{{/ifPage}}" data-filter="done">erledigte anzeigen</a>
-        </div>
-    </div>
+		<div class="controls-column">
+			<a href="{{#ifPage pageName "Filtered"}}/{{else}}/filtered{{/ifPage}}" class="filter js-filter {{#ifPage pageName "Filtered"}}state-active{{/ifPage}}" data-filter="done">erledigte anzeigen</a>
+		</div>
+	</div>
 </div>
