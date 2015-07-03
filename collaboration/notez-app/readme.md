@@ -6,12 +6,13 @@
 
 ## install
 clone or download then
-$ cd [path]\notez-app
-npm i
+
+    $ cd [path]\notez-app
+    $ npm i
 
 ## run
-$ cd [path]\notez-app\bin
-$ node www
+    $ cd [path]\notez-app\bin
+    $ node www
 
 browse to localhost:3000
 
@@ -21,5 +22,6 @@ with grunt
 - less and css from source/css are compiled, concatenated and minified
 
 use default task via cmd:
-$ cd [path]\notez-app
-$ grunt
+
+    $ cd [path]\notez-app
+    $ grunt
