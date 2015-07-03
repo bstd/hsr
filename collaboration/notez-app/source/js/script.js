@@ -44,90 +44,6 @@
 		Cookies.set('theme', code, { expires: 100 });
 	}
 
-	/**
-		filter by:
-			- 'done'
-
-		@param {Array} array
-		@param {String} only
-
-		@return {Array} arrResult
-	*/
-	function filter(array, only) {
-		var arrResult,
-			filter;
-console.log('filter by:',only);
-
-		if (typeof only !== 'undefined') {
-			switch (only) {
-				case 'done':
-					arrResult = $.map(array, function(n, i) {
-//console.log('n,i:',n,i);
-						if ('done' in n && n.done) {// key in object || object.hasOwnProperty(key)
-							return n;
-						}
-					});
-					break;
-			}
-console.log('result:',arrResult);
-			return arrResult;
-		}
-		else {
-console.log('invalid filter');
-		}
-	}
-
-	/**
-		sort by
-
-		TODO
-	*/
-	function sort(array, by) {
-		var arrResult,
-			sorter;
-console.log('sort by:',by);
-		if (typeof by !== 'undefined') {
-			switch (by) {
-				case 'due':
-					arrResult = array.sort(function(a,b) {
-console.log('dueDate compare:');
-console.log('a:',a);
-console.log('b:',b);
-console.log('a.dueDate:',a.dueDate);
-console.log('b.dueDate:',b.dueDate);
-						return a.dueDate - b.dueDate;
-					});
-					break;
-				case 'created':
-					arrResult = array.sort(function(a,b) {
-console.log('created compare:');
-console.log('a:',a);
-console.log('b:',b);
-console.log('a.created:',a.created);
-console.log('b.created:',b.created);
-						return a.created - b.created;
-					});
-					break;
-				case 'importance':
-					arrResult = array.sort(function(a,b) {
-console.log('importance compare:');
-console.log('a:',a);
-console.log('b:',b);
-console.log('a.importance:',a.importance);
-console.log('b.importance:',b.importance);
-						// higher value first
-						return b.importance - a.importance;
-					});
-					break;
-			}
-console.log('result:',arrResult);
-
-			return arrResult;
-		}
-		else {
-console.log('invalid sorter');
-		}
-	}
 
 	//---
 	// DOM READY
@@ -135,10 +51,11 @@ console.log('invalid sorter');
 	(function($) {
 		var $ctx = $(document).find('.js-module'),
 			isMainView = $ctx.find('.js-init').length !== 0,
-			arrItems = [],
-			$noItems = $ctx.find('.js-no-items');
-console.log('$ctx=',$ctx);
-console.log('isMainView=',isMainView);
+			$dp,
+			$isoDateField,
+			cfgRegion,
+			cfgUiFormat,
+			cfgDbFormat;
 
 
 		// avoid ajax caching
@@ -166,7 +83,6 @@ console.log('isMainView=',isMainView);
 
 			// switch style
 			$ctx.on('change', '.js-switch-style', function(e){
-console.log('switch style');
 				var strVal = $(this).val(),
 					codeSkin = isFinite(parseInt(strVal,10)) ? parseInt(strVal,10) : 'default';
 
@@ -187,7 +103,6 @@ console.log('switch style');
 
 			// toggle item detail and icon
 			$ctx.on('click', '.js-expand', function(e){
-console.log('toggle item detail and icon');
 				var $this = $(this),
 					$p = $this.find('p'),
 					$icon = $this.find('i');
@@ -200,7 +115,6 @@ console.log('toggle item detail and icon');
 
 			// click checkbox: update item.done to :checked ? true:false
 			$ctx.on('click', '.js-done', function(e){
-console.log('update item.done');
 				var $this = $(this),
 					id = $this.val(),
 					blnDone = $this.is(':checked'),
@@ -224,24 +138,20 @@ console.log('update item.done');
 							inpDue: moment(JSON.parse(data.dueDate)).format('YYYY-MM-DD'),// ISO_8601 for momentJS
 							inpDone: blnDone
 						};
-//console.log('tmpData=',tmpData);
-//console.log(tmpData.inpDone);
 
 						// RESTful PUT for id with updated tmpData
 						$.ajax({
 							type: 'put',
-							url: '/notes/' + id,
+							url: '/noes/' + id,
 							dataType: 'json',
 							data: tmpData,
 							success: function(result, status, jqXHR) {
-//console.log('success result=',result);
-//console.log('status=',status);
 								if (result.status == 200) {
 									location.href = '/';
 								}
 							},
 							error: function(jqXHR, status) {
-//console.log(jqXHR, status);
+								alert('Es ist ein Fehler aufgetreten. Daten wurden nicht gespeichert.');
 							}
 						});
 					});
@@ -249,10 +159,6 @@ console.log('update item.done');
 				else {
 					e.preventDefault();
 				}
-
-
-				// TODO apply default filter/sort ?
-				//$activeFilter = $ctx.find('.js-filter.state-active'),
 			});
 		}
 		else {
@@ -265,15 +171,12 @@ console.log('update item.done');
 			setTheme($ctx);
 
 
-			// TODO invalid ids
-
-
 			// datepicker https://jqueryui.com/datepicker/
-			var $dp = $ctx.find('.js-dp'),
-				$isoDateField = $ctx.find('.js-date'),
-				cfgRegion = 'de',
-				cfgUiFormat = 'dd.mm.yy',
-				cfgDbFormat = 'yy-mm-dd';// ISO_8601 for datepicker
+			$dp = $ctx.find('.js-dp'),
+			$isoDateField = $ctx.find('.js-date'),
+			cfgRegion = 'de',
+			cfgUiFormat = 'dd.mm.yy',
+			cfgDbFormat = 'yy-mm-dd';// ISO_8601 for datepicker
 
 			$dp.datepicker(
 				$.extend(
