@@ -142,7 +142,7 @@
 						// RESTful PUT for id with updated tmpData
 						$.ajax({
 							type: 'put',
-							url: '/noes/' + id,
+							url: '/notes/' + id,
 							dataType: 'json',
 							data: tmpData,
 							success: function(result, status, jqXHR) {

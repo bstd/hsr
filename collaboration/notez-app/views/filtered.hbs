@@ -1,7 +1,7 @@
 {{> controls}}
 
-{{#if items}}
-	<div class="items js-init">
+<div class="items js-init">
+	{{#if items}}
 		{{#each_whenDone items "done" "true"}}
 			<div class="item">
 				<div class="item-col size1of5">
@@ -40,7 +40,7 @@
 				</div>
 			</div>
 		{{/each_whenDone}}
-	</div>
-{{else}}
-	<p>Keine Einträge</p>
-{{/if}}
+	{{else}}
+		<p class="empty">Keine Einträge vorhanden</p>
+	{{/if}}
+</div>
