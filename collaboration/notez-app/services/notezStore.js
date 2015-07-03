@@ -108,7 +108,7 @@ module.exports = {
 	edit: publicEdit,
 	get: publicGet,
 	all: publicAll,
-	allSortImportance: publicSortImportance,
-	sortCreationDate: publicSortCreationDate,
-	sortDueDate: publicSortDueDate
+	sortedByImportance: publicSortImportance,
+	sortedByCreationDate: publicSortCreationDate,
+	sortedByDueDate: publicSortDueDate
 };
