@@ -20,6 +20,7 @@ browse to localhost:3000
 with grunt
 - scripts from source/js are concatenated and minified
 - less and css from source/css are compiled, concatenated and minified
+- these files are watched and changes trigger build
 
 use default task via cmd:
 
