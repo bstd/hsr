@@ -96,6 +96,7 @@ hbs.registerHelper('each_whenDone', function(list, k, v, opts) {
 			result = result + opts.fn(list[i]);
 	return result;
 });
+
 /**
 	helper: return formatted date
 	using momentjs (http://momentjs.com/)
@@ -120,6 +121,7 @@ hbs.registerHelper('dateFormat', function(dateString) {
 
 	return d;
 });
+
 /**
  helper: return if else Page
 

@@ -1,4 +1,5 @@
-var notezStore = require('../services/notezStore');
+var notezStore = require('../services/notezStore'),
+	pageTitleEdit = 'Notez App - Notiz erstellen / bearbeiten';
 
 
 // GET note detail (view)
@@ -7,8 +8,7 @@ module.exports.showNote = function(req, res, next) {
 		// provide different formats
 		res.format({
 			'text/html': function(){
-                // Override Layout "layout" to "edit"
-				res.render('edit', {layout: 'edit'},  note);
+				res.render('edit', {pageTitle: pageTitleEdit, note: note});
 			},
 			'application/json': function(){
 				res.json(note);
@@ -16,6 +16,7 @@ module.exports.showNote = function(req, res, next) {
 		});
 	});
 };
+
 // PUT note detail (edit)
 module.exports.editNote = function(req, res, next) {
 	notezStore.edit(req.params.id, req.body, function(err, note) {
@@ -29,6 +30,7 @@ module.exports.editNote = function(req, res, next) {
 		});
 	});
 };
+
 // POST note (save new)
 module.exports.addNote = function(req, res, next) {
 	notezStore.add(req.body, function(err) {

@@ -1,46 +1,44 @@
-           {{#if items}}
-            <div id="notes" class="items js-init">
-                {{#each_whenDone items "done" "true"}}
-                    <div class="item">
-                        <div class="item-col size1of5">
-                            <div class="item-due">
-                                <p>fällig: {{dateFormat dueDate}}</p>
-                                <input class="js-done" type="checkbox" id="inp{{_id}}" name="inp{{_id}}" value="{{_id}}"{{{checkedHelper done}}}>
-                                <label for="inp{{_id}}">erledigt-{{done}}</label>
-                                <!--<p>(erstellt: {{dateFormat creationDate}})</p>-->
-                            </div>
-                        </div>
-                        <div class="item-col size3of5">
-                            <div class="line">
-                                <div class="col size4of5">
-                                    <p class="item-title">{{title}} <span class="item-creation">({{dateFormat creationDate}})</span></p>
-                                </div>
-                                <div class="col size1of5">
-                                    <div class="item-importance" title="Wichtigkeit">
-                                        {{#if importance}}
-                                        {{!-- use markup, do not escape --}}
-                                            {{{importanceHelper importance}}}
-                                        {{/if}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item-desc js-expand">
-                                <p class="ellipsis">{{text}}</p>
-                                <i class="icon-zoom-in"></i>
-                            </div>
-                        </div>
-                        <div class="item-col size1of5 va-middle">
-                            <div class="item-action">
-                                <button class="btn js-edit" data-item="{{_id}}">
-                                    <i class="icon-pencil2"></i>
-                                    <span>Bearbeiten</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                {{/each_whenDone}}
-            </div>
-        {{else}}
-            <p class="js-no-items">Keine Einträge</p>
-        {{/if}}
-
+{{#if items}}
+	<div id="notes" class="items js-init">
+		{{#each_whenDone items "done" "true"}}
+			<div class="item">
+				<div class="item-col size1of5">
+					<div class="item-due">
+						<p>fällig: {{dateFormat dueDate}}</p>
+						<input class="js-done" type="checkbox" id="inp{{_id}}" name="inp{{_id}}" value="{{_id}}"{{{checkedHelper done}}}>
+						<label for="inp{{_id}}">erledigt-{{done}}</label>
+					</div>
+				</div>
+				<div class="item-col size3of5">
+					<div class="line">
+						<div class="col size4of5">
+							<p class="item-title">{{title}} <span class="item-creation">({{dateFormat creationDate}})</span></p>
+						</div>
+						<div class="col size1of5">
+							<div class="item-importance" title="Wichtigkeit">
+								{{#if importance}}
+									{{!-- use markup, do not escape --}}
+									{{{importanceHelper importance}}}
+								{{/if}}
+							</div>
+						</div>
+					</div>
+					<div class="item-desc js-expand">
+						<p class="ellipsis">{{text}}</p>
+						<i class="icon-zoom-in"></i>
+					</div>
+				</div>
+				<div class="item-col size1of5 va-middle">
+					<div class="item-action">
+						<button class="btn js-edit" data-item="{{_id}}">
+							<i class="icon-pencil2"></i>
+							<span>Bearbeiten</span>
+						</button>
+					</div>
+				</div>
+			</div>
+		{{/each_whenDone}}
+	</div>
+{{else}}
+	<p class="js-no-items">Keine Einträge</p>
+{{/if}}
