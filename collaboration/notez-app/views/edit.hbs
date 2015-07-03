@@ -1,3 +1,4 @@
+<h1>Note Edit</h1>
 <form class="form-wrap" method="post" action="/notes{{#if note._id}}/{{note._id}}{{/if}}" enctype="application/x-www-form-urlencoded">
 	{{#if note._id}}
 		<input type="hidden" name="_method" value="put">

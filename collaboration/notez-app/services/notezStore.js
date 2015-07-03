@@ -69,12 +69,20 @@ function publicAll(callback) {
 		callback(err, all);
 	});
 }
-
+// get all not Done notes
+function publicAllNotDone(callback) {
+	db.find({ $not: { done: 'true' } }, function(err, allNotDone) {
+		if (err) {
+			res.send(err);
+		}
+		callback(err, allNotDone);
+	});
+}
 
 // SORTING
 // get all notes sorted by due date
 function publicSortDueDate(callback) {
-	db.find({}).sort({ dueDate: -1 }).skip(1).exec(function (err, dueDate) {
+	db.find({}).sort({ dueDate: -1 }).exec(function (err, dueDate) {
 		if (err) {
 			res.send(err);
 		}
@@ -84,7 +92,7 @@ function publicSortDueDate(callback) {
 
 // get all notes sorted by creation date
 function publicSortCreationDate(callback) {
-	db.find({}).sort({ creationDate: -1 }).skip(1).exec(function (err, creationDate) {
+	db.find({}).sort({ creationDate: -1 }).exec(function (err, creationDate) {
 		if (err) {
 			res.send(err);
 		}
@@ -94,7 +102,7 @@ function publicSortCreationDate(callback) {
 
 // get all notes sorted by importance
 function publicSortImportance(callback) {
-	db.find({}).sort({ importance: -1 }).skip(1).exec(function (err, sortImportance) {
+	db.find({}).sort({ importance: -1 }).exec(function (err, sortImportance) {
 		if (err) {
 			res.send(err);
 		}
@@ -108,6 +116,7 @@ module.exports = {
 	edit: publicEdit,
 	get: publicGet,
 	all: publicAll,
+	allNotDone: publicAllNotDone,
 	sortedByImportance: publicSortImportance,
 	sortedByCreationDate: publicSortCreationDate,
 	sortedByDueDate: publicSortDueDate

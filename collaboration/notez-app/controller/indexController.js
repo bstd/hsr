@@ -4,8 +4,8 @@ var notezStore = require('../services/notezStore'),
 
 // notez home page (index)
 module.exports.index = function(req, res, next) {
-	notezStore.all(function(err, all) {
-		res.render('index', {pageTitle: pageTitleHome, items: all});
+	notezStore.allNotDone(function(err, allNotDone) {
+		res.render('index', {pageTitle: pageTitleHome, items: allNotDone});
 	});
 };
 

@@ -31,7 +31,7 @@
 		@param {String|Number} code
 	*/
 	function setSkin(code) {
-		var arrSkins = ['skin-blackwhite'],
+		var arrSkins = ['skin-lighttheme'],
 			strAllSkins = arrSkins.join(' ');// extendability for more skins
 
 		$('html').removeClass(strAllSkins);
