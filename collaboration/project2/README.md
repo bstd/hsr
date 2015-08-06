@@ -17,4 +17,5 @@
 - Run `gulp unitTest` to run unit tests via Karma and to create code coverage reports
 - Run `gulp webdriverUpdate` to download Selenium server standalone and Chrome driver for e2e testing
 - Run `gulp e2eTest` to run e2e tests via Protractor
+- Run `gulp --stage prod` to start the build task for production environment
  - **A localhost must be running** - `gulp dev`
