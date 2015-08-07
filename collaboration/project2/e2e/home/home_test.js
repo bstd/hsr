@@ -1,4 +1,4 @@
-/*global describe, beforeEach, it, browser, expect */
+/* global describe, beforeEach, it, browser, expect */
 'use strict';
 
 var HomePagePo = require('./home.po');

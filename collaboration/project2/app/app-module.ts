@@ -9,8 +9,8 @@ module projekt2 {
    */
   angular
     .module('projekt2', [
+      'ngMaterial',
       'ngRoute',
-      'mgcrea.ngStrap',
       'home'
     ]);
 }

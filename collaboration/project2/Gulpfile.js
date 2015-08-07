@@ -47,8 +47,13 @@ config.buildUnitTestFiles = path.join(config.buildUnitTestsDir, '**/*_test.js');
 config.e2eFiles = path.join('e2e', '**/*.js');
 config.unitTestFiles = path.join(config.unitTestDir, '**/*_test.ts');
 
-config.tsProject = $.typescript.createProject({
+config.tsSourceProject = $.typescript.createProject({
   declarationFiles: true,
+  noExternalResolve: false
+});
+
+config.tsTestProject = $.typescript.createProject({
+  declarationFiles: false,
   noExternalResolve: false
 });
 

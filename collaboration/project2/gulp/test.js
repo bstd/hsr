@@ -14,7 +14,7 @@ module.exports = function (gulp, $, config) {
 
   gulp.task('buildTests', ['lint', 'clean:test'], function () {
     return gulp.src([config.unitTestFiles])
-      .pipe($.typescript(config.tsProject))
+      .pipe($.typescript(config.tsTestProject))
       .pipe(gulp.dest(config.buildUnitTestsDir));
   });
 
@@ -48,9 +48,8 @@ module.exports = function (gulp, $, config) {
 
   // run unit tests
   gulp.task('unitTest', ['lint', 'karmaFiles'], function (done) {
-    $.karma.server.start(karmaConf, function () {
-      done();
-    });
+    var server = new $.karma.Server(karmaConf, done);
+    server.start();
   });
 
   gulp.task('build:e2eTest', function () {

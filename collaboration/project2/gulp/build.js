@@ -68,9 +68,9 @@ module.exports = function (gulp, $, config) {
 
   // compile scripts and copy into build directory
   gulp.task('scripts', ['clean', 'analyze', 'markup'], function () {
-    var htmlFilter = $.filter('**/*.html')
-      , jsFilter = $.filter('**/*.js')
-      , tsFilter = $.filter('**/*.ts');
+    var htmlFilter = $.filter('**/*.html', {restore: true})
+      , jsFilter = $.filter('**/*.js', {restore: true})
+      , tsFilter = $.filter('**/*.ts', {restore: true});
 
     return gulp.src([
       config.appScriptFiles,
@@ -80,15 +80,15 @@ module.exports = function (gulp, $, config) {
     ])
       .pipe($.sourcemaps.init())
       .pipe(tsFilter)
-      .pipe($.typescript(config.tsProject))
-      .pipe(tsFilter.restore())
+      .pipe($.typescript(config.tsSourceProject))
+      .pipe(tsFilter.restore)
       .pipe($.if(isProd, htmlFilter))
       .pipe($.if(isProd, $.ngHtml2js({
         // lower camel case all app names
         moduleName: _.camelize(_.slugify(_.humanize(require('../package.json').name))),
         declareModule: false
       })))
-      .pipe($.if(isProd, htmlFilter.restore()))
+      .pipe($.if(isProd, htmlFilter.restore))
       .pipe(jsFilter)
       .pipe($.if(isProd, $.angularFilesort()))
       .pipe($.if(isProd, $.concat('app.js')))
@@ -97,12 +97,12 @@ module.exports = function (gulp, $, config) {
       .pipe($.if(isProd, $.rev()))
       .pipe($.sourcemaps.write('.'))
       .pipe(gulp.dest(config.buildJs))
-      .pipe(jsFilter.restore());
+      .pipe(jsFilter.restore);
   });
 
   // inject custom CSS and JavaScript into index.html
   gulp.task('inject', ['markup', 'styles', 'scripts'], function () {
-    var jsFilter = $.filter('**/*.js');
+    var jsFilter = $.filter('**/*.js', {restore: true});
 
     return gulp.src(config.buildDir + 'index.html')
       .pipe($.inject(gulp.src([
@@ -111,7 +111,7 @@ module.exports = function (gulp, $, config) {
         ])
         .pipe(jsFilter)
         .pipe($.angularFilesort())
-        .pipe(jsFilter.restore()), {
+        .pipe(jsFilter.restore), {
           addRootSlash: false,
           ignorePath: config.buildDir
         })
@@ -121,8 +121,8 @@ module.exports = function (gulp, $, config) {
 
   // copy bower components into build directory
   gulp.task('bowerCopy', ['inject'], function () {
-    var cssFilter = $.filter('**/*.css')
-      , jsFilter = $.filter('**/*.js');
+    var cssFilter = $.filter('**/*.css', {restore: true})
+      , jsFilter = $.filter('**/*.js', {restore: true});
 
     return gulp.src($.mainBowerFiles(), {base: bowerDir})
       .pipe(cssFilter)
@@ -142,7 +142,7 @@ module.exports = function (gulp, $, config) {
       .pipe($.if(isProd, $.cssmin()))
       .pipe($.if(isProd, $.rev()))
       .pipe(gulp.dest(config.extDir))
-      .pipe(cssFilter.restore())
+      .pipe(cssFilter.restore)
       .pipe(jsFilter)
       .pipe($.if(isProd, $.concat('vendor.js')))
       .pipe($.if(isProd, $.uglify({
@@ -150,7 +150,7 @@ module.exports = function (gulp, $, config) {
       })))
       .pipe($.if(isProd, $.rev()))
       .pipe(gulp.dest(config.extDir))
-      .pipe(jsFilter.restore());
+      .pipe(jsFilter.restore);
   });
 
   // inject bower components into index.html
@@ -198,20 +198,20 @@ module.exports = function (gulp, $, config) {
 
   // copy Bower fonts and images into build directory
   gulp.task('bowerAssets', ['clean'], function () {
-    var assetFilter = $.filter('**/*.{eot,otf,svg,ttf,woff,gif,jpg,jpeg,png}');
+    var assetFilter = $.filter('**/*.{eot,otf,svg,ttf,woff,gif,jpg,jpeg,png}', {restore: true});
     return gulp.src($.mainBowerFiles(), {base: bowerDir})
       .pipe(assetFilter)
       .pipe(gulp.dest(config.extDir))
-      .pipe(assetFilter.restore());
+      .pipe(assetFilter.restore);
   });
 
   // copy custom fonts into build directory
   gulp.task('fonts', ['clean'], function () {
-    var fontFilter = $.filter('**/*.{eot,otf,svg,ttf,woff}');
+    var fontFilter = $.filter('**/*.{eot,otf,svg,ttf,woff}', {restore: true});
     return gulp.src([config.appFontFiles])
       .pipe(fontFilter)
       .pipe(gulp.dest(config.buildFonts))
-      .pipe(fontFilter.restore());
+      .pipe(fontFilter.restore);
   });
 
   // copy and optimize images into build directory
