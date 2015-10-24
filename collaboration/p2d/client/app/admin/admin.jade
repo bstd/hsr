@@ -1,0 +1,16 @@
+.col-md-12
+	| app/admin
+p
+	| list all admin tools
+ul
+	li
+		a(ui-sref='.product-list')
+			| list all
+	li
+		a(ui-sref='.product-add')
+			| add new
+
+.container
+	//div(ui-view='admin.product-list')
+	div(ui-view='')
+

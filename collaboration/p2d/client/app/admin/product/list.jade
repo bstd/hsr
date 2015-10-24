@@ -1,0 +1,11 @@
+h2
+	| list all products for admin
+.col-md-12
+	ul(ng-repeat='product in products')
+		li
+			a(href='#')
+				| {{product.title}}
+			p
+				| {{product.text}}
+			button
+				| action todo
